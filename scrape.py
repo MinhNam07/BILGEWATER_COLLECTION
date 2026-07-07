@@ -140,8 +140,21 @@ def parse_name(text: str, href: str | None) -> str:
     return "unknown"
 
 
+def extract_market_price(text: str, market: str) -> str | None:
+    m = re.search(
+        rf"(?i)\b{re.escape(market)}\s*(?:US\$|[$¥￥])\s*(\d[\d,]*(?:\.\d+)?)",
+        text or "",
+    )
+    if not m:
+        return None
+    try:
+        return f"{float(m.group(1).replace(',', '')):.2f}"
+    except ValueError:
+        return None
+
+
 def parse_price(text: str) -> str | None:
-    return normalize_price(text)
+    return extract_market_price(text, "EN") or extract_market_price(text, "CN") or normalize_price(text)
 
 
 def fingerprint(row: dict) -> str:
@@ -188,7 +201,7 @@ def build_row(
     is_showcase: bool = False,
 ) -> dict | None:
     abs_url = urljoin(base_url, href) if href else source_url
-    price = normalize_price(cn_price) or normalize_price(en_price) or parse_price(text)
+    price = normalize_price(en_price) or normalize_price(cn_price) or parse_price(text)
     if not price:
         return None
 

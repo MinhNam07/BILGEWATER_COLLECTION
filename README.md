@@ -58,13 +58,13 @@ Each run writes:
 |-------|------|---------|-------|
 | `name` | string | `Arena Kingpin` | Card name from page heading |
 | `foil_status` | string | `foil`, `nonfoil`, `unknown` | Derived from URL/query and page text |
-| `price` | string | `0.50` | Normalized decimal string; CN price preferred, EN fallback |
+| `price` | string | `0.12` | Normalized USD decimal string; EN price preferred, CN fallback |
 | `url` | string | `https://bilgewatermarket.com/cards/UNL-001?print_variation=foiled` | Card detail link |
 | `source_url` | string | `https://bilgewatermarket.com/cards` | Page scraped |
 | `collected_at` | ISO 8601 UTC | `2026-07-07T12:34:56+00:00` | Collection timestamp |
 | `raw_text` | string | `Arena Kingpin UNL-001/219 Foiled CN ¥0.50 EN $0.12` | Original tile text (truncated) |
 
-Foil and non-foil variants are separate rows (different URLs). Showcase printings are recorded as `foil_status=unknown`. Currency symbols are stripped from `price`; see `raw_text` for CN/EN context.
+Foil and non-foil variants are separate rows (different URLs). Showcase printings are recorded as `foil_status=unknown`. `price` is the EN (USD) market price; see `raw_text` for both CN and EN values.
 
 ## Daily cron (local server)
 
@@ -134,7 +134,7 @@ Store the token in **Apps Script → Project settings → Script properties** (`
 - **JavaScript SPA:** Requires Playwright; static HTTP fetch will not work.
 - **Public pages only:** Does not bypass login, CAPTCHA, paywalls, or anti-bot controls.
 - **Infinite scroll:** Loads cards in batches (~50 per scroll); full catalog takes ~1–2 minutes.
-- **Price field:** One decimal price per row (CN preferred). Both CN and EN prices remain in `raw_text`.
+- **Price field:** One decimal USD price per row (EN preferred). Both CN and EN prices remain in `raw_text`.
 - **Selector drift:** If Bilgewater changes markup, DOM selectors may need updates; regex fallback is included.
 - **GitHub cron delay:** Scheduled workflows may start minutes late; not guaranteed at exact midnight.
 - **Rate limiting:** Run low-frequency only; polite delays are built in.

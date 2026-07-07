@@ -11,7 +11,7 @@
 
 // TODO: replace with your repo URL (must point at bilgewater_latest.csv on main)
 const CSV_URL =
-  "https://raw.githubusercontent.com/YOUR_USER/bilgewater_collector/main/data/bilgewater_latest.csv";
+  "https://raw.githubusercontent.com/MinhNam07/BILGEWATER_COLLECTION/main/data/bilgewater_latest.csv";
 
 const DATA_SHEET = "Data";
 const LOG_SHEET = "Log";
