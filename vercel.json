@@ -1,0 +1,5 @@
+{
+  "buildCommand": "python3 scripts/build_cards_json.py && python3 scripts/build_web_config.py",
+  "outputDirectory": "web",
+  "installCommand": "echo 'no install needed'"
+}

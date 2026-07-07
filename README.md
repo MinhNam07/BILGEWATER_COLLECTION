@@ -138,4 +138,55 @@ Store the token in **Apps Script → Project settings → Script properties** (`
 - **Selector drift:** If Bilgewater changes markup, DOM selectors may need updates; regex fallback is included.
 - **GitHub cron delay:** Scheduled workflows may start minutes late; not guaranteed at exact midnight.
 - **Rate limiting:** Run low-frequency only; polite delays are built in.
-# BILGEWATER_COLLECTION
+
+## Riftbound Card Tracker (Web)
+
+Mobile-friendly inventory tracker at [`web/`](web/) — merges Bilgewater prices with Riftbound card metadata (type, images) and syncs your collection across devices via Supabase.
+
+### Local preview
+
+```bash
+python scripts/build_cards_json.py
+cp web/config.example.js web/config.js   # add Supabase keys for sync
+python3 -m http.server 8080 --directory web
+```
+
+Open http://localhost:8080
+
+### Build cards.json
+
+Merges `data/bilgewater_latest.csv` with the [RiftScribe API](https://riftscribe.gg/api-docs):
+
+```bash
+python scripts/build_cards_json.py
+```
+
+Output: `web/cards.json` (~1,500+ cards with prices, types, and images).
+
+### Supabase setup (cross-device sync)
+
+1. Create a free project at [supabase.com](https://supabase.com).
+2. **SQL Editor** → run [`scripts/supabase/schema.sql`](scripts/supabase/schema.sql).
+3. **Database → Replication** → enable the `inventory` table for Realtime.
+4. Copy **Project URL** and **anon public key** from **Settings → API**.
+
+### Deploy to Vercel
+
+1. Push repo to GitHub.
+2. Import on [vercel.com](https://vercel.com) → select this repo.
+3. Vercel reads [`vercel.json`](vercel.json) automatically:
+   - Build: regenerates `cards.json` + `config.js`
+   - Output: `web/` directory
+4. Add environment variables in Vercel project settings:
+   - `SUPABASE_URL`
+   - `SUPABASE_ANON_KEY`
+5. Deploy. Each push (including daily GitHub Actions data updates) triggers a rebuild with fresh prices.
+
+### Using sync across devices
+
+1. Open the deployed site on your phone or computer.
+2. Tap the gear icon → copy your **sync code**.
+3. On another device, paste the code in Settings → **Apply**.
+4. Inventory changes sync via Supabase (Realtime when enabled).
+
+Without Supabase configured, the app works in **local-only** mode (inventory stored per browser).

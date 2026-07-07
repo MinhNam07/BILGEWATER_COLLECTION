@@ -20,6 +20,7 @@ jobs:
       - run: python scrape.py
         env:
           USER_AGENT: BilgewaterDailyCollector/1.0 contact=${{ github.repository_owner }}
+      - run: python scripts/build_cards_json.py
       - name: Upload data artifact
         uses: actions/upload-artifact@v4
         with:
@@ -30,6 +31,6 @@ jobs:
         run: |
           git config user.name "collector-bot"
           git config user.email "collector-bot@example.com"
-          git add data || true
+          git add data web/cards.json || true
           git commit -m "collect bilgewater data $(date -u +%F)" || exit 0
           git push
