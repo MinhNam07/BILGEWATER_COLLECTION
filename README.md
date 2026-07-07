@@ -138,3 +138,4 @@ Store the token in **Apps Script → Project settings → Script properties** (`
 - **Selector drift:** If Bilgewater changes markup, DOM selectors may need updates; regex fallback is included.
 - **GitHub cron delay:** Scheduled workflows may start minutes late; not guaranteed at exact midnight.
 - **Rate limiting:** Run low-frequency only; polite delays are built in.
+# BILGEWATER_COLLECTION
