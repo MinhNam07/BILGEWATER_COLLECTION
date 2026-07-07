@@ -1,0 +1,7 @@
+{
+  "name": "bilgewater-card-tracker",
+  "private": true,
+  "scripts": {
+    "build": "python3 scripts/build_cards_json.py && python3 scripts/build_web_config.py"
+  }
+}
