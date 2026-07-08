@@ -33,16 +33,25 @@ python scrape.py
 | `--db-path` | `data/bilgewater.sqlite` | SQLite database path |
 | `--headless` / `--no-headless` | headless on | Browser visibility |
 | `--limit N` | none | Cap cards collected (testing) |
+| `--concurrency` | `10` | Concurrent detail pages (seed/enrich/targeted) |
+| `--detail-timeout-ms` | `12000` | Per-detail navigation timeout |
+| `--total-timeout-sec` | `2700` full / `0` targeted | Wall-clock deadline; timeout fails without saving |
+| `--max-detail-retries` | `1` | Extra attempt per detail URL |
+| `--max-debug-artifacts` | `15` | Cap PNG/HTML failure samples |
+| `--fail-rate-abort` | `0.30` | Abort seeded full scrape above this fail rate |
+| `--fail-rate-min-samples` | `40` | Min decisions before fail-rate abort |
 | `--verbose` | off | Debug logging |
+
+Full refresh prefers the `/cards` list/grid. Detail pages run concurrently only for missing fields or when the list returns 0 (seed from `web/cards.json`). Target runtime is **20–45 minutes**; runs that exceed `--total-timeout-sec` exit without overwriting data.
 
 Examples:
 
 ```bash
-python scrape.py --limit 20
+python scrape.py --limit 30 --verbose
 python scrape.py --no-headless --verbose
 python scrape.py --output-dir /tmp/bilgewater --db-path /tmp/bilgewater.sqlite
+python scrape.py --urls 'https://bilgewatermarket.com/cards/UNL-001'
 ```
-
 ## Output files
 
 Each run writes:
@@ -80,11 +89,11 @@ Workflow: [`.github/workflows/daily.yml`](.github/workflows/daily.yml)
 
 - **Schedule:** `0 17 * * *` UTC = 00:00 Asia/Ho_Chi_Minh
 - **Manual run:** Actions tab → "Daily Bilgewater Collect" → "Run workflow"
+- **Job timeout:** 50 minutes (scrape budget 45 minutes for full refresh)
 - **Artifact:** `bilgewater-data-<run_id>` uploaded for 30 days (CSV, JSONL, SQLite)
-- **Auto-commit:** Scraped `data/` is committed and pushed to the repo
+- **Auto-commit:** Scraped `data/` is committed and pushed to the repo (skipped if scrape fails)
 
 No secrets are required. `USER_AGENT` uses the repository owner as contact.
-
 ## Google Sheets (auto-update daily)
 
 Uses [Google Apps Script](scripts/google_apps_script.js) to pull `bilgewater_latest.csv` from your public GitHub repo.

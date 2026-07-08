@@ -17,6 +17,7 @@ on:
 jobs:
   collect:
     runs-on: ubuntu-latest
+    timeout-minutes: 50
     permissions:
       contents: write
     steps:
@@ -39,8 +40,15 @@ jobs:
             echo "Targeted scrape: urls provided"
             cmd+=(--urls "$urls")
             cmd+=(--output-dir "data/targeted")
+            # Targeted: no total wall timeout; still use short detail timeouts.
+            cmd+=(--total-timeout-sec 0)
           else
             echo "Full scrape: no urls input"
+            cmd+=(--concurrency 10)
+            cmd+=(--detail-timeout-ms 12000)
+            cmd+=(--total-timeout-sec 2700)
+            cmd+=(--max-detail-retries 1)
+            cmd+=(--max-debug-artifacts 15)
           fi
 
           if [ -n "${limit:-}" ]; then

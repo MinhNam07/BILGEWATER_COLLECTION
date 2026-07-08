@@ -9,7 +9,8 @@ import os
 import re
 import shutil
 import sqlite3
-from collections import deque
+import time
+from dataclasses import dataclass, field
 from pathlib import Path
 from urllib.parse import urljoin, urlparse, parse_qs
 
@@ -38,6 +39,15 @@ MAX_SCROLL_ROUNDS = 100
 PAGE_TIMEOUT_MS = 60_000
 NETWORK_SETTLE_MS = 2_000
 HYDRATION_WAIT_MS = 10_000
+DETAIL_TIMEOUT_MS = 12_000
+DETAIL_SETTLE_MS = 800
+DEFAULT_CONCURRENCY = 10
+DEFAULT_TOTAL_TIMEOUT_SEC = 2_700
+DEFAULT_MAX_DETAIL_RETRIES = 1
+DEFAULT_MAX_DEBUG_ARTIFACTS = 15
+DEFAULT_FAIL_RATE_ABORT = 0.30
+DEFAULT_FAIL_RATE_MIN_SAMPLES = 40
+PROGRESS_LOG_EVERY = 10
 
 EXTRACT_CARDS_JS = r"""
 () => {
@@ -395,7 +405,102 @@ async def count_cards(page) -> int:
     return await page.evaluate(js)
 
 
-async def save_debug_artifacts(page, out_dir: Path, slug: str) -> None:
+@dataclass
+class ScrapeStats:
+    total: int = 0
+    processed: int = 0
+    ok: int = 0
+    failed: int = 0
+    skipped_existing: int = 0
+    t0: float = field(default_factory=time.monotonic)
+    debug_written: int = 0
+    max_debug_artifacts: int = DEFAULT_MAX_DEBUG_ARTIFACTS
+    _lock: asyncio.Lock = field(default_factory=asyncio.Lock)
+    abort_requested: bool = False
+    abort_reason: str = ""
+
+    def elapsed_sec(self) -> float:
+        return time.monotonic() - self.t0
+
+    def log_progress(self, *, force: bool = False) -> None:
+        if not force and self.processed > 0 and self.processed % PROGRESS_LOG_EVERY != 0:
+            return
+        total = self.total if self.total else "?"
+        log.info(
+            "progress: processed=%s/%s ok=%d failed=%d skipped_existing=%d elapsed=%.0fs",
+            self.processed,
+            total,
+            self.ok,
+            self.failed,
+            self.skipped_existing,
+            self.elapsed_sec(),
+        )
+
+
+class FullScrapeAbort(RuntimeError):
+    """Raised when full scrape should stop without saving (timeout / fail-rate)."""
+
+
+def deadline_exceeded(t0: float, total_timeout_sec: int | None) -> bool:
+    if not total_timeout_sec or total_timeout_sec <= 0:
+        return False
+    return (time.monotonic() - t0) >= total_timeout_sec
+
+
+def check_deadline(t0: float, total_timeout_sec: int | None) -> None:
+    if deadline_exceeded(t0, total_timeout_sec):
+        raise FullScrapeAbort(
+            f"Full scrape exceeded total timeout of {total_timeout_sec}s — refusing to save"
+        )
+
+
+def url_index_key(url: str) -> str:
+    try:
+        return urlparse(url)._replace(fragment="").geturl().lower()
+    except Exception:
+        return url.lower()
+
+
+def detail_attempt_urls(url: str, max_retries: int) -> list[str]:
+    """Primary URL plus at most one retry variant (print_variation=normal)."""
+    out: list[str] = [url]
+    if max_retries < 1:
+        return out
+    try:
+        p = urlparse(url)
+    except Exception:
+        return out
+    if "print_variation=" in (p.query or ""):
+        return out
+    sep = "&" if p.query else "?"
+    retry = f"{url}{sep}print_variation=normal"
+    if retry.lower() != url.lower():
+        out.append(retry)
+    return out
+
+
+def row_needs_detail_enrich(row: dict) -> bool:
+    price = (row.get("price") or "").strip()
+    image = (row.get("image_url") or "").strip()
+    return not price or not image
+
+
+async def save_debug_artifacts(
+    page,
+    out_dir: Path,
+    slug: str,
+    stats: ScrapeStats | None = None,
+) -> None:
+    if stats is not None:
+        async with stats._lock:
+            if stats.debug_written >= stats.max_debug_artifacts:
+                log.warning(
+                    "skipping debug artifact for %s (cap %d reached)",
+                    slug,
+                    stats.max_debug_artifacts,
+                )
+                return
+            stats.debug_written += 1
     try:
         dbg = out_dir / "debug"
         dbg.mkdir(parents=True, exist_ok=True)
@@ -444,43 +549,6 @@ def is_blocked_or_challenged(title: str, body_text: str) -> bool:
     return any(s in t for s in signals) or any(s in b for s in signals)
 
 
-def generate_detail_url_variants(url: str) -> list[str]:
-    """Try canonical variants before declaring detail scrape failed."""
-    out: list[str] = []
-    try:
-        p = urlparse(url)
-    except Exception:
-        return [url]
-
-    path = p.path or ""
-    m = re.search(r"(/cards/)([^/?#]+)", path, re.I)
-    if not m:
-        return [url]
-
-    prefix = m.group(1)
-    slug = m.group(2)
-    base = f"{p.scheme}://{p.netloc}"
-    query = f"?{p.query}" if p.query else ""
-
-    def add(u: str) -> None:
-        if u.lower() not in {x.lower() for x in out}:
-            out.append(u)
-
-    # 1) original URL
-    add(url)
-    # 2) lowercase slug
-    add(f"{base}{prefix}{slug.lower()}{query}")
-    # 3) uppercase slug
-    add(f"{base}{prefix}{slug.upper()}{query}")
-    # 4) if no print_variation, try explicit normal
-    if "print_variation=" not in (p.query or ""):
-        sep = "&" if p.query else "?"
-        add(f"{base}{prefix}{slug}{query}{sep}print_variation=normal")
-        add(f"{base}{prefix}{slug.lower()}{query}{sep}print_variation=normal")
-        add(f"{base}{prefix}{slug.upper()}{query}{sep}print_variation=normal")
-    return out
-
-
 def load_existing_cards_index(path: Path) -> dict[str, dict]:
     """Index existing web/cards.json entries by lowercased URL (without fragment)."""
     try:
@@ -505,7 +573,9 @@ def load_existing_cards_index(path: Path) -> dict[str, dict]:
         return {}
 
 
-async def ensure_cards_list_ready(page, out_dir: Path, url: str) -> int:
+async def ensure_cards_list_ready(
+    page, out_dir: Path, url: str, stats: ScrapeStats | None = None
+) -> int:
     # Prefer condition-based waiting over fixed sleeps, but keep bounded waits
     # to avoid hanging in CI.
     count = await count_cards(page)
@@ -543,7 +613,7 @@ async def ensure_cards_list_ready(page, out_dir: Path, url: str) -> int:
     count = await count_cards(page)
     if not count:
         log.warning("cards list still empty after waits for %s", url)
-        await save_debug_artifacts(page, out_dir, "cards_list_empty")
+        await save_debug_artifacts(page, out_dir, "cards_list_empty", stats)
     return count
 
 
@@ -723,6 +793,305 @@ async def extract_candidates_fallback(
     return dedupe_rows(rows)
 
 
+async def fetch_detail_once(
+    page,
+    url: str,
+    base_url: str,
+    detail_timeout_ms: int,
+) -> tuple[dict | None, str, str, bool]:
+    """Navigate once and extract a detail row. Returns (row, title, body, blocked)."""
+    await page.goto(url, wait_until="domcontentloaded", timeout=detail_timeout_ms)
+    await page.wait_for_timeout(DETAIL_SETTLE_MS)
+    settle_budget = max(1_000, min(4_000, detail_timeout_ms // 3))
+    try:
+        await page.wait_for_function(
+            r"""() => {
+              const t = (document.body && (document.body.innerText || '')) || '';
+              return /(CN¥|US\$|SGD|USD|CNY|RMB|[$¥￥€£])\s*\d/i.test(t)
+                || /\b(EN|CN)\s+(USD|CNY)\b/i.test(t)
+                || !!document.querySelector('h1');
+            }""",
+            timeout=settle_budget,
+        )
+    except PlaywrightTimeoutError:
+        pass
+
+    row = await extract_detail_row(page, url, base_url)
+    title, body = await page_debug_summary(page)
+    blocked = is_blocked_or_challenged(title, body)
+    return row, title, body, blocked
+
+
+async def scrape_detail_urls(
+    context,
+    urls: list[str],
+    *,
+    base_url: str,
+    out_dir: Path,
+    stats: ScrapeStats,
+    existing_cards_by_url: dict[str, dict],
+    concurrency: int,
+    detail_timeout_ms: int,
+    max_retries: int,
+    limit: int | None,
+    total_timeout_sec: int | None,
+    fail_rate_abort: float | None,
+    fail_rate_min_samples: int,
+    record_attempts: list[dict] | None = None,
+) -> list[dict]:
+    """Concurrent detail scrape with deadline, fail-rate abort, and debug cap."""
+    if not urls:
+        return []
+
+    work_urls = urls[:limit] if limit else list(urls)
+    stats.total = len(work_urls)
+    sem = asyncio.Semaphore(max(1, concurrency))
+    rows: list[dict] = []
+    rows_lock = asyncio.Lock()
+    stop_event = asyncio.Event()
+
+    async def maybe_abort_fail_rate() -> None:
+        if fail_rate_abort is None or fail_rate_abort <= 0:
+            return
+        decided = stats.ok + stats.failed
+        if decided < fail_rate_min_samples:
+            return
+        rate = stats.failed / decided if decided else 0.0
+        if rate > fail_rate_abort:
+            reason = (
+                f"Detail fail rate {rate:.0%} > {fail_rate_abort:.0%} "
+                f"after {decided} attempts — aborting (no save)"
+            )
+            stats.abort_requested = True
+            stats.abort_reason = reason
+            stop_event.set()
+            raise FullScrapeAbort(reason)
+
+    async def worker(url: str) -> None:
+        if stop_event.is_set():
+            return
+        check_deadline(stats.t0, total_timeout_sec)
+        if limit is not None:
+            async with rows_lock:
+                if len(rows) >= limit:
+                    stop_event.set()
+                    return
+
+        async with sem:
+            if stop_event.is_set():
+                return
+            check_deadline(stats.t0, total_timeout_sec)
+
+            page = await context.new_page()
+            row = None
+            blocked = False
+            last_title = ""
+            last_body = ""
+            tried: list[str] = []
+            try:
+                for attempt_url in detail_attempt_urls(url, max_retries):
+                    if stop_event.is_set():
+                        break
+                    check_deadline(stats.t0, total_timeout_sec)
+                    tried.append(attempt_url)
+                    try:
+                        row, last_title, last_body, blocked = await fetch_detail_once(
+                            page, attempt_url, base_url, detail_timeout_ms
+                        )
+                    except PlaywrightTimeoutError:
+                        last_title, last_body = await page_debug_summary(page)
+                        blocked = is_blocked_or_challenged(last_title, last_body)
+                        row = None
+                        await save_debug_artifacts(
+                            page,
+                            out_dir,
+                            f"timeout_{parse_set_number_from_url(url) or 'detail'}",
+                            stats,
+                        )
+                    if row:
+                        row["source_url"] = url
+                        break
+                    if blocked:
+                        break
+
+                if not row and not stop_event.is_set():
+                    reason = "blocked_or_challenged" if blocked else "detail_empty"
+                    await save_debug_artifacts(
+                        page,
+                        out_dir,
+                        f"{reason}_{parse_set_number_from_url(url) or 'detail'}",
+                        stats,
+                    )
+            except FullScrapeAbort:
+                raise
+            except Exception:
+                log.exception("failed scraping detail %s", url)
+                try:
+                    await save_debug_artifacts(page, out_dir, "exception", stats)
+                except Exception:
+                    pass
+                row = None
+            finally:
+                await page.close()
+
+            async with stats._lock:
+                stats.processed += 1
+                if row:
+                    stats.ok += 1
+                else:
+                    stats.failed += 1
+                    key = url_index_key(url)
+                    if key in existing_cards_by_url:
+                        stats.skipped_existing += 1
+                        log.warning(
+                            "skipped_detail_failed: keeping existing entry for %s", url
+                        )
+                stats.log_progress()
+
+            if row:
+                async with rows_lock:
+                    if limit is None or len(rows) < limit:
+                        rows.append(row)
+                    if limit is not None and len(rows) >= limit:
+                        stop_event.set()
+                if record_attempts is not None:
+                    record_attempts.append(
+                        {"url": url, "status": "ok", "final_url": row.get("url", "")}
+                    )
+            else:
+                reason = "blocked_or_challenged" if blocked else "detail_empty"
+                log.warning(
+                    "%s: 0 row for %s (tried=%d) title=%r body[0:200]=%r",
+                    reason,
+                    url,
+                    len(tried),
+                    last_title,
+                    (last_body or "")[:200],
+                )
+                if record_attempts is not None:
+                    record_attempts.append(
+                        {
+                            "url": url,
+                            "status": reason,
+                            "tried": tried,
+                            "title": last_title,
+                            "body_500": (last_body or "")[:500],
+                        }
+                    )
+                await maybe_abort_fail_rate()
+
+            check_deadline(stats.t0, total_timeout_sec)
+
+    tasks = [asyncio.create_task(worker(u)) for u in work_urls]
+    results = await asyncio.gather(*tasks, return_exceptions=True)
+    for r in results:
+        if isinstance(r, FullScrapeAbort):
+            raise r
+        if isinstance(r, Exception):
+            log.warning("detail worker error: %s", r)
+
+    if stats.abort_requested and stats.abort_reason:
+        raise FullScrapeAbort(stats.abort_reason)
+
+    check_deadline(stats.t0, total_timeout_sec)
+    stats.log_progress(force=True)
+    return rows[:limit] if limit else rows
+
+
+async def scrape_list_page(
+    context,
+    url: str,
+    *,
+    base_url: str,
+    out_dir: Path,
+    stats: ScrapeStats,
+    limit: int | None,
+    total_timeout_sec: int | None,
+) -> tuple[list[dict], list[str]]:
+    """Scroll/extract /cards list. Returns (complete_rows, incomplete_detail_urls)."""
+    check_deadline(stats.t0, total_timeout_sec)
+    page = await context.new_page()
+    incomplete_urls: list[str] = []
+    try:
+        log.info("navigating to %s", url)
+        await page.goto(url, wait_until="domcontentloaded", timeout=PAGE_TIMEOUT_MS)
+        await page.wait_for_timeout(NETWORK_SETTLE_MS)
+        visible = await ensure_cards_list_ready(page, out_dir, url, stats)
+        check_deadline(stats.t0, total_timeout_sec)
+        if visible == 0:
+            return [], []
+
+        await load_all_cards(page, limit=limit)
+        check_deadline(stats.t0, total_timeout_sec)
+
+        # Extract raw tiles to find incomplete (missing price/image) before build_row drops them.
+        raw = await page.evaluate(EXTRACT_CARDS_JS)
+        rows: list[dict] = []
+        for item in raw:
+            href = (item.get("href") or "").strip()
+            row = build_row(
+                source_url=url,
+                base_url=base_url,
+                name=item.get("name", ""),
+                href=href or None,
+                text=item.get("text", ""),
+                cn_price=item.get("cnPrice"),
+                en_price=item.get("enPrice"),
+                is_foil=item.get("isFoil"),
+                is_showcase=item.get("isShowcase", False),
+                print_variation=item.get("printVariation"),
+                image_url=item.get("imageUrl"),
+            )
+            if row and not row_needs_detail_enrich(row):
+                rows.append(row)
+            elif href and is_detail_card_url(href):
+                incomplete_urls.append(href)
+            if limit and len(rows) + len(incomplete_urls) >= limit:
+                break
+
+        if not rows and not incomplete_urls:
+            log.warning("DOM extraction empty for %s, using regex fallback", url)
+            rows = await extract_candidates_fallback(page, url, base_url, limit)
+            incomplete_urls = [r["url"] for r in rows if row_needs_detail_enrich(r)]
+            rows = [r for r in rows if not row_needs_detail_enrich(r)]
+
+        rows = dedupe_rows(rows)
+        # Dedupe incomplete URLs
+        seen: set[str] = set()
+        uniq_incomplete: list[str] = []
+        for u in incomplete_urls:
+            k = u.lower()
+            if k in seen:
+                continue
+            seen.add(k)
+            uniq_incomplete.append(u)
+
+        if limit:
+            remaining = max(0, limit - len(rows))
+            uniq_incomplete = uniq_incomplete[:remaining]
+            rows = rows[:limit]
+
+        log.info(
+            "list extract: complete=%d incomplete=%d from %s",
+            len(rows),
+            len(uniq_incomplete),
+            url,
+        )
+        return rows, uniq_incomplete
+    except FullScrapeAbort:
+        raise
+    except PlaywrightTimeoutError:
+        log.error("timeout loading list %s", url)
+        await save_debug_artifacts(page, out_dir, "timeout", stats)
+        return [], []
+    except Exception:
+        log.exception("failed scraping list %s", url)
+        await save_debug_artifacts(page, out_dir, "exception", stats)
+        return [], []
+    finally:
+        await page.close()
+
+
 async def scrape(
     urls: list[str],
     out_dir: Path,
@@ -730,17 +1099,26 @@ async def scrape(
     headless: bool,
     user_agent: str,
     limit: int | None = None,
+    concurrency: int = DEFAULT_CONCURRENCY,
+    detail_timeout_ms: int = DETAIL_TIMEOUT_MS,
+    total_timeout_sec: int | None = DEFAULT_TOTAL_TIMEOUT_SEC,
+    max_detail_retries: int = DEFAULT_MAX_DETAIL_RETRIES,
+    max_debug_artifacts: int = DEFAULT_MAX_DEBUG_ARTIFACTS,
+    fail_rate_abort: float = DEFAULT_FAIL_RATE_ABORT,
+    fail_rate_min_samples: int = DEFAULT_FAIL_RATE_MIN_SAMPLES,
 ) -> list[dict]:
     out_dir.mkdir(parents=True, exist_ok=True)
     base_url = os.getenv("BASE_URL", "https://bilgewatermarket.com")
-    rows: list[dict] = []
-    seeded_full_scrape = False
     existing_cards_by_url = load_existing_cards_index(Path("web/cards.json"))
+
+    detail_only = all(is_detail_card_url(u) and not is_cards_index_url(u) for u in urls)
+
+    stats = ScrapeStats(max_debug_artifacts=max_debug_artifacts)
     targeted_attempts: list[dict] = []
+    rows: list[dict] = []
 
     async with async_playwright() as p:
         launch_args: list[str] = []
-        # New headless mode is more stable; some Chromium builds crash with old mode.
         if headless:
             launch_args.append("--headless=new")
         browser = await p.chromium.launch(headless=headless, args=launch_args)
@@ -748,145 +1126,152 @@ async def scrape(
             user_agent=user_agent,
             viewport={"width": 1440, "height": 1200},
         )
-        queue: deque[str] = deque(urls)
-        while queue:
-            url = queue.popleft()
-            page = await context.new_page()
-            try:
-                log.info("navigating to %s", url)
-                if is_detail_card_url(url) and not is_cards_index_url(url):
-                    # Targeted detail: try URL variants before declaring failure.
-                    variants = generate_detail_url_variants(url)
-                    row = None
-                    blocked = False
-                    last_title = ""
-                    last_body = ""
-                    tried: list[str] = []
+        try:
+            if detail_only:
+                log.info(
+                    "targeted detail scrape: %d url(s) concurrency=%d detail_timeout_ms=%d",
+                    len(urls),
+                    concurrency,
+                    detail_timeout_ms,
+                )
+                rows = await scrape_detail_urls(
+                    context,
+                    urls,
+                    base_url=base_url,
+                    out_dir=out_dir,
+                    stats=stats,
+                    existing_cards_by_url=existing_cards_by_url,
+                    concurrency=concurrency,
+                    detail_timeout_ms=detail_timeout_ms,
+                    max_retries=max_detail_retries,
+                    limit=limit,
+                    total_timeout_sec=total_timeout_sec,
+                    fail_rate_abort=None,  # no circuit breaker for targeted
+                    fail_rate_min_samples=fail_rate_min_samples,
+                    record_attempts=targeted_attempts,
+                )
+            else:
+                # Full refresh: prefer /cards list, detail only for gaps or seed fallback.
+                list_urls = [u for u in urls if is_cards_index_url(u) or not is_detail_card_url(u)]
+                extra_details = [u for u in urls if is_detail_card_url(u) and not is_cards_index_url(u)]
+                seeded = False
 
-                    for v in variants:
-                        tried.append(v)
-                        await page.goto(v, wait_until="domcontentloaded", timeout=PAGE_TIMEOUT_MS)
-                        await page.wait_for_timeout(NETWORK_SETTLE_MS)
-                        try:
-                            await page.wait_for_load_state("networkidle", timeout=30_000)
-                        except PlaywrightTimeoutError:
-                            pass
-                        await page.wait_for_timeout(3_000)
-                        try:
-                            await page.wait_for_function(
-                                r"""() => {
-                                  const t = (document.body && (document.body.innerText || '')) || '';
-                                  return /(CN¥|US\$|SGD|USD|CNY|RMB|[$¥￥€£])\s*\d/i.test(t) || /\b(EN|CN)\s+(USD|CNY)\b/i.test(t);
-                                }""",
-                                timeout=20_000,
+                for list_url in list_urls or ["https://bilgewatermarket.com/cards"]:
+                    check_deadline(stats.t0, total_timeout_sec)
+                    page_rows, incomplete = await scrape_list_page(
+                        context,
+                        list_url,
+                        base_url=base_url,
+                        out_dir=out_dir,
+                        stats=stats,
+                        limit=limit,
+                        total_timeout_sec=total_timeout_sec,
+                    )
+                    if page_rows or incomplete:
+                        rows.extend(page_rows)
+                        enrich_urls = incomplete + extra_details
+                        if enrich_urls:
+                            remaining = None if limit is None else max(0, limit - len(rows))
+                            if remaining == 0:
+                                break
+                            log.info(
+                                "enriching %d incomplete/extra detail URL(s)",
+                                len(enrich_urls[:remaining] if remaining else enrich_urls),
                             )
-                        except PlaywrightTimeoutError:
-                            pass
+                            enrich_stats = ScrapeStats(
+                                max_debug_artifacts=max(
+                                    0, max_debug_artifacts - stats.debug_written
+                                ),
+                                t0=stats.t0,
+                            )
+                            enriched = await scrape_detail_urls(
+                                context,
+                                enrich_urls,
+                                base_url=base_url,
+                                out_dir=out_dir,
+                                stats=enrich_stats,
+                                existing_cards_by_url=existing_cards_by_url,
+                                concurrency=concurrency,
+                                detail_timeout_ms=detail_timeout_ms,
+                                max_retries=max_detail_retries,
+                                limit=remaining,
+                                total_timeout_sec=total_timeout_sec,
+                                fail_rate_abort=None,
+                                fail_rate_min_samples=fail_rate_min_samples,
+                            )
+                            stats.debug_written += enrich_stats.debug_written
+                            stats.ok += enrich_stats.ok
+                            stats.failed += enrich_stats.failed
+                            stats.skipped_existing += enrich_stats.skipped_existing
+                            stats.processed += enrich_stats.processed
+                            rows.extend(enriched)
+                        break
 
-                        row = await extract_detail_row(page, v, base_url)
-                        if row:
-                            # Keep the original source_url for reporting/merge stability.
-                            row["source_url"] = url
-                            break
-
-                        last_title, last_body = await page_debug_summary(page)
-                        blocked = is_blocked_or_challenged(last_title, last_body)
-                        if blocked:
-                            # No point retrying more variants if we're challenged.
-                            break
-
-                    if not row:
-                        reason = "blocked_or_challenged" if blocked else "detail_empty"
-                        log.warning(
-                            "%s: 0 row for %s (tried=%d) title=%r body[0:500]=%r",
-                            reason,
-                            url,
-                            len(tried),
-                            last_title,
-                            (last_body or "")[:500],
-                        )
-                        await save_debug_artifacts(page, out_dir, f"{reason}_{parse_set_number_from_url(url) or 'detail'}")
-
-                        # If this card already exists in catalog, do not treat as deletion-worthy.
-                        try:
-                            key = urlparse(url)._replace(fragment="").geturl().lower()
-                        except Exception:
-                            key = url.lower()
-                        if key in existing_cards_by_url:
-                            log.warning("skipped_detail_failed: keeping existing entry for %s", url)
-
-                        targeted_attempts.append(
-                            {
-                                "url": url,
-                                "status": reason,
-                                "tried": tried,
-                                "title": last_title,
-                                "body_500": (last_body or "")[:500],
-                            }
-                        )
-                        page_rows = []
-                    else:
-                        targeted_attempts.append({"url": url, "status": "ok", "final_url": row.get("url", "")})
-                        page_rows = [row]
-                else:
-                    await page.goto(url, wait_until="domcontentloaded", timeout=PAGE_TIMEOUT_MS)
-                    await page.wait_for_timeout(NETWORK_SETTLE_MS)
-                    # /cards list page (SPA). Do not depend on a single selector.
-                    visible = await ensure_cards_list_ready(page, out_dir, url)
-                    if visible == 0 and is_cards_index_url(url) and not seeded_full_scrape:
-                        # Runner sometimes renders 0 list tiles; fall back to existing catalog seed.
+                    if is_cards_index_url(list_url) and not seeded:
                         seed_path = Path("web/cards.json")
                         seed_urls = seed_detail_urls_from_cards_json(seed_path)
                         if seed_urls:
-                            seeded_full_scrape = True
+                            seeded = True
+                            if limit:
+                                seed_urls = seed_urls[:limit]
                             log.warning(
-                                "0 cards discovered on %s; seeding %d detail URLs from %s",
-                                url,
+                                "0 cards discovered on %s; seeding %d detail URLs from %s "
+                                "(concurrency=%d detail_timeout_ms=%d)",
+                                list_url,
                                 len(seed_urls),
                                 seed_path,
+                                concurrency,
+                                detail_timeout_ms,
                             )
-                            await save_debug_artifacts(page, out_dir, "cards_list_seeded")
-                            # Refresh detail pages in batches by pushing into the queue.
-                            for u in seed_urls:
-                                queue.append(u)
-                            page_rows = []
+                            # cards_list_empty debug already written by ensure_cards_list_ready
+
+                            seed_stats = ScrapeStats(
+                                max_debug_artifacts=max(
+                                    0, max_debug_artifacts - stats.debug_written
+                                ),
+                                t0=stats.t0,
+                            )
+                            rows = await scrape_detail_urls(
+                                context,
+                                seed_urls,
+                                base_url=base_url,
+                                out_dir=out_dir,
+                                stats=seed_stats,
+                                existing_cards_by_url=existing_cards_by_url,
+                                concurrency=concurrency,
+                                detail_timeout_ms=detail_timeout_ms,
+                                max_retries=max_detail_retries,
+                                limit=limit,
+                                total_timeout_sec=total_timeout_sec,
+                                fail_rate_abort=fail_rate_abort,
+                                fail_rate_min_samples=fail_rate_min_samples,
+                            )
+                            stats.ok = seed_stats.ok
+                            stats.failed = seed_stats.failed
+                            stats.skipped_existing = seed_stats.skipped_existing
+                            stats.processed = seed_stats.processed
+                            stats.debug_written += seed_stats.debug_written
+                            stats.total = seed_stats.total
                         else:
                             log.error(
                                 "0 cards discovered on %s and no seed available at %s",
-                                url,
+                                list_url,
                                 seed_path,
                             )
-                            await save_debug_artifacts(page, out_dir, "cards_list_no_seed")
-                            page_rows = []
-                    else:
-                        await load_all_cards(page, limit=limit)
-                        page_rows = await extract_candidates(page, url, base_url, limit=limit)
-                if limit:
-                    remaining = limit - len(rows)
-                    if remaining <= 0:
-                        break
-                    page_rows = page_rows[:remaining]
-                rows.extend(page_rows)
-            except PlaywrightTimeoutError:
-                log.error("timeout loading %s", url)
-                await save_debug_artifacts(page, out_dir, "timeout")
-            except Exception:
-                log.exception("failed scraping %s", url)
-                await save_debug_artifacts(page, out_dir, "exception")
-            finally:
-                await page.close()
-            if limit and len(rows) >= limit:
-                rows = rows[:limit]
-                break
-        await browser.close()
+                    break
+        finally:
+            await browser.close()
 
+    stats.log_progress(force=True)
     rows = dedupe_rows(rows)
+    if limit:
+        rows = rows[:limit]
+
     if not rows:
         raise RuntimeError(
             "Scrape returned 0 cards — refusing to overwrite existing data files"
         )
 
-    # Targeted runs should report failures clearly in logs.
     if targeted_attempts:
         ok = sum(1 for a in targeted_attempts if a.get("status") == "ok")
         failed = [a for a in targeted_attempts if a.get("status") != "ok"]
@@ -993,6 +1378,20 @@ def configure_logging(verbose: bool = False) -> None:
     )
 
 
+def _env_int(name: str, default: int) -> int:
+    raw = os.getenv(name)
+    if raw is None or raw.strip() == "":
+        return default
+    return int(raw)
+
+
+def _env_float(name: str, default: float) -> float:
+    raw = os.getenv(name)
+    if raw is None or raw.strip() == "":
+        return default
+    return float(raw)
+
+
 def main() -> None:
     load_dotenv()
     ap = argparse.ArgumentParser(description="Collect Bilgewater Market card data")
@@ -1027,12 +1426,65 @@ def main() -> None:
         default=None,
         help="Maximum number of cards to collect (for testing)",
     )
+    ap.add_argument(
+        "--concurrency",
+        type=int,
+        default=_env_int("SCRAPE_CONCURRENCY", DEFAULT_CONCURRENCY),
+        help=f"Concurrent detail pages (default: {DEFAULT_CONCURRENCY})",
+    )
+    ap.add_argument(
+        "--detail-timeout-ms",
+        type=int,
+        default=_env_int("DETAIL_TIMEOUT_MS", DETAIL_TIMEOUT_MS),
+        help=f"Per-detail page timeout in ms (default: {DETAIL_TIMEOUT_MS})",
+    )
+    ap.add_argument(
+        "--total-timeout-sec",
+        type=int,
+        default=None,
+        help=(
+            f"Full-refresh wall timeout in seconds (default: {DEFAULT_TOTAL_TIMEOUT_SEC}; "
+            "0 disables; targeted defaults to disabled)"
+        ),
+    )
+    ap.add_argument(
+        "--max-detail-retries",
+        type=int,
+        default=_env_int("MAX_DETAIL_RETRIES", DEFAULT_MAX_DETAIL_RETRIES),
+        help=f"Retries per detail URL after first attempt (default: {DEFAULT_MAX_DETAIL_RETRIES})",
+    )
+    ap.add_argument(
+        "--max-debug-artifacts",
+        type=int,
+        default=_env_int("MAX_DEBUG_ARTIFACTS", DEFAULT_MAX_DEBUG_ARTIFACTS),
+        help=f"Max PNG/HTML debug pairs to write (default: {DEFAULT_MAX_DEBUG_ARTIFACTS})",
+    )
+    ap.add_argument(
+        "--fail-rate-abort",
+        type=float,
+        default=_env_float("FAIL_RATE_ABORT", DEFAULT_FAIL_RATE_ABORT),
+        help=f"Abort seeded full scrape when fail rate exceeds this (default: {DEFAULT_FAIL_RATE_ABORT})",
+    )
+    ap.add_argument(
+        "--fail-rate-min-samples",
+        type=int,
+        default=_env_int("FAIL_RATE_MIN_SAMPLES", DEFAULT_FAIL_RATE_MIN_SAMPLES),
+        help=f"Min ok+failed before fail-rate abort (default: {DEFAULT_FAIL_RATE_MIN_SAMPLES})",
+    )
     ap.add_argument("--verbose", action="store_true", help="Enable debug logging")
     args = ap.parse_args()
 
     configure_logging(args.verbose)
     urls = [u.strip() for u in args.urls.split(",") if u.strip()]
     ua = os.getenv("USER_AGENT", "BilgewaterDailyCollector/1.0")
+
+    detail_only = all(is_detail_card_url(u) and not is_cards_index_url(u) for u in urls)
+    if args.total_timeout_sec is not None:
+        total_timeout_sec = args.total_timeout_sec
+    elif detail_only:
+        total_timeout_sec = 0
+    else:
+        total_timeout_sec = _env_int("TOTAL_TIMEOUT_SEC", DEFAULT_TOTAL_TIMEOUT_SEC)
 
     rows = asyncio.run(
         scrape(
@@ -1042,6 +1494,13 @@ def main() -> None:
             args.headless,
             ua,
             args.limit,
+            concurrency=args.concurrency,
+            detail_timeout_ms=args.detail_timeout_ms,
+            total_timeout_sec=total_timeout_sec if total_timeout_sec > 0 else None,
+            max_detail_retries=args.max_detail_retries,
+            max_debug_artifacts=args.max_debug_artifacts,
+            fail_rate_abort=args.fail_rate_abort,
+            fail_rate_min_samples=args.fail_rate_min_samples,
         )
     )
     log.info("collection complete: %d rows", len(rows))
