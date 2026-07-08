@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-"""Merge Bilgewater CSV prices with Riftbound catalog metadata → web/cards.json."""
+"""Build cards.json (or a targeted patch) from Bilgewater CSV prices."""
 
 from __future__ import annotations
 
+import argparse
 import csv
+import datetime as dt
 import json
 import re
 import sys
@@ -202,8 +204,24 @@ def enrich_row(
 
 
 def main() -> int:
-    if not CSV_PATH.exists():
-        print(f"CSV not found: {CSV_PATH}", file=sys.stderr)
+    ap = argparse.ArgumentParser(description="Build web/cards.json from Bilgewater CSV")
+    ap.add_argument("--csv", dest="csv_path", default=str(CSV_PATH), help="Input CSV path")
+    ap.add_argument("--out", dest="out_path", default=str(OUT_PATH), help="Output JSON path")
+    ap.add_argument(
+        "--min-count",
+        dest="min_count",
+        type=int,
+        default=100,
+        help="Minimum rows required to write output (default: 100; targeted uses 1)",
+    )
+    args = ap.parse_args()
+
+    csv_path = Path(args.csv_path)
+    out_path = Path(args.out_path)
+    min_count = int(args.min_count)
+
+    if not csv_path.exists():
+        print(f"CSV not found: {csv_path}", file=sys.stderr)
         return 1
 
     riftscribe = fetch_riftscribe_catalog()
@@ -212,7 +230,7 @@ def main() -> int:
     cards: list[dict] = []
     seen_ids: set[str] = set()
 
-    with CSV_PATH.open(newline="", encoding="utf-8") as f:
+    with csv_path.open(newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         for row in reader:
             card = enrich_row(row, riftscribe, gist)
@@ -227,24 +245,22 @@ def main() -> int:
             seen_ids.add(cid)
             cards.append(card)
 
-    if len(cards) < 100:
+    if len(cards) < min_count:
         print(
-            f"Refusing to overwrite {OUT_PATH}: only {len(cards)} cards from CSV "
-            "(expected ≥100). Keeping previous cards.json if present.",
+            f"Refusing to overwrite {out_path}: only {len(cards)} cards from CSV "
+            f"(expected ≥{min_count}). Keeping previous output if present.",
             file=sys.stderr,
         )
         return 1
 
-    OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
     payload = {
-        "generated_at": __import__("datetime").datetime.now(
-            __import__("datetime").timezone.utc
-        ).isoformat(timespec="seconds"),
+        "generated_at": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
         "count": len(cards),
         "cards": cards,
     }
-    OUT_PATH.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    print(f"Wrote {len(cards)} cards → {OUT_PATH}")
+    out_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    print(f"Wrote {len(cards)} cards → {out_path}")
 
     matched = sum(1 for c in cards if c["card_type"] != "Unknown")
     print(f"Matched card types: {matched}/{len(cards)}")

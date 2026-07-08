@@ -9,6 +9,7 @@ import os
 import re
 import shutil
 import sqlite3
+from collections import deque
 from pathlib import Path
 from urllib.parse import urljoin, urlparse, parse_qs
 
@@ -27,13 +28,16 @@ FOIL_RE = re.compile(
 BAD_NAME_RE = re.compile(
     r"(?i)^(price|foil|foiled|market|ranking|rarity|set|variant|cn|en|change|search)$"
 )
-CARD_SELECTOR = 'a.block[href*="/cards/"]'
+CARD_TILE_SELECTOR = 'a.block[href*="/cards/"]'
+CARD_LINK_SELECTOR = 'a[href*="/cards/"]'
+CARD_DETAIL_HREF_RE = re.compile(r"/cards/[A-Za-z]+-\d+[A-Za-z]?(?:/)?$", re.I)
 SCROLL_DELAY_MS = 800
 SCROLL_STEP_PX = 2500
 STABLE_ROUNDS = 3
 MAX_SCROLL_ROUNDS = 100
 PAGE_TIMEOUT_MS = 60_000
 NETWORK_SETTLE_MS = 2_000
+HYDRATION_WAIT_MS = 10_000
 
 EXTRACT_CARDS_JS = r"""
 () => {
@@ -42,14 +46,28 @@ EXTRACT_CARDS_JS = r"""
     const s = getComputedStyle(el);
     return r.width > 0 && r.height > 0 && s.visibility !== 'hidden' && s.display !== 'none';
   };
+  const isCardDetail = (href) => {
+    try {
+      const u = new URL(href, location.href);
+      return /\/cards\/[A-Za-z]+-\d+[A-Za-z]?(?:\/)?$/i.test(u.pathname || '');
+    } catch {
+      return false;
+    }
+  };
 
   const cards = [];
-  for (const anchor of document.querySelectorAll('a.block[href*="/cards/"]')) {
+  // Primary selector is best when present, but fall back to any /cards/ link.
+  const primary = [...document.querySelectorAll('a.block[href*="/cards/"]')];
+  const broad = [...document.querySelectorAll('a[href*="/cards/"]')];
+  const anchors = primary.length ? primary : broad;
+
+  for (const anchor of anchors) {
     if (!visible(anchor)) continue;
 
     const h3 = anchor.querySelector('h3');
     const name = h3 ? h3.innerText.trim() : '';
     const href = anchor.href;
+    if (!href || !isCardDetail(href)) continue;
     const text = (anchor.innerText || '').trim();
 
     let cnPrice = null;
@@ -134,7 +152,9 @@ EXTRACT_DETAIL_JS = r"""
     cnPrice,
     enPrice,
     imageUrl: best.url || '',
-    text: rawText.slice(0, 3000),
+    // Some pages render market/price sections far below; keep enough text
+    // for robust price parsing, while still bounding payload size.
+    text: rawText.slice(0, 15000),
   };
 }
 """
@@ -356,9 +376,201 @@ def build_row(
 
 
 async def count_cards(page) -> int:
-    return await page.evaluate(
-        f"() => document.querySelectorAll({json.dumps(CARD_SELECTOR)}).length"
-    )
+    # Count likely detail links, not a fragile CSS class selector.
+    js = r"""
+    () => {
+      const re = /\/cards\/[A-Za-z]+-\d+[A-Za-z]?(?:\/)?$/i;
+      const out = [];
+      for (const a of document.querySelectorAll('a[href*="/cards/"]')) {
+        const href = a.href || '';
+        try {
+          const u = new URL(href, location.href);
+          if (!re.test(u.pathname || '')) continue;
+        } catch { continue; }
+        out.push(a);
+      }
+      return out.length;
+    }
+    """
+    return await page.evaluate(js)
+
+
+async def save_debug_artifacts(page, out_dir: Path, slug: str) -> None:
+    try:
+        dbg = out_dir / "debug"
+        dbg.mkdir(parents=True, exist_ok=True)
+        ts = dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+        safe = re.sub(r"[^a-zA-Z0-9._-]+", "_", slug)[:80]
+        png = dbg / f"{ts}_{safe}.png"
+        html = dbg / f"{ts}_{safe}.html"
+        await page.screenshot(path=str(png), full_page=True)
+        html.write_text(await page.content(), encoding="utf-8")
+        log.info("wrote debug artifacts: %s, %s", png, html)
+    except Exception:
+        log.exception("failed writing debug artifacts for %s", slug)
+
+
+async def page_debug_summary(page) -> tuple[str, str]:
+    try:
+        title = (await page.title()) or ""
+    except Exception:
+        title = ""
+    try:
+        body_text = await page.evaluate(
+            r"""() => (document.body && (document.body.innerText || '')) || ''"""
+        )
+    except Exception:
+        body_text = ""
+    body_text = re.sub(r"\s+", " ", (body_text or "")).strip()
+    return title.strip(), body_text
+
+
+def is_blocked_or_challenged(title: str, body_text: str) -> bool:
+    t = (title or "").lower()
+    b = (body_text or "").lower()
+    signals = [
+        "just a moment",
+        "attention required",
+        "cloudflare",
+        "checking your browser",
+        "verify you are human",
+        "please enable cookies",
+        "access denied",
+        "security check",
+        "challenge",
+        "cf-chl",
+        "turnstile",
+    ]
+    return any(s in t for s in signals) or any(s in b for s in signals)
+
+
+def generate_detail_url_variants(url: str) -> list[str]:
+    """Try canonical variants before declaring detail scrape failed."""
+    out: list[str] = []
+    try:
+        p = urlparse(url)
+    except Exception:
+        return [url]
+
+    path = p.path or ""
+    m = re.search(r"(/cards/)([^/?#]+)", path, re.I)
+    if not m:
+        return [url]
+
+    prefix = m.group(1)
+    slug = m.group(2)
+    base = f"{p.scheme}://{p.netloc}"
+    query = f"?{p.query}" if p.query else ""
+
+    def add(u: str) -> None:
+        if u.lower() not in {x.lower() for x in out}:
+            out.append(u)
+
+    # 1) original URL
+    add(url)
+    # 2) lowercase slug
+    add(f"{base}{prefix}{slug.lower()}{query}")
+    # 3) uppercase slug
+    add(f"{base}{prefix}{slug.upper()}{query}")
+    # 4) if no print_variation, try explicit normal
+    if "print_variation=" not in (p.query or ""):
+        sep = "&" if p.query else "?"
+        add(f"{base}{prefix}{slug}{query}{sep}print_variation=normal")
+        add(f"{base}{prefix}{slug.lower()}{query}{sep}print_variation=normal")
+        add(f"{base}{prefix}{slug.upper()}{query}{sep}print_variation=normal")
+    return out
+
+
+def load_existing_cards_index(path: Path) -> dict[str, dict]:
+    """Index existing web/cards.json entries by lowercased URL (without fragment)."""
+    try:
+        if not path.exists():
+            return {}
+        data = json.loads(path.read_text(encoding="utf-8"))
+        cards = data.get("cards") or []
+        out: dict[str, dict] = {}
+        for c in cards:
+            u = (c.get("url") or "").strip()
+            if not u:
+                continue
+            try:
+                pu = urlparse(u)
+                key = pu._replace(fragment="").geturl().lower()
+            except Exception:
+                key = u.lower()
+            out[key] = c
+        return out
+    except Exception:
+        log.exception("failed reading existing cards index from %s", path)
+        return {}
+
+
+async def ensure_cards_list_ready(page, out_dir: Path, url: str) -> int:
+    # Prefer condition-based waiting over fixed sleeps, but keep bounded waits
+    # to avoid hanging in CI.
+    count = await count_cards(page)
+    if count:
+        return count
+
+    # First, wait for client hydration/network to settle.
+    try:
+        await page.wait_for_load_state("networkidle", timeout=30_000)
+    except PlaywrightTimeoutError:
+        pass
+    await page.wait_for_timeout(HYDRATION_WAIT_MS)
+    count = await count_cards(page)
+    if count:
+        return count
+
+    # Then, wait for any /cards/ anchors to appear (broader than tile selector).
+    try:
+        await page.wait_for_function(
+            r"""() => {
+              const re = /\/cards\/[A-Za-z]+-\d+[A-Za-z]?(?:\/)?$/i;
+              for (const a of document.querySelectorAll('a[href*="/cards/"]')) {
+                try {
+                  const u = new URL(a.href || '', location.href);
+                  if (re.test(u.pathname || '')) return true;
+                } catch {}
+              }
+              return false;
+            }""",
+            timeout=20_000,
+        )
+    except PlaywrightTimeoutError:
+        pass
+
+    count = await count_cards(page)
+    if not count:
+        log.warning("cards list still empty after waits for %s", url)
+        await save_debug_artifacts(page, out_dir, "cards_list_empty")
+    return count
+
+
+def seed_detail_urls_from_cards_json(path: Path) -> list[str]:
+    try:
+        if not path.exists():
+            return []
+        data = json.loads(path.read_text(encoding="utf-8"))
+        cards = data.get("cards") or []
+        urls = []
+        for c in cards:
+            u = (c.get("url") or "").strip()
+            if u:
+                urls.append(u)
+        # Stable order; de-dupe case-insensitively.
+        seen: set[str] = set()
+        out: list[str] = []
+        for u in urls:
+            k = u.lower()
+            if k in seen:
+                continue
+            seen.add(k)
+            out.append(u)
+        return out
+    except Exception:
+        log.exception("failed reading seed urls from %s", path)
+        return []
 
 
 async def click_load_more(page) -> bool:
@@ -522,25 +734,133 @@ async def scrape(
     out_dir.mkdir(parents=True, exist_ok=True)
     base_url = os.getenv("BASE_URL", "https://bilgewatermarket.com")
     rows: list[dict] = []
+    seeded_full_scrape = False
+    existing_cards_by_url = load_existing_cards_index(Path("web/cards.json"))
+    targeted_attempts: list[dict] = []
 
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=headless)
+        launch_args: list[str] = []
+        # New headless mode is more stable; some Chromium builds crash with old mode.
+        if headless:
+            launch_args.append("--headless=new")
+        browser = await p.chromium.launch(headless=headless, args=launch_args)
         context = await browser.new_context(
             user_agent=user_agent,
             viewport={"width": 1440, "height": 1200},
         )
-        for url in urls:
+        queue: deque[str] = deque(urls)
+        while queue:
+            url = queue.popleft()
             page = await context.new_page()
             try:
                 log.info("navigating to %s", url)
-                await page.goto(url, wait_until="domcontentloaded", timeout=PAGE_TIMEOUT_MS)
-                await page.wait_for_timeout(NETWORK_SETTLE_MS)
                 if is_detail_card_url(url) and not is_cards_index_url(url):
-                    row = await extract_detail_row(page, url, base_url)
-                    page_rows = [row] if row else []
+                    # Targeted detail: try URL variants before declaring failure.
+                    variants = generate_detail_url_variants(url)
+                    row = None
+                    blocked = False
+                    last_title = ""
+                    last_body = ""
+                    tried: list[str] = []
+
+                    for v in variants:
+                        tried.append(v)
+                        await page.goto(v, wait_until="domcontentloaded", timeout=PAGE_TIMEOUT_MS)
+                        await page.wait_for_timeout(NETWORK_SETTLE_MS)
+                        try:
+                            await page.wait_for_load_state("networkidle", timeout=30_000)
+                        except PlaywrightTimeoutError:
+                            pass
+                        await page.wait_for_timeout(3_000)
+                        try:
+                            await page.wait_for_function(
+                                r"""() => {
+                                  const t = (document.body && (document.body.innerText || '')) || '';
+                                  return /(CN¥|US\$|SGD|USD|CNY|RMB|[$¥￥€£])\s*\d/i.test(t) || /\b(EN|CN)\s+(USD|CNY)\b/i.test(t);
+                                }""",
+                                timeout=20_000,
+                            )
+                        except PlaywrightTimeoutError:
+                            pass
+
+                        row = await extract_detail_row(page, v, base_url)
+                        if row:
+                            # Keep the original source_url for reporting/merge stability.
+                            row["source_url"] = url
+                            break
+
+                        last_title, last_body = await page_debug_summary(page)
+                        blocked = is_blocked_or_challenged(last_title, last_body)
+                        if blocked:
+                            # No point retrying more variants if we're challenged.
+                            break
+
+                    if not row:
+                        reason = "blocked_or_challenged" if blocked else "detail_empty"
+                        log.warning(
+                            "%s: 0 row for %s (tried=%d) title=%r body[0:500]=%r",
+                            reason,
+                            url,
+                            len(tried),
+                            last_title,
+                            (last_body or "")[:500],
+                        )
+                        await save_debug_artifacts(page, out_dir, f"{reason}_{parse_set_number_from_url(url) or 'detail'}")
+
+                        # If this card already exists in catalog, do not treat as deletion-worthy.
+                        try:
+                            key = urlparse(url)._replace(fragment="").geturl().lower()
+                        except Exception:
+                            key = url.lower()
+                        if key in existing_cards_by_url:
+                            log.warning("skipped_detail_failed: keeping existing entry for %s", url)
+
+                        targeted_attempts.append(
+                            {
+                                "url": url,
+                                "status": reason,
+                                "tried": tried,
+                                "title": last_title,
+                                "body_500": (last_body or "")[:500],
+                            }
+                        )
+                        page_rows = []
+                    else:
+                        targeted_attempts.append({"url": url, "status": "ok", "final_url": row.get("url", "")})
+                        page_rows = [row]
                 else:
-                    await load_all_cards(page, limit=limit)
-                    page_rows = await extract_candidates(page, url, base_url, limit=limit)
+                    await page.goto(url, wait_until="domcontentloaded", timeout=PAGE_TIMEOUT_MS)
+                    await page.wait_for_timeout(NETWORK_SETTLE_MS)
+                    # /cards list page (SPA). Do not depend on a single selector.
+                    visible = await ensure_cards_list_ready(page, out_dir, url)
+                    if visible == 0 and is_cards_index_url(url) and not seeded_full_scrape:
+                        # Runner sometimes renders 0 list tiles; fall back to existing catalog seed.
+                        seed_path = Path("web/cards.json")
+                        seed_urls = seed_detail_urls_from_cards_json(seed_path)
+                        if seed_urls:
+                            seeded_full_scrape = True
+                            log.warning(
+                                "0 cards discovered on %s; seeding %d detail URLs from %s",
+                                url,
+                                len(seed_urls),
+                                seed_path,
+                            )
+                            await save_debug_artifacts(page, out_dir, "cards_list_seeded")
+                            # Refresh detail pages in batches by pushing into the queue.
+                            for u in seed_urls:
+                                queue.append(u)
+                            page_rows = []
+                        else:
+                            log.error(
+                                "0 cards discovered on %s and no seed available at %s",
+                                url,
+                                seed_path,
+                            )
+                            await save_debug_artifacts(page, out_dir, "cards_list_no_seed")
+                            page_rows = []
+                    else:
+                        await load_all_cards(page, limit=limit)
+                        page_rows = await extract_candidates(page, url, base_url, limit=limit)
                 if limit:
                     remaining = limit - len(rows)
                     if remaining <= 0:
@@ -549,8 +869,10 @@ async def scrape(
                 rows.extend(page_rows)
             except PlaywrightTimeoutError:
                 log.error("timeout loading %s", url)
+                await save_debug_artifacts(page, out_dir, "timeout")
             except Exception:
                 log.exception("failed scraping %s", url)
+                await save_debug_artifacts(page, out_dir, "exception")
             finally:
                 await page.close()
             if limit and len(rows) >= limit:
@@ -563,6 +885,23 @@ async def scrape(
         raise RuntimeError(
             "Scrape returned 0 cards — refusing to overwrite existing data files"
         )
+
+    # Targeted runs should report failures clearly in logs.
+    if targeted_attempts:
+        ok = sum(1 for a in targeted_attempts if a.get("status") == "ok")
+        failed = [a for a in targeted_attempts if a.get("status") != "ok"]
+        log.info("targeted_summary: ok=%d failed=%d", ok, len(failed))
+        for a in failed:
+            log.warning(
+                "targeted_failed: status=%s url=%s title=%r body[0:200]=%r",
+                a.get("status"),
+                a.get("url"),
+                a.get("title", ""),
+                (a.get("body_500") or "")[:200],
+            )
+        if ok < 1:
+            raise RuntimeError("Targeted scrape produced 0 successful detail rows")
+
     save(rows, out_dir, db_path)
     return rows
 
@@ -620,14 +959,17 @@ def save(rows: list[dict], out_dir: Path, db_path: Path) -> None:
 
     # Ensure columns exist for older DB files.
     existing_cols = {row[1] for row in con.execute("PRAGMA table_info(prices)").fetchall()}
-    for col in ("cn_price", "en_price", "set_number"):
+    expected_cols = ["collected_at", "source_url", "name", "foil_status", "price", "url", "print_variation", "image_url", "cn_price", "en_price", "set_number", "raw_text"]
+    for col in expected_cols:
         if col not in existing_cols:
             con.execute(f"ALTER TABLE prices ADD COLUMN {col} TEXT")
 
     for row in rows:
+        cols_sql = ",".join(["id"] + expected_cols)
+        placeholders = ",".join(["?"] * (1 + len(expected_cols)))
         con.execute(
-            "INSERT OR IGNORE INTO prices VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
-            [fingerprint(row)] + [row.get(k, "") for k in fields],
+            f"INSERT OR IGNORE INTO prices ({cols_sql}) VALUES ({placeholders})",
+            [fingerprint(row)] + [row.get(k, "") for k in expected_cols],
         )
     con.commit()
     con.close()

@@ -89,6 +89,7 @@ jobs:
             exit 1
           fi
       - name: Upload data artifact
+        if: ${{ always() }}
         uses: actions/upload-artifact@v4
         with:
           name: bilgewater-data-${{ github.run_id }}
