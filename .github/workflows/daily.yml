@@ -20,7 +20,23 @@ jobs:
       - run: python scrape.py
         env:
           USER_AGENT: BilgewaterDailyCollector/1.0 contact=${{ github.repository_owner }}
+      - name: Guard against empty scrape
+        run: |
+          rows=$(($(wc -l < data/bilgewater_latest.csv) - 1))
+          echo "CSV rows: $rows"
+          if [ "$rows" -lt 100 ]; then
+            echo "::error::Refusing commit — bilgewater_latest.csv has only $rows data rows"
+            exit 1
+          fi
       - run: python scripts/build_cards_json.py
+      - name: Guard against empty cards.json
+        run: |
+          count=$(python3 -c "import json; print(json.load(open('web/cards.json')).get('count', 0))")
+          echo "cards.json count: $count"
+          if [ "$count" -lt 100 ]; then
+            echo "::error::Refusing commit — cards.json count is $count"
+            exit 1
+          fi
       - name: Upload data artifact
         uses: actions/upload-artifact@v4
         with:

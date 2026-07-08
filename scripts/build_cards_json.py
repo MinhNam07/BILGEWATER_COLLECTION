@@ -157,8 +157,8 @@ def enrich_row(
     card_type = meta.get("card_type", "Unknown")
     image_url = meta.get("image_thumb") or meta.get("image_url", "")
 
-    # Token cards from UNL set often have T-prefix
-    if set_code == "UNL" and "T" in (raw_text + url).upper():
+    # Token cards use collector numbers like UNL-T01 (not every UNL string with "T")
+    if set_code == "UNL" and re.search(r"\bUNL-T\d+", (raw_text + " " + url).upper()):
         if card_type == "Unknown":
             card_type = "Token"
 
@@ -203,6 +203,14 @@ def main() -> int:
             card["id"] = cid
             seen_ids.add(cid)
             cards.append(card)
+
+    if len(cards) < 100:
+        print(
+            f"Refusing to overwrite {OUT_PATH}: only {len(cards)} cards from CSV "
+            "(expected ≥100). Keeping previous cards.json if present.",
+            file=sys.stderr,
+        )
+        return 1
 
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     payload = {

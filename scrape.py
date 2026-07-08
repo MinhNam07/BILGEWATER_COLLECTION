@@ -401,6 +401,10 @@ async def scrape(
         await browser.close()
 
     rows = dedupe_rows(rows)
+    if not rows:
+        raise RuntimeError(
+            "Scrape returned 0 cards — refusing to overwrite existing data files"
+        )
     save(rows, out_dir, db_path)
     return rows
 
