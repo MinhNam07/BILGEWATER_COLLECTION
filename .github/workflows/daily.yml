@@ -4,6 +4,15 @@ on:
   schedule:
     - cron: "0 17 * * *" # 00:00 Asia/Ho_Chi_Minh
   workflow_dispatch:
+    inputs:
+      urls:
+        description: "Optional: comma-separated Bilgewater card/detail URLs to refresh"
+        required: false
+        type: string
+      limit:
+        description: "Optional: limit cards collected (testing)"
+        required: false
+        type: string
 
 jobs:
   collect:
@@ -17,10 +26,33 @@ jobs:
           python-version: "3.11"
       - run: pip install -r requirements.txt
       - run: playwright install --with-deps chromium
-      - run: python scrape.py
+      - name: Scrape Bilgewater (full or targeted)
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          urls="${{ inputs.urls }}"
+          limit="${{ inputs.limit }}"
+
+          cmd=(python scrape.py)
+          if [ -n "${urls:-}" ]; then
+            echo "Targeted scrape: urls provided"
+            cmd+=(--urls "$urls")
+            cmd+=(--output-dir "data/targeted")
+          else
+            echo "Full scrape: no urls input"
+          fi
+
+          if [ -n "${limit:-}" ]; then
+            cmd+=(--limit "$limit")
+          fi
+
+          echo "Running: ${cmd[*]}"
+          "${cmd[@]}"
         env:
           USER_AGENT: BilgewaterDailyCollector/1.0 contact=${{ github.repository_owner }}
-      - name: Guard against empty scrape
+      - name: Guard against empty full scrape
+        if: ${{ inputs.urls == '' }}
         run: |
           rows=$(($(wc -l < data/bilgewater_latest.csv) - 1))
           echo "CSV rows: $rows"
@@ -28,8 +60,27 @@ jobs:
             echo "::error::Refusing commit — bilgewater_latest.csv has only $rows data rows"
             exit 1
           fi
-      - run: python scripts/build_cards_json.py
+      - name: Guard against empty targeted scrape
+        if: ${{ inputs.urls != '' }}
+        run: |
+          rows=$(($(wc -l < data/targeted/bilgewater_latest.csv) - 1))
+          echo "Targeted CSV rows: $rows"
+          if [ "$rows" -lt 1 ]; then
+            echo "::error::Targeted scrape produced 0 rows"
+            exit 1
+          fi
+      - name: Build cards.json (full)
+        if: ${{ inputs.urls == '' }}
+        run: python scripts/build_cards_json.py
+      - name: Build cards patch + merge into cards.json (targeted)
+        if: ${{ inputs.urls != '' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/build_cards_json.py --csv data/targeted/bilgewater_latest.csv --out web/cards_patch.json --min-count 1
+          python scripts/merge_cards_json.py --current web/cards.json --patch web/cards_patch.json --out web/cards.json
       - name: Guard against empty cards.json
+        if: ${{ inputs.urls == '' }}
         run: |
           count=$(python3 -c "import json; print(json.load(open('web/cards.json')).get('count', 0))")
           echo "cards.json count: $count"
@@ -44,9 +95,18 @@ jobs:
           path: data/
           retention-days: 30
       - name: Commit data
+        shell: bash
         run: |
+          set -euo pipefail
           git config user.name "collector-bot"
           git config user.email "collector-bot@example.com"
-          git add data web/cards.json || true
+
+          urls="${{ inputs.urls }}"
+          if [ -n "${urls:-}" ]; then
+            # Targeted run: only update catalog; do not commit full data/ snapshot.
+            git add web/cards.json || true
+          else
+            git add data web/cards.json || true
+          fi
           git commit -m "collect bilgewater data $(date -u +%F)" || exit 0
           git push

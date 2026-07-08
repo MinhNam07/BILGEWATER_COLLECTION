@@ -10,7 +10,7 @@ import re
 import shutil
 import sqlite3
 from pathlib import Path
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse, parse_qs
 
 from dotenv import load_dotenv
 from playwright.async_api import TimeoutError as PlaywrightTimeoutError
@@ -92,6 +92,53 @@ EXTRACT_CARDS_JS = r"""
 }
 """
 
+EXTRACT_DETAIL_JS = r"""
+() => {
+  const visible = el => {
+    const r = el.getBoundingClientRect();
+    const s = getComputedStyle(el);
+    return r.width > 0 && r.height > 0 && s.visibility !== 'hidden' && s.display !== 'none';
+  };
+  const norm = s => (s || '').replace(/\s+/g, ' ').trim();
+
+  const titleEl = document.querySelector('h1') || document.querySelector('[data-testid="card-name"]');
+  const name = norm(titleEl ? titleEl.textContent : '');
+
+  // Try to find CN/EN price blocks (same pattern as tiles), then fall back to text scan.
+  let cnPrice = null;
+  let enPrice = null;
+  for (const row of document.querySelectorAll('.flex.items-center.justify-between')) {
+    const label = row.querySelector('span.text-muted-foreground, span.text-xs');
+    const value = row.querySelector('.font-mono');
+    if (!label || !value) continue;
+    const market = norm(label.textContent).toUpperCase();
+    const priceText = norm(value.textContent);
+    if (market === 'CN') cnPrice = priceText;
+    if (market === 'EN') enPrice = priceText;
+  }
+
+  // Pick the most likely "main card art" image: largest visible image.
+  let best = { area: 0, url: '' };
+  for (const img of document.querySelectorAll('img')) {
+    if (!visible(img)) continue;
+    const r = img.getBoundingClientRect();
+    const area = r.width * r.height;
+    const url = img.currentSrc || img.src || '';
+    if (!url) continue;
+    if (area > best.area) best = { area, url };
+  }
+
+  const rawText = norm(document.body ? document.body.innerText : '');
+  return {
+    name,
+    cnPrice,
+    enPrice,
+    imageUrl: best.url || '',
+    text: rawText.slice(0, 3000),
+  };
+}
+"""
+
 
 def now_iso() -> str:
     return dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds")
@@ -168,6 +215,53 @@ def extract_market_price(text: str, market: str) -> str | None:
 def parse_price(text: str) -> str | None:
     return extract_market_price(text, "EN") or extract_market_price(text, "CN") or normalize_price(text)
 
+SET_NUMBER_URL_RE = re.compile(r"/cards/([A-Z]+)-(\d+)([A-Z])?", re.I)
+
+
+def is_cards_index_url(url: str) -> bool:
+    try:
+        p = urlparse(url)
+    except Exception:
+        return False
+    path = (p.path or "").rstrip("/")
+    return path.lower().endswith("/cards")
+
+
+def is_detail_card_url(url: str) -> bool:
+    try:
+        p = urlparse(url)
+    except Exception:
+        return False
+    path = (p.path or "")
+    return bool(re.search(r"/cards/[A-Za-z]+-\d+[A-Za-z]?(?:/)?$", path))
+
+
+def parse_print_variation_from_url(url: str) -> str:
+    try:
+        q = parse_qs(urlparse(url).query or "")
+        pv = (q.get("print_variation") or [""])[0].strip().lower()
+        return pv or "normal"
+    except Exception:
+        return "normal"
+
+
+def parse_set_number_from_url(url: str) -> str | None:
+    m = SET_NUMBER_URL_RE.search(url or "")
+    if not m:
+        return None
+    set_code = m.group(1).upper()
+    num = int(m.group(2))
+    suffix = (m.group(3) or "").upper()
+    return f"{set_code}-{num:03d}{suffix}"
+
+
+def infer_foil_from_print_variation(print_variation: str, fallback: str) -> str:
+    pv = (print_variation or "").lower()
+    if pv == "foiled":
+        return "foil"
+    if pv:
+        return "nonfoil"
+    return fallback
 
 def fingerprint(row: dict) -> str:
     key = "|".join(
@@ -214,6 +308,7 @@ def build_row(
     is_showcase: bool = False,
     print_variation: str | None = None,
     image_url: str | None = None,
+    set_number: str | None = None,
 ) -> dict | None:
     abs_url = urljoin(base_url, href) if href else source_url
     price = normalize_price(en_price) or normalize_price(cn_price) or parse_price(text)
@@ -242,6 +337,8 @@ def build_row(
         else:
             pv = "normal"
 
+    foil_status = infer_foil_from_print_variation(pv, foil_status)
+
     return {
         "collected_at": now_iso(),
         "source_url": source_url,
@@ -251,6 +348,9 @@ def build_row(
         "url": abs_url,
         "print_variation": pv,
         "image_url": (image_url or "").strip(),
+        "cn_price": (cn_price or "").strip() if cn_price else "",
+        "en_price": (en_price or "").strip() if en_price else "",
+        "set_number": (set_number or "").strip() if set_number else "",
         "raw_text": re.sub(r"\s+", " ", text).strip()[:1000],
     }
 
@@ -345,6 +445,32 @@ async def extract_candidates(
     return deduped[:limit] if limit else deduped
 
 
+async def extract_detail_row(page, url: str, base_url: str) -> dict | None:
+    item = await page.evaluate(EXTRACT_DETAIL_JS)
+    name = (item.get("name") or "").strip()
+    text = (item.get("text") or "").strip()
+    cn_price = item.get("cnPrice")
+    en_price = item.get("enPrice")
+    image_url = item.get("imageUrl")
+    pv = parse_print_variation_from_url(url)
+    set_number = parse_set_number_from_url(url) or ""
+
+    return build_row(
+        source_url=url,
+        base_url=base_url,
+        name=name,
+        href=url,
+        text=text or name,
+        cn_price=cn_price,
+        en_price=en_price,
+        is_foil=None,
+        is_showcase=(pv == "showcase"),
+        print_variation=pv,
+        image_url=image_url,
+        set_number=set_number,
+    )
+
+
 async def extract_candidates_fallback(
     page, source_url: str, base_url: str, limit: int | None = None
 ) -> list[dict]:
@@ -409,8 +535,12 @@ async def scrape(
                 log.info("navigating to %s", url)
                 await page.goto(url, wait_until="domcontentloaded", timeout=PAGE_TIMEOUT_MS)
                 await page.wait_for_timeout(NETWORK_SETTLE_MS)
-                await load_all_cards(page, limit=limit)
-                page_rows = await extract_candidates(page, url, base_url, limit=limit)
+                if is_detail_card_url(url) and not is_cards_index_url(url):
+                    row = await extract_detail_row(page, url, base_url)
+                    page_rows = [row] if row else []
+                else:
+                    await load_all_cards(page, limit=limit)
+                    page_rows = await extract_candidates(page, url, base_url, limit=limit)
                 if limit:
                     remaining = limit - len(rows)
                     if remaining <= 0:
@@ -448,6 +578,9 @@ def save(rows: list[dict], out_dir: Path, db_path: Path) -> None:
         "url",
         "print_variation",
         "image_url",
+        "cn_price",
+        "en_price",
+        "set_number",
         "raw_text",
     ]
     csv_path = out_dir / f"bilgewater_{stamp}.csv"
@@ -478,13 +611,23 @@ def save(rows: list[dict], out_dir: Path, db_path: Path) -> None:
         url TEXT,
         print_variation TEXT,
         image_url TEXT,
+        cn_price TEXT,
+        en_price TEXT,
+        set_number TEXT,
         raw_text TEXT
     )"""
     )
+
+    # Ensure columns exist for older DB files.
+    existing_cols = {row[1] for row in con.execute("PRAGMA table_info(prices)").fetchall()}
+    for col in ("cn_price", "en_price", "set_number"):
+        if col not in existing_cols:
+            con.execute(f"ALTER TABLE prices ADD COLUMN {col} TEXT")
+
     for row in rows:
         con.execute(
-            "INSERT OR IGNORE INTO prices VALUES (?,?,?,?,?,?,?,?,?,?)",
-            [fingerprint(row)] + [row[k] for k in fields],
+            "INSERT OR IGNORE INTO prices VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            [fingerprint(row)] + [row.get(k, "") for k in fields],
         )
     con.commit()
     con.close()
