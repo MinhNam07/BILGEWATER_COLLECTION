@@ -41,6 +41,7 @@ NETWORK_SETTLE_MS = 2_000
 HYDRATION_WAIT_MS = 10_000
 DETAIL_TIMEOUT_MS = 12_000
 DETAIL_SETTLE_MS = 800
+DETAIL_WARMUP_MS = 3_000
 DEFAULT_CONCURRENCY = 10
 DEFAULT_TOTAL_TIMEOUT_SEC = 2_700
 DEFAULT_MAX_DETAIL_RETRIES = 1
@@ -48,6 +49,17 @@ DEFAULT_MAX_DEBUG_ARTIFACTS = 15
 DEFAULT_FAIL_RATE_ABORT = 0.30
 DEFAULT_FAIL_RATE_MIN_SAMPLES = 40
 PROGRESS_LOG_EVERY = 10
+
+CARDS_LINKS_WAIT_JS = r"""() => {
+  const re = /\/cards\/[A-Za-z]+-\d+[A-Za-z]?(?:\/)?$/i;
+  for (const a of document.querySelectorAll('a[href*="/cards/"]')) {
+    try {
+      const u = new URL(a.href || '', location.href);
+      if (re.test(u.pathname || '')) return true;
+    } catch {}
+  }
+  return false;
+}"""
 
 EXTRACT_CARDS_JS = r"""
 () => {
@@ -129,31 +141,74 @@ EXTRACT_DETAIL_JS = r"""
   };
   const norm = s => (s || '').replace(/\s+/g, ' ').trim();
 
+  // Detail pages use h1 for the card name — never list/tile selectors.
   const titleEl = document.querySelector('h1') || document.querySelector('[data-testid="card-name"]');
-  const name = norm(titleEl ? titleEl.textContent : '');
-
-  // Try to find CN/EN price blocks (same pattern as tiles), then fall back to text scan.
-  let cnPrice = null;
-  let enPrice = null;
-  for (const row of document.querySelectorAll('.flex.items-center.justify-between')) {
-    const label = row.querySelector('span.text-muted-foreground, span.text-xs');
-    const value = row.querySelector('.font-mono');
-    if (!label || !value) continue;
-    const market = norm(label.textContent).toUpperCase();
-    const priceText = norm(value.textContent);
-    if (market === 'CN') cnPrice = priceText;
-    if (market === 'EN') enPrice = priceText;
+  let name = norm(titleEl ? titleEl.textContent : '');
+  if (!name && document.title) {
+    const left = String(document.title).split('|')[0].trim();
+    if (left && !/^[A-Z]+-\d+[A-Z]?\b/i.test(left)) name = left;
   }
 
-  // Pick the most likely "main card art" image: largest visible image.
-  let best = { area: 0, url: '' };
+  // Prefer MARKET PRICES block labels (CN/EN), not OTHER PRINTS / list tiles.
+  let cnPrice = null;
+  let enPrice = null;
+  const headings = [...document.querySelectorAll('p, h2, h3, div, span')];
+  let marketRoot = null;
+  for (const el of headings) {
+    if (/^market\s+prices$/i.test(norm(el.textContent))) {
+      marketRoot = el.closest('.rounded-lg') || el.parentElement || el;
+      break;
+    }
+  }
+  const priceScope = marketRoot || document;
+  for (const label of priceScope.querySelectorAll('span.text-muted-foreground, span.text-xs')) {
+    const market = norm(label.textContent).toUpperCase();
+    if (market !== 'CN' && market !== 'EN') continue;
+    // Sibling / nearby numeric text: "CNY 7.11" or "¥0.53" or bare "7.11".
+    const row = label.parentElement || label;
+    const rowText = norm(row.textContent || '');
+    let m = rowText.match(
+      market === 'CN'
+        ? /\bCN\b[^0-9]{0,24}(?:CNY|RMB|CN¥|¥|￥)?\s*(\d[\d,]*(?:\.\d+)?)/i
+        : /\bEN\b[^0-9]{0,24}(?:USD|US\$|\$)?\s*(\d[\d,]*(?:\.\d+)?)/i
+    );
+    if (!m) continue;
+    if (market === 'CN') cnPrice = m[1];
+    if (market === 'EN') enPrice = m[1];
+  }
+
+  // Main card art: largest visible non-nav image (prefer /assets/ card art).
+  let best = { area: 0, url: '', score: -1 };
   for (const img of document.querySelectorAll('img')) {
     if (!visible(img)) continue;
-    const r = img.getBoundingClientRect();
-    const area = r.width * r.height;
     const url = img.currentSrc || img.src || '';
     if (!url) continue;
-    if (area > best.area) best = { area, url };
+    const low = url.toLowerCase();
+    if (low.includes('navbar') || low.includes('logo') || low.includes('favicon')) continue;
+    const r = img.getBoundingClientRect();
+    const area = r.width * r.height;
+    let score = area;
+    if (/\/assets\/.*\.(webp|png|jpe?g)/i.test(url)) score += 1e6;
+    if (img.closest('[class*="aspect-"]')) score += 5e5;
+    if (score > best.score) best = { area, url, score };
+  }
+
+  let setNumber = '';
+  try {
+    const m = (location.pathname || '').match(/\/cards\/([A-Za-z]+-\d+[A-Za-z]?)/i);
+    if (m) setNumber = m[1].toUpperCase();
+  } catch {}
+
+  let printVariation = 'normal';
+  try {
+    const pv = (new URL(location.href)).searchParams.get('print_variation');
+    if (pv) printVariation = String(pv).toLowerCase();
+  } catch {}
+  // Badge fallback when URL omits print_variation.
+  if (printVariation === 'normal') {
+    const badgeText = norm(document.body ? document.body.innerText : '').slice(0, 2500);
+    if (/\bshowcase\b/i.test(badgeText)) printVariation = 'showcase';
+    else if (/\bfoiled?\b/i.test(badgeText) && !/\bnormal\b/i.test(badgeText)) printVariation = 'foiled';
   }
 
   const rawText = norm(document.body ? document.body.innerText : '');
@@ -162,8 +217,10 @@ EXTRACT_DETAIL_JS = r"""
     cnPrice,
     enPrice,
     imageUrl: best.url || '',
-    // Some pages render market/price sections far below; keep enough text
-    // for robust price parsing, while still bounding payload size.
+    setNumber,
+    printVariation,
+    documentTitle: document.title || '',
+    // Keep enough body text for Python regex fallback (CN CNY / EN USD).
     text: rawText.slice(0, 15000),
   };
 }
@@ -230,16 +287,69 @@ def parse_name(text: str, href: str | None) -> str:
 
 
 def extract_market_price(text: str, market: str) -> str | None:
-    m = re.search(
-        rf"(?i)\b{re.escape(market)}\s*(?:US\$|[$¥￥])\s*(\d[\d,]*(?:\.\d+)?)",
-        text or "",
-    )
-    if not m:
+    """Extract CN/EN market price from tile or detail body text.
+
+    Supports symbol style (``CN ¥0.53`` / ``EN $0.04``) and currency-code
+    style used on detail pages (``CN CNY 0.53`` / ``EN USD 0.04``), including
+    newline-separated variants.
+    """
+    market = (market or "").strip().upper()
+    if market not in {"CN", "EN"}:
         return None
-    try:
-        return f"{float(m.group(1).replace(',', '')):.2f}"
-    except ValueError:
-        return None
+    # Flatten whitespace so "CN\\nCNY\\n7.11" still matches.
+    flat = re.sub(r"\s+", " ", text or "")
+    if market == "CN":
+        patterns = [
+            r"(?i)\bCN\s+(?:CNY|RMB|CN¥|¥|￥)\s*(\d[\d,]*(?:\.\d+)?)",
+            r"(?i)\bCN\s+(?:US\$|[$¥￥])\s*(\d[\d,]*(?:\.\d+)?)",
+        ]
+    else:
+        patterns = [
+            r"(?i)\bEN\s+(?:USD|US\$|\$)\s*(\d[\d,]*(?:\.\d+)?)",
+            r"(?i)\bEN\s+(?:US\$|[$¥￥])\s*(\d[\d,]*(?:\.\d+)?)",
+        ]
+    for pat in patterns:
+        m = re.search(pat, flat)
+        if not m:
+            continue
+        try:
+            return f"{float(m.group(1).replace(',', '')):.2f}"
+        except ValueError:
+            continue
+    return None
+
+
+def parse_detail_market_prices(text: str) -> tuple[str | None, str | None]:
+    """Prefer prices from the MARKET PRICES section on detail pages."""
+    raw = text or ""
+    # Prefer the dedicated market block so OTHER PRINTS tiles don't win.
+    section = raw
+    m = re.search(r"(?i)market\s+prices(.{0,800})", raw, re.S)
+    if m:
+        section = m.group(1)
+    cn = extract_market_price(section, "CN")
+    en = extract_market_price(section, "EN")
+    if cn is None and en is None and section is not raw:
+        cn = extract_market_price(raw, "CN")
+        en = extract_market_price(raw, "EN")
+    return cn, en
+
+
+def parse_name_from_document_title(title: str) -> str:
+    """Card name from ``Name | ...`` document title when h1 is missing."""
+    t = (title or "").strip()
+    if not t:
+        return ""
+    # "Katarina, Reckless Price | Riftbound Card Price History"
+    left = t.split("|", 1)[0].strip()
+    if not left:
+        return ""
+    # Skip generic titles like "UNL-023 Riftbound Card Detail | Bilgewater Market"
+    if re.match(r"(?i)^[A-Z]+-\d+[A-Z]?\b", left) and " " in left and "Riftbound" in left:
+        return ""
+    if BAD_NAME_RE.match(left):
+        return ""
+    return left
 
 
 def parse_price(text: str) -> str | None:
@@ -549,6 +659,55 @@ def is_blocked_or_challenged(title: str, body_text: str) -> bool:
     return any(s in t for s in signals) or any(s in b for s in signals)
 
 
+def is_card_not_found(body_text: str) -> bool:
+    return bool(re.search(r"\bcard not found\b", body_text or "", re.I))
+
+
+def cards_index_url(base_url: str) -> str:
+    return urljoin(base_url.rstrip("/") + "/", "cards")
+
+
+async def warmup_cards_session(
+    page,
+    base_url: str,
+    *,
+    timeout_ms: int = PAGE_TIMEOUT_MS,
+) -> bool:
+    """Load /cards so App Check + API session exist before detail navigation."""
+    cards_url = cards_index_url(base_url)
+    try:
+        try:
+            async with page.expect_response(
+                lambda r: "cards-with-prices" in r.url and r.status == 200,
+                timeout=min(timeout_ms, 45_000),
+            ):
+                await page.goto(cards_url, wait_until="domcontentloaded", timeout=timeout_ms)
+        except PlaywrightTimeoutError:
+            await page.goto(cards_url, wait_until="domcontentloaded", timeout=timeout_ms)
+        try:
+            await page.wait_for_function(CARDS_LINKS_WAIT_JS, timeout=min(timeout_ms, 45_000))
+        except PlaywrightTimeoutError:
+            pass
+        await page.wait_for_timeout(DETAIL_WARMUP_MS)
+        ready = await page.evaluate(CARDS_LINKS_WAIT_JS)
+        if ready:
+            log.info("cards session warmup ready: %s", cards_url)
+        else:
+            log.warning("cards session warmup: no card links visible on %s", cards_url)
+        return bool(ready)
+    except Exception:
+        log.exception("cards session warmup failed for %s", cards_url)
+        return False
+
+
+async def warmup_detail_context(context, base_url: str) -> bool:
+    page = await context.new_page()
+    try:
+        return await warmup_cards_session(page, base_url)
+    finally:
+        await page.close()
+
+
 def load_existing_cards_index(path: Path) -> dict[str, dict]:
     """Index existing web/cards.json entries by lowercased URL (without fragment)."""
     try:
@@ -574,7 +733,7 @@ def load_existing_cards_index(path: Path) -> dict[str, dict]:
 
 
 async def ensure_cards_list_ready(
-    page, out_dir: Path, url: str, stats: ScrapeStats | None = None
+    page, out_dir: Path, url: str, base_url: str, stats: ScrapeStats | None = None
 ) -> int:
     # Prefer condition-based waiting over fixed sleeps, but keep bounded waits
     # to avoid hanging in CI.
@@ -594,23 +753,15 @@ async def ensure_cards_list_ready(
 
     # Then, wait for any /cards/ anchors to appear (broader than tile selector).
     try:
-        await page.wait_for_function(
-            r"""() => {
-              const re = /\/cards\/[A-Za-z]+-\d+[A-Za-z]?(?:\/)?$/i;
-              for (const a of document.querySelectorAll('a[href*="/cards/"]')) {
-                try {
-                  const u = new URL(a.href || '', location.href);
-                  if (re.test(u.pathname || '')) return true;
-                } catch {}
-              }
-              return false;
-            }""",
-            timeout=20_000,
-        )
+        await page.wait_for_function(CARDS_LINKS_WAIT_JS, timeout=45_000)
     except PlaywrightTimeoutError:
         pass
 
     count = await count_cards(page)
+    if not count:
+        log.warning("cards list still empty after waits for %s — retrying session warmup", url)
+        if await warmup_cards_session(page, base_url):
+            count = await count_cards(page)
     if not count:
         log.warning("cards list still empty after waits for %s", url)
         await save_debug_artifacts(page, out_dir, "cards_list_empty", stats)
@@ -729,13 +880,37 @@ async def extract_candidates(
 
 async def extract_detail_row(page, url: str, base_url: str) -> dict | None:
     item = await page.evaluate(EXTRACT_DETAIL_JS)
-    name = (item.get("name") or "").strip()
     text = (item.get("text") or "").strip()
-    cn_price = item.get("cnPrice")
-    en_price = item.get("enPrice")
-    image_url = item.get("imageUrl")
+    name = (item.get("name") or "").strip()
+    if not name:
+        name = parse_name_from_document_title(item.get("documentTitle") or "")
+
+    # DOM may leave cn/en null; always fill from MARKET PRICES text fallback.
+    cn_dom = item.get("cnPrice")
+    en_dom = item.get("enPrice")
+    cn_fb, en_fb = parse_detail_market_prices(text)
+    cn_price = normalize_price(cn_dom) or cn_fb
+    en_price = normalize_price(en_dom) or en_fb
+
+    image_url = (item.get("imageUrl") or "").strip()
+    # Reject obvious chrome images if JS missed filters.
+    if image_url and re.search(r"(?i)navbar|favicon|/logo", image_url):
+        image_url = ""
+
     pv = parse_print_variation_from_url(url)
-    set_number = parse_set_number_from_url(url) or ""
+    if pv == "normal":
+        js_pv = (item.get("printVariation") or "").strip().lower()
+        if js_pv in {"foiled", "showcase", "normal"}:
+            pv = js_pv
+
+    set_number = (
+        parse_set_number_from_url(url)
+        or (item.get("setNumber") or "").strip().upper()
+        or ""
+    )
+    if set_number and not re.match(r"^[A-Z]+-\d{3}[A-Z]?$", set_number):
+        # Normalize UNL-23 -> UNL-023 when coming from raw pathname.
+        set_number = parse_set_number_from_url(f"/cards/{set_number}") or set_number
 
     return build_row(
         source_url=url,
@@ -800,25 +975,42 @@ async def fetch_detail_once(
     detail_timeout_ms: int,
 ) -> tuple[dict | None, str, str, bool]:
     """Navigate once and extract a detail row. Returns (row, title, body, blocked)."""
-    await page.goto(url, wait_until="domcontentloaded", timeout=detail_timeout_ms)
-    await page.wait_for_timeout(DETAIL_SETTLE_MS)
-    settle_budget = max(1_000, min(4_000, detail_timeout_ms // 3))
-    try:
-        await page.wait_for_function(
-            r"""() => {
-              const t = (document.body && (document.body.innerText || '')) || '';
-              return /(CN¥|US\$|SGD|USD|CNY|RMB|[$¥￥€£])\s*\d/i.test(t)
-                || /\b(EN|CN)\s+(USD|CNY)\b/i.test(t)
-                || !!document.querySelector('h1');
-            }""",
-            timeout=settle_budget,
-        )
-    except PlaywrightTimeoutError:
-        pass
 
-    row = await extract_detail_row(page, url, base_url)
-    title, body = await page_debug_summary(page)
-    blocked = is_blocked_or_challenged(title, body)
+    async def _load_and_extract(target_url: str) -> tuple[dict | None, str, str, bool]:
+        await page.goto(target_url, wait_until="domcontentloaded", timeout=detail_timeout_ms)
+        await page.wait_for_timeout(DETAIL_SETTLE_MS)
+        settle_budget = max(2_000, min(8_000, max(detail_timeout_ms // 2, 2_000)))
+        try:
+            await page.wait_for_function(
+                r"""() => {
+                  const t = (document.body && (document.body.innerText || '')) || '';
+                  if (/card not found/i.test(t)) return false;
+                  if (/market\s+prices/i.test(t)) return true;
+                  if (/\bCN\s+CNY\b/i.test(t) && /\bEN\s+USD\b/i.test(t)) return true;
+                  if (document.querySelector('h1') && t.length > 140) return true;
+                  for (const img of document.querySelectorAll('img')) {
+                    const src = (img.currentSrc || img.src || '').toLowerCase();
+                    if (!src || src.includes('navbar') || src.includes('logo')) continue;
+                    const r = img.getBoundingClientRect();
+                    if (r.width >= 120 && r.height >= 120 && /\/assets\//.test(src)) return true;
+                  }
+                  return false;
+                }""",
+                timeout=settle_budget,
+            )
+        except PlaywrightTimeoutError:
+            pass
+
+        row = await extract_detail_row(page, target_url, base_url)
+        title, body = await page_debug_summary(page)
+        blocked = is_blocked_or_challenged(title, body)
+        return row, title, body, blocked
+
+    row, title, body, blocked = await _load_and_extract(url)
+    if not row and not blocked and is_card_not_found(body):
+        log.info("detail page not ready for %s — warming /cards session and retrying", url)
+        if await warmup_cards_session(page, base_url):
+            row, title, body, blocked = await _load_and_extract(url)
     return row, title, body, blocked
 
 
@@ -842,6 +1034,8 @@ async def scrape_detail_urls(
     """Concurrent detail scrape with deadline, fail-rate abort, and debug cap."""
     if not urls:
         return []
+
+    await warmup_detail_context(context, base_url)
 
     work_urls = urls[:limit] if limit else list(urls)
     stats.total = len(work_urls)
@@ -915,7 +1109,13 @@ async def scrape_detail_urls(
                         break
 
                 if not row and not stop_event.is_set():
-                    reason = "blocked_or_challenged" if blocked else "detail_empty"
+                    reason = (
+                        "blocked_or_challenged"
+                        if blocked
+                        else "card_not_found"
+                        if is_card_not_found(last_body)
+                        else "detail_empty"
+                    )
                     await save_debug_artifacts(
                         page,
                         out_dir,
@@ -959,7 +1159,13 @@ async def scrape_detail_urls(
                         {"url": url, "status": "ok", "final_url": row.get("url", "")}
                     )
             else:
-                reason = "blocked_or_challenged" if blocked else "detail_empty"
+                reason = (
+                    "blocked_or_challenged"
+                    if blocked
+                    else "card_not_found"
+                    if is_card_not_found(last_body)
+                    else "detail_empty"
+                )
                 log.warning(
                     "%s: 0 row for %s (tried=%d) title=%r body[0:200]=%r",
                     reason,
@@ -1016,7 +1222,7 @@ async def scrape_list_page(
         log.info("navigating to %s", url)
         await page.goto(url, wait_until="domcontentloaded", timeout=PAGE_TIMEOUT_MS)
         await page.wait_for_timeout(NETWORK_SETTLE_MS)
-        visible = await ensure_cards_list_ready(page, out_dir, url, stats)
+        visible = await ensure_cards_list_ready(page, out_dir, url, base_url, stats)
         check_deadline(stats.t0, total_timeout_sec)
         if visible == 0:
             return [], []
