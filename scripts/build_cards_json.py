@@ -21,8 +21,9 @@ GIST_CATALOG_URL = (
     "e04dadf641cc9b81cb882b4612343112/raw/riftbound_v1_cards.json"
 )
 
-SET_NUMBER_RE = re.compile(r"\b([A-Z]+)-(\d+)(?:/(\d+))?\b")
-URL_SET_RE = re.compile(r"/cards/([A-Z]+)-(\d+)", re.I)
+# Matches e.g. UNL-059, UNL-059A, UNL-001/219, UNL-001A/219
+SET_NUMBER_RE = re.compile(r"\b([A-Z]+)-(\d+)([A-Z])?(?:/(\d+))?\b")
+URL_SET_RE = re.compile(r"/cards/([A-Z]+)-(\d+)([A-Z])?", re.I)
 
 
 def fetch_json(url: str) -> object:
@@ -108,30 +109,49 @@ def fetch_gist_catalog() -> dict[str, dict]:
     return catalog
 
 
-def parse_set_info(raw_text: str, url: str) -> tuple[str, int, str]:
+def parse_set_info(raw_text: str, url: str) -> tuple[str, int, str, str]:
     """Return (set_code, collector_number, set_number_display)."""
     for source in (raw_text, url):
         m = SET_NUMBER_RE.search(source or "")
         if m:
             set_code = m.group(1).upper()
             num = int(m.group(2))
-            total = m.group(3)
-            display = f"{set_code}-{num:03d}/{total}" if total else f"{set_code}-{num:03d}"
-            return set_code, num, display
+            suffix = (m.group(3) or "").upper()
+            total = m.group(4)
+            base = f"{set_code}-{num:03d}{suffix}"
+            display = f"{base}/{total}" if total else base
+            return set_code, num, suffix, display
 
     m = URL_SET_RE.search(url or "")
     if m:
         set_code = m.group(1).upper()
         num = int(m.group(2))
-        return set_code, num, f"{set_code}-{num:03d}"
+        suffix = (m.group(3) or "").upper()
+        return set_code, num, suffix, f"{set_code}-{num:03d}{suffix}"
 
-    return "", 0, ""
+    return "", 0, "", ""
 
 
-def make_card_id(set_code: str, num: int, foil_status: str, url: str = "") -> str:
+def infer_print_variation(row: dict) -> str:
+    pv = (row.get("print_variation") or "").strip().lower()
+    if pv:
+        return pv
+    url = (row.get("url") or "").lower()
+    if "print_variation=showcase" in url:
+        return "showcase"
+    if "print_variation=foiled" in url:
+        return "foiled"
+    return "normal"
+
+
+def make_card_id(
+    set_code: str, num: int, suffix: str, print_variation: str, foil_status: str, url: str = ""
+) -> str:
+    # Include suffix (e.g. 059A) + print variation to prevent collisions between
+    # normal/showcase/foil entries that share the same name.
     if set_code and num:
-        return f"{set_code}-{num:03d}-{foil_status}"
-    return f"url-{abs(hash(url)) % 10_000_000:07d}-{foil_status}"
+        return f"{set_code}-{num:03d}{suffix}-{print_variation}-{foil_status}"
+    return f"url-{abs(hash(url)) % 10_000_000:07d}-{print_variation}-{foil_status}"
 
 
 def enrich_row(
@@ -142,7 +162,8 @@ def enrich_row(
     raw_text = row.get("raw_text", "")
     url = row.get("url", "")
     foil_status = row.get("foil_status", "unknown")
-    set_code, num, set_number = parse_set_info(raw_text, url)
+    set_code, num, suffix, set_number = parse_set_info(raw_text, url)
+    print_variation = infer_print_variation(row)
 
     meta = riftscribe.get((set_code, num), {}) if set_code and num else {}
     if not meta and set_number:
@@ -155,14 +176,15 @@ def enrich_row(
 
     name = row.get("name") or meta.get("name", "Unknown")
     card_type = meta.get("card_type", "Unknown")
-    image_url = meta.get("image_thumb") or meta.get("image_url", "")
+    # Prefer BilgewaterMarket thumbnail when available (captures showcase/alt art).
+    image_url = (row.get("image_url") or "").strip() or meta.get("image_thumb") or meta.get("image_url", "")
 
     # Token cards use collector numbers like UNL-T01 (not every UNL string with "T")
     if set_code == "UNL" and re.search(r"\bUNL-T\d+", (raw_text + " " + url).upper()):
         if card_type == "Unknown":
             card_type = "Token"
 
-    card_id = make_card_id(set_code, num, foil_status, url)
+    card_id = make_card_id(set_code, num, suffix, print_variation, foil_status, url)
 
     return {
         "id": card_id,
@@ -171,6 +193,7 @@ def enrich_row(
         "set_number": set_number,
         "card_type": card_type,
         "foil_status": foil_status,
+        "print_variation": print_variation,
         "price": row.get("price", ""),
         "url": url,
         "image_url": image_url,

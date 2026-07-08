@@ -66,6 +66,15 @@ EXTRACT_CARDS_JS = r"""
 
     const isFoil = href.includes('print_variation=foiled') || /\bfoiled\b/i.test(text);
     const isShowcase = href.includes('print_variation=showcase') || /\bshowcase\b/i.test(text);
+    let printVariation = 'normal';
+    try {
+      const u = new URL(href);
+      const pv = (u.searchParams.get('print_variation') || '').toLowerCase();
+      if (pv) printVariation = pv;
+    } catch {}
+
+    const imgEl = anchor.querySelector('img');
+    const imageUrl = imgEl ? (imgEl.currentSrc || imgEl.src || '') : '';
 
     cards.push({
       name,
@@ -75,6 +84,8 @@ EXTRACT_CARDS_JS = r"""
       enPrice,
       isFoil,
       isShowcase,
+      printVariation,
+      imageUrl,
     });
   }
   return cards;
@@ -106,8 +117,9 @@ def normalize_price(text: str | None) -> str | None:
 
 
 def normalize_foil_from_dom(is_foil: bool, text: str = "", is_showcase: bool = False) -> str:
+    # Showcase is an alternate print, not inherently foil.
     if is_showcase:
-        return "unknown"
+        return "nonfoil"
     if is_foil:
         return "foil"
     low = (text or "").lower()
@@ -164,6 +176,7 @@ def fingerprint(row: dict) -> str:
             row.get("url", ""),
             row.get("name", ""),
             row.get("foil_status", ""),
+            row.get("print_variation", ""),
             row.get("price", ""),
         ]
     )
@@ -199,6 +212,8 @@ def build_row(
     en_price: str | None = None,
     is_foil: bool | None = None,
     is_showcase: bool = False,
+    print_variation: str | None = None,
+    image_url: str | None = None,
 ) -> dict | None:
     abs_url = urljoin(base_url, href) if href else source_url
     price = normalize_price(en_price) or normalize_price(cn_price) or parse_price(text)
@@ -214,9 +229,18 @@ def build_row(
     if foil_status == "unknown" and "print_variation=foiled" in abs_url:
         foil_status = "foil"
     elif foil_status == "unknown" and "print_variation=showcase" in abs_url:
-        foil_status = "unknown"
+        foil_status = "nonfoil"
     elif foil_status == "unknown" and "/cards/" in abs_url:
         foil_status = "nonfoil"
+
+    pv = (print_variation or "").strip().lower()
+    if not pv:
+        if "print_variation=showcase" in abs_url:
+            pv = "showcase"
+        elif "print_variation=foiled" in abs_url:
+            pv = "foiled"
+        else:
+            pv = "normal"
 
     return {
         "collected_at": now_iso(),
@@ -225,6 +249,8 @@ def build_row(
         "foil_status": foil_status,
         "price": price,
         "url": abs_url,
+        "print_variation": pv,
+        "image_url": (image_url or "").strip(),
         "raw_text": re.sub(r"\s+", " ", text).strip()[:1000],
     }
 
@@ -302,6 +328,8 @@ async def extract_candidates(
             en_price=item.get("enPrice"),
             is_foil=item.get("isFoil"),
             is_showcase=item.get("isShowcase", False),
+            print_variation=item.get("printVariation"),
+            image_url=item.get("imageUrl"),
         )
         if row:
             rows.append(row)
@@ -418,6 +446,8 @@ def save(rows: list[dict], out_dir: Path, db_path: Path) -> None:
         "foil_status",
         "price",
         "url",
+        "print_variation",
+        "image_url",
         "raw_text",
     ]
     csv_path = out_dir / f"bilgewater_{stamp}.csv"
@@ -446,12 +476,14 @@ def save(rows: list[dict], out_dir: Path, db_path: Path) -> None:
         foil_status TEXT,
         price TEXT,
         url TEXT,
+        print_variation TEXT,
+        image_url TEXT,
         raw_text TEXT
     )"""
     )
     for row in rows:
         con.execute(
-            "INSERT OR IGNORE INTO prices VALUES (?,?,?,?,?,?,?,?)",
+            "INSERT OR IGNORE INTO prices VALUES (?,?,?,?,?,?,?,?,?,?)",
             [fingerprint(row)] + [row[k] for k in fields],
         )
     con.commit()
