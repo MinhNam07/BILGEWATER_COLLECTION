@@ -516,6 +516,23 @@ async def count_cards(page) -> int:
 
 
 @dataclass
+class BrowserSession:
+    """Shared browser state: cached /api/cards-with-prices payload."""
+
+    api_cards: list[dict] | None = None
+    _api_index: dict[tuple[str, str], dict] | None = field(default=None, repr=False)
+
+    def set_api_cards(self, cards: list[dict] | None) -> None:
+        self.api_cards = cards if cards else None
+        self._api_index = None
+
+    def api_index(self) -> dict[tuple[str, str], dict]:
+        if self._api_index is None:
+            self._api_index = group_api_cards(self.api_cards or [])
+        return self._api_index
+
+
+@dataclass
 class ScrapeStats:
     total: int = 0
     processed: int = 0
@@ -571,21 +588,170 @@ def url_index_key(url: str) -> str:
         return url.lower()
 
 
+def normalize_short_card_id(raw: str) -> str:
+    """Normalize UNL-028A → UNL-028a to match Bilgewater API card_id prefixes."""
+    raw = (raw or "").strip()
+    m = re.match(r"^([A-Za-z]+)-(\d+)([A-Za-z])?$", raw)
+    if not m:
+        return raw.upper()
+    suffix = (m.group(3) or "").lower()
+    return f"{m.group(1).upper()}-{int(m.group(2)):03d}{suffix}"
+
+
+def api_lookup_key(url: str) -> tuple[str, str] | None:
+    short = parse_set_number_from_url(url)
+    if not short:
+        return None
+    return normalize_short_card_id(short), parse_print_variation_from_url(url)
+
+
+def group_api_cards(cards: list[dict]) -> dict[tuple[str, str], dict]:
+    """Group API cards by (short_id, print_variation), merging CN/EN prices."""
+    groups: dict[tuple[str, str], dict] = {}
+    for card in cards:
+        cid = (card.get("card_id") or card.get("id") or "").strip()
+        if not cid:
+            continue
+        short = normalize_short_card_id(cid.split("/")[0])
+        pv = (card.get("print_variation") or "normal").strip().lower()
+        key = (short, pv)
+        group = groups.setdefault(
+            key,
+            {
+                "short_id": short,
+                "print_variation": pv,
+                "name": "",
+                "cn_price": None,
+                "en_price": None,
+                "card_id": cid,
+            },
+        )
+        lang = (card.get("language") or "").strip().lower()
+        name = (card.get("name") or "").strip()
+        if lang == "english":
+            if name:
+                group["name"] = name
+            if card.get("price_usd") is not None:
+                group["en_price"] = card["price_usd"]
+        elif "chinese" in lang:
+            if card.get("price_cny") is not None:
+                group["cn_price"] = card["price_cny"]
+            if name and not group["name"]:
+                group["name"] = name
+        elif name and not group["name"]:
+            group["name"] = name
+    return groups
+
+
+def api_group_to_url(base_url: str, short_id: str, print_variation: str) -> str:
+    path = f"/cards/{short_id}"
+    url = urljoin(base_url.rstrip("/") + "/", path.lstrip("/"))
+    if print_variation and print_variation != "normal":
+        url += f"?print_variation={print_variation}"
+    return url
+
+
+def row_from_api_group(
+    group: dict, *, base_url: str, source_url: str, href: str | None = None
+) -> dict | None:
+    cn_val = group.get("cn_price")
+    en_val = group.get("en_price")
+    cn_price = f"¥{float(cn_val):.2f}" if cn_val is not None else ""
+    en_price = f"${float(en_val):.2f}" if en_val is not None else ""
+    if not cn_price and not en_price:
+        return None
+    short_id = group["short_id"]
+    pv = group["print_variation"]
+    abs_url = href or api_group_to_url(base_url, short_id, pv)
+    text_parts = [group.get("name") or short_id, group.get("card_id") or short_id]
+    if pv == "foiled":
+        text_parts.append("Foiled")
+    elif pv == "showcase":
+        text_parts.append("Showcase")
+    if cn_price:
+        text_parts.append(f"CN {cn_price}")
+    if en_price:
+        text_parts.append(f"EN {en_price}")
+    return build_row(
+        source_url=source_url,
+        base_url=base_url,
+        name=group.get("name") or "",
+        href=abs_url,
+        text=" ".join(text_parts),
+        cn_price=cn_price or None,
+        en_price=en_price or None,
+        is_foil=(pv == "foiled"),
+        is_showcase=(pv == "showcase"),
+        print_variation=pv,
+        image_url="",
+        set_number=short_id,
+    )
+
+
+def rows_from_api_cards(
+    cards: list[dict],
+    *,
+    base_url: str,
+    source_url: str,
+    limit: int | None = None,
+) -> list[dict]:
+    groups = group_api_cards(cards)
+    keys = sorted(groups.keys())
+    rows: list[dict] = []
+    for key in keys:
+        row = row_from_api_group(groups[key], base_url=base_url, source_url=source_url)
+        if row:
+            rows.append(row)
+        if limit and len(rows) >= limit:
+            break
+    return dedupe_rows(rows)
+
+
+def row_from_api_for_url(
+    session: BrowserSession, url: str, base_url: str
+) -> dict | None:
+    if not session.api_cards:
+        return None
+    key = api_lookup_key(url)
+    if not key:
+        return None
+    group = session.api_index().get(key)
+    if not group:
+        return None
+    return row_from_api_group(group, base_url=base_url, source_url=url, href=url)
+
+
 def detail_attempt_urls(url: str, max_retries: int) -> list[str]:
-    """Primary URL plus at most one retry variant (print_variation=normal)."""
+    """Primary URL plus retry variants (case + print_variation=normal)."""
     out: list[str] = [url]
     if max_retries < 1:
         return out
+    short = parse_set_number_from_url(url)
+    if short:
+        normalized = normalize_short_card_id(short)
+        if normalized != short:
+            try:
+                p = urlparse(url)
+                path = re.sub(
+                    r"/cards/[^/?#]+",
+                    f"/cards/{normalized}",
+                    p.path or "",
+                    count=1,
+                )
+                variant = p._replace(path=path).geturl()
+                if variant.lower() not in {u.lower() for u in out}:
+                    out.append(variant)
+            except Exception:
+                pass
     try:
         p = urlparse(url)
     except Exception:
         return out
-    if "print_variation=" in (p.query or ""):
-        return out
-    sep = "&" if p.query else "?"
-    retry = f"{url}{sep}print_variation=normal"
-    if retry.lower() != url.lower():
-        out.append(retry)
+    if "print_variation=" not in (p.query or ""):
+        sep = "&" if p.query else "?"
+        retry = f"{url}{sep}print_variation=normal"
+        if retry.lower() not in {u.lower() for u in out}:
+            out.append(retry)
     return out
 
 
@@ -667,43 +833,118 @@ def cards_index_url(base_url: str) -> str:
     return urljoin(base_url.rstrip("/") + "/", "cards")
 
 
+async def capture_cards_with_prices(
+    page,
+    url: str,
+    *,
+    timeout_ms: int = PAGE_TIMEOUT_MS,
+) -> list[dict] | None:
+    """Navigate and capture /api/cards-with-prices JSON (primary data source)."""
+    async def _read_cards(resp) -> list[dict] | None:
+        try:
+            data = await resp.json()
+            cards = data.get("cards") if isinstance(data, dict) else None
+            if isinstance(cards, list) and cards:
+                log.info("captured cards-with-prices API: %d entries", len(cards))
+                return cards
+        except Exception:
+            log.exception("failed parsing cards-with-prices response")
+        return None
+
+    try:
+        async with page.expect_response(
+            lambda r: "cards-with-prices" in r.url and r.status == 200,
+            timeout=min(timeout_ms, 45_000),
+        ) as resp_info:
+            await page.goto(url, wait_until="domcontentloaded", timeout=timeout_ms)
+        return await _read_cards(await resp_info.value)
+    except PlaywrightTimeoutError:
+        try:
+            await page.goto(url, wait_until="domcontentloaded", timeout=timeout_ms)
+        except PlaywrightTimeoutError:
+            return None
+        try:
+            async with page.expect_response(
+                lambda r: "cards-with-prices" in r.url and r.status == 200,
+                timeout=min(timeout_ms, 20_000),
+            ) as resp_info:
+                await page.reload(wait_until="domcontentloaded", timeout=timeout_ms)
+            return await _read_cards(await resp_info.value)
+        except PlaywrightTimeoutError:
+            return None
+    except Exception:
+        log.exception("failed capturing cards-with-prices from %s", url)
+        return None
+
+
 async def warmup_cards_session(
     page,
     base_url: str,
     *,
     timeout_ms: int = PAGE_TIMEOUT_MS,
+    session: BrowserSession | None = None,
 ) -> bool:
     """Load /cards so App Check + API session exist before detail navigation."""
     cards_url = cards_index_url(base_url)
     try:
-        try:
-            async with page.expect_response(
-                lambda r: "cards-with-prices" in r.url and r.status == 200,
-                timeout=min(timeout_ms, 45_000),
-            ):
-                await page.goto(cards_url, wait_until="domcontentloaded", timeout=timeout_ms)
-        except PlaywrightTimeoutError:
-            await page.goto(cards_url, wait_until="domcontentloaded", timeout=timeout_ms)
-        try:
-            await page.wait_for_function(CARDS_LINKS_WAIT_JS, timeout=min(timeout_ms, 45_000))
-        except PlaywrightTimeoutError:
-            pass
+        api_cards = await capture_cards_with_prices(page, cards_url, timeout_ms=timeout_ms)
+        if session is not None and api_cards:
+            session.set_api_cards(api_cards)
+        if not api_cards:
+            try:
+                await page.wait_for_function(CARDS_LINKS_WAIT_JS, timeout=min(timeout_ms, 45_000))
+            except PlaywrightTimeoutError:
+                pass
         await page.wait_for_timeout(DETAIL_WARMUP_MS)
-        ready = await page.evaluate(CARDS_LINKS_WAIT_JS)
+        ready = bool(api_cards) or await page.evaluate(CARDS_LINKS_WAIT_JS)
         if ready:
-            log.info("cards session warmup ready: %s", cards_url)
+            log.info("cards session warmup ready: %s (api=%s)", cards_url, bool(api_cards))
         else:
-            log.warning("cards session warmup: no card links visible on %s", cards_url)
+            log.warning("cards session warmup: no API or card links on %s", cards_url)
         return bool(ready)
     except Exception:
         log.exception("cards session warmup failed for %s", cards_url)
         return False
 
 
-async def warmup_detail_context(context, base_url: str) -> bool:
+async def ensure_api_cards_loaded(
+    context,
+    base_url: str,
+    session: BrowserSession,
+    *,
+    attempts: int = 3,
+) -> bool:
+    """Retry /cards warmup until cards-with-prices is cached in session."""
+    if session.api_cards:
+        return True
+    cards_url = cards_index_url(base_url)
+    for attempt in range(attempts):
+        page = await context.new_page()
+        try:
+            api_cards = await capture_cards_with_prices(page, cards_url)
+            if api_cards:
+                session.set_api_cards(api_cards)
+                return True
+        finally:
+            await page.close()
+        if attempt + 1 < attempts:
+            log.warning(
+                "cards-with-prices not captured (attempt %d/%d) — retrying",
+                attempt + 1,
+                attempts,
+            )
+            await asyncio.sleep(2 * (attempt + 1))
+    return False
+
+
+async def warmup_detail_context(
+    context, base_url: str, session: BrowserSession | None = None
+) -> bool:
+    if session is not None:
+        return await ensure_api_cards_loaded(context, base_url, session)
     page = await context.new_page()
     try:
-        return await warmup_cards_session(page, base_url)
+        return await warmup_cards_session(page, base_url, session=session)
     finally:
         await page.close()
 
@@ -733,7 +974,12 @@ def load_existing_cards_index(path: Path) -> dict[str, dict]:
 
 
 async def ensure_cards_list_ready(
-    page, out_dir: Path, url: str, base_url: str, stats: ScrapeStats | None = None
+    page,
+    out_dir: Path,
+    url: str,
+    base_url: str,
+    stats: ScrapeStats | None = None,
+    session: BrowserSession | None = None,
 ) -> int:
     # Prefer condition-based waiting over fixed sleeps, but keep bounded waits
     # to avoid hanging in CI.
@@ -760,7 +1006,7 @@ async def ensure_cards_list_ready(
     count = await count_cards(page)
     if not count:
         log.warning("cards list still empty after waits for %s — retrying session warmup", url)
-        if await warmup_cards_session(page, base_url):
+        if await warmup_cards_session(page, base_url, session=session):
             count = await count_cards(page)
     if not count:
         log.warning("cards list still empty after waits for %s", url)
@@ -973,8 +1219,14 @@ async def fetch_detail_once(
     url: str,
     base_url: str,
     detail_timeout_ms: int,
+    session: BrowserSession | None = None,
 ) -> tuple[dict | None, str, str, bool]:
     """Navigate once and extract a detail row. Returns (row, title, body, blocked)."""
+
+    if session is not None:
+        api_row = row_from_api_for_url(session, url, base_url)
+        if api_row:
+            return api_row, "", "", False
 
     async def _load_and_extract(target_url: str) -> tuple[dict | None, str, str, bool]:
         await page.goto(target_url, wait_until="domcontentloaded", timeout=detail_timeout_ms)
@@ -1009,7 +1261,11 @@ async def fetch_detail_once(
     row, title, body, blocked = await _load_and_extract(url)
     if not row and not blocked and is_card_not_found(body):
         log.info("detail page not ready for %s — warming /cards session and retrying", url)
-        if await warmup_cards_session(page, base_url):
+        if await warmup_cards_session(page, base_url, session=session):
+            if session is not None:
+                api_row = row_from_api_for_url(session, url, base_url)
+                if api_row:
+                    return api_row, title, body, blocked
             row, title, body, blocked = await _load_and_extract(url)
     return row, title, body, blocked
 
@@ -1030,12 +1286,13 @@ async def scrape_detail_urls(
     fail_rate_abort: float | None,
     fail_rate_min_samples: int,
     record_attempts: list[dict] | None = None,
+    session: BrowserSession | None = None,
 ) -> list[dict]:
     """Concurrent detail scrape with deadline, fail-rate abort, and debug cap."""
     if not urls:
         return []
 
-    await warmup_detail_context(context, base_url)
+    await warmup_detail_context(context, base_url, session=session)
 
     work_urls = urls[:limit] if limit else list(urls)
     stats.total = len(work_urls)
@@ -1076,63 +1333,82 @@ async def scrape_detail_urls(
                 return
             check_deadline(stats.t0, total_timeout_sec)
 
-            page = await context.new_page()
             row = None
             blocked = False
             last_title = ""
             last_body = ""
             tried: list[str] = []
-            try:
+            page = None
+
+            if session is not None and session.api_cards:
                 for attempt_url in detail_attempt_urls(url, max_retries):
-                    if stop_event.is_set():
-                        break
-                    check_deadline(stats.t0, total_timeout_sec)
                     tried.append(attempt_url)
-                    try:
-                        row, last_title, last_body, blocked = await fetch_detail_once(
-                            page, attempt_url, base_url, detail_timeout_ms
-                        )
-                    except PlaywrightTimeoutError:
-                        last_title, last_body = await page_debug_summary(page)
-                        blocked = is_blocked_or_challenged(last_title, last_body)
-                        row = None
-                        await save_debug_artifacts(
-                            page,
-                            out_dir,
-                            f"timeout_{parse_set_number_from_url(url) or 'detail'}",
-                            stats,
-                        )
+                    row = row_from_api_for_url(session, attempt_url, base_url)
                     if row:
                         row["source_url"] = url
                         break
-                    if blocked:
-                        break
 
-                if not row and not stop_event.is_set():
-                    reason = (
-                        "blocked_or_challenged"
-                        if blocked
-                        else "card_not_found"
-                        if is_card_not_found(last_body)
-                        else "detail_empty"
-                    )
-                    await save_debug_artifacts(
-                        page,
-                        out_dir,
-                        f"{reason}_{parse_set_number_from_url(url) or 'detail'}",
-                        stats,
-                    )
-            except FullScrapeAbort:
-                raise
-            except Exception:
-                log.exception("failed scraping detail %s", url)
+            if not row:
+                page = await context.new_page()
                 try:
-                    await save_debug_artifacts(page, out_dir, "exception", stats)
+                    for attempt_url in detail_attempt_urls(url, max_retries):
+                        if stop_event.is_set():
+                            break
+                        if attempt_url in tried:
+                            continue
+                        check_deadline(stats.t0, total_timeout_sec)
+                        tried.append(attempt_url)
+                        try:
+                            row, last_title, last_body, blocked = await fetch_detail_once(
+                                page,
+                                attempt_url,
+                                base_url,
+                                detail_timeout_ms,
+                                session=session,
+                            )
+                        except PlaywrightTimeoutError:
+                            last_title, last_body = await page_debug_summary(page)
+                            blocked = is_blocked_or_challenged(last_title, last_body)
+                            row = None
+                            await save_debug_artifacts(
+                                page,
+                                out_dir,
+                                f"timeout_{parse_set_number_from_url(url) or 'detail'}",
+                                stats,
+                            )
+                        if row:
+                            row["source_url"] = url
+                            break
+                        if blocked:
+                            break
+
+                    if not row and not stop_event.is_set() and page is not None:
+                        reason = (
+                            "blocked_or_challenged"
+                            if blocked
+                            else "card_not_found"
+                            if is_card_not_found(last_body)
+                            else "detail_empty"
+                        )
+                        await save_debug_artifacts(
+                            page,
+                            out_dir,
+                            f"{reason}_{parse_set_number_from_url(url) or 'detail'}",
+                            stats,
+                        )
+                except FullScrapeAbort:
+                    raise
                 except Exception:
-                    pass
-                row = None
-            finally:
-                await page.close()
+                    log.exception("failed scraping detail %s", url)
+                    if page is not None:
+                        try:
+                            await save_debug_artifacts(page, out_dir, "exception", stats)
+                        except Exception:
+                            pass
+                    row = None
+                finally:
+                    if page is not None:
+                        await page.close()
 
             async with stats._lock:
                 stats.processed += 1
@@ -1213,6 +1489,7 @@ async def scrape_list_page(
     stats: ScrapeStats,
     limit: int | None,
     total_timeout_sec: int | None,
+    session: BrowserSession | None = None,
 ) -> tuple[list[dict], list[str]]:
     """Scroll/extract /cards list. Returns (complete_rows, incomplete_detail_urls)."""
     check_deadline(stats.t0, total_timeout_sec)
@@ -1220,11 +1497,37 @@ async def scrape_list_page(
     incomplete_urls: list[str] = []
     try:
         log.info("navigating to %s", url)
-        await page.goto(url, wait_until="domcontentloaded", timeout=PAGE_TIMEOUT_MS)
+        api_cards = await capture_cards_with_prices(page, url, timeout_ms=PAGE_TIMEOUT_MS)
+        if session is not None and api_cards:
+            session.set_api_cards(api_cards)
+        if api_cards:
+            api_rows = rows_from_api_cards(
+                api_cards, base_url=base_url, source_url=url, limit=limit
+            )
+            if api_rows:
+                log.info("list extract via API: %d rows from %s", len(api_rows), url)
+                return api_rows, []
+
         await page.wait_for_timeout(NETWORK_SETTLE_MS)
-        visible = await ensure_cards_list_ready(page, out_dir, url, base_url, stats)
+        visible = await ensure_cards_list_ready(
+            page, out_dir, url, base_url, stats, session=session
+        )
         check_deadline(stats.t0, total_timeout_sec)
         if visible == 0:
+            if session is not None and session.api_cards:
+                api_rows = rows_from_api_cards(
+                    session.api_cards,
+                    base_url=base_url,
+                    source_url=url,
+                    limit=limit,
+                )
+                if api_rows:
+                    log.info(
+                        "list extract via cached API after empty DOM: %d rows from %s",
+                        len(api_rows),
+                        url,
+                    )
+                    return api_rows, []
             return [], []
 
         await load_all_cards(page, limit=limit)
@@ -1322,6 +1625,7 @@ async def scrape(
     stats = ScrapeStats(max_debug_artifacts=max_debug_artifacts)
     targeted_attempts: list[dict] = []
     rows: list[dict] = []
+    session = BrowserSession()
 
     async with async_playwright() as p:
         launch_args: list[str] = []
@@ -1355,6 +1659,7 @@ async def scrape(
                     fail_rate_abort=None,  # no circuit breaker for targeted
                     fail_rate_min_samples=fail_rate_min_samples,
                     record_attempts=targeted_attempts,
+                    session=session,
                 )
             else:
                 # Full refresh: prefer /cards list, detail only for gaps or seed fallback.
@@ -1372,6 +1677,7 @@ async def scrape(
                         stats=stats,
                         limit=limit,
                         total_timeout_sec=total_timeout_sec,
+                        session=session,
                     )
                     if page_rows or incomplete:
                         rows.extend(page_rows)
@@ -1404,6 +1710,7 @@ async def scrape(
                                 total_timeout_sec=total_timeout_sec,
                                 fail_rate_abort=None,
                                 fail_rate_min_samples=fail_rate_min_samples,
+                                session=session,
                             )
                             stats.debug_written += enrich_stats.debug_written
                             stats.ok += enrich_stats.ok
@@ -1415,6 +1722,25 @@ async def scrape(
 
                     if is_cards_index_url(list_url) and not seeded:
                         seed_path = Path("web/cards.json")
+                        if session.api_cards:
+                            api_rows = rows_from_api_cards(
+                                session.api_cards,
+                                base_url=base_url,
+                                source_url=list_url,
+                                limit=limit,
+                            )
+                            if api_rows:
+                                log.warning(
+                                    "0 cards in DOM on %s; using %d rows from cards-with-prices API",
+                                    list_url,
+                                    len(api_rows),
+                                )
+                                rows = api_rows
+                                stats.ok = len(api_rows)
+                                stats.total = len(api_rows)
+                                stats.processed = 0
+                                break
+
                         seed_urls = seed_detail_urls_from_cards_json(seed_path)
                         if seed_urls:
                             seeded = True
@@ -1451,6 +1777,7 @@ async def scrape(
                                 total_timeout_sec=total_timeout_sec,
                                 fail_rate_abort=fail_rate_abort,
                                 fail_rate_min_samples=fail_rate_min_samples,
+                                session=session,
                             )
                             stats.ok = seed_stats.ok
                             stats.failed = seed_stats.failed

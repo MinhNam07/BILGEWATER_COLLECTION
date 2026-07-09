@@ -5,10 +5,16 @@ from __future__ import annotations
 import unittest
 
 from scrape import (
+    api_group_to_url,
+    api_lookup_key,
     extract_market_price,
+    group_api_cards,
     is_card_not_found,
+    normalize_short_card_id,
     parse_detail_market_prices,
     parse_name_from_document_title,
+    row_from_api_group,
+    rows_from_api_cards,
 )
 
 
@@ -49,6 +55,93 @@ class DetailMarketPriceTests(unittest.TestCase):
     def test_is_card_not_found(self):
         self.assertTrue(is_card_not_found("Bilgewater Market Home Card not found."))
         self.assertFalse(is_card_not_found("MARKET PRICES CN CNY 0.53 EN USD 0.04"))
+
+
+class ApiCardRowTests(unittest.TestCase):
+    def test_normalize_short_card_id_suffix_case(self):
+        self.assertEqual(normalize_short_card_id("UNL-028A"), "UNL-028a")
+        self.assertEqual(normalize_short_card_id("UNL-015"), "UNL-015")
+
+    def test_api_lookup_key_from_url(self):
+        self.assertEqual(
+            api_lookup_key("https://bilgewatermarket.com/cards/UNL-028A?print_variation=showcase"),
+            ("UNL-028a", "showcase"),
+        )
+
+    def test_group_api_cards_merges_cn_en(self):
+        cards = [
+            {
+                "card_id": "UNL-015/219",
+                "name": "Right of Conquest",
+                "print_variation": "normal",
+                "language": "english",
+                "price_usd": 0.08,
+                "price_cny": None,
+            },
+            {
+                "card_id": "UNL-015/219",
+                "name": "占山为王",
+                "print_variation": "normal",
+                "language": "simplified_chinese",
+                "price_usd": None,
+                "price_cny": 0.5,
+            },
+        ]
+        groups = group_api_cards(cards)
+        row = row_from_api_group(
+            groups[("UNL-015", "normal")],
+            base_url="https://bilgewatermarket.com",
+            source_url="https://bilgewatermarket.com/cards",
+        )
+        self.assertIsNotNone(row)
+        assert row is not None
+        self.assertEqual(row["name"], "Right of Conquest")
+        self.assertEqual(row["en_price"], "$0.08")
+        self.assertEqual(row["cn_price"], "¥0.50")
+        self.assertEqual(row["url"], "https://bilgewatermarket.com/cards/UNL-015")
+
+    def test_rows_from_api_cards_respects_limit(self):
+        cards = [
+            {
+                "card_id": "UNL-001/219",
+                "name": "A",
+                "print_variation": "normal",
+                "language": "english",
+                "price_usd": 1.0,
+            },
+            {
+                "card_id": "UNL-001/219",
+                "name": "A",
+                "print_variation": "normal",
+                "language": "simplified_chinese",
+                "price_cny": 2.0,
+            },
+            {
+                "card_id": "UNL-002/219",
+                "name": "B",
+                "print_variation": "normal",
+                "language": "english",
+                "price_usd": 3.0,
+            },
+            {
+                "card_id": "UNL-002/219",
+                "name": "B",
+                "print_variation": "normal",
+                "language": "simplified_chinese",
+                "price_cny": 4.0,
+            },
+        ]
+        rows = rows_from_api_cards(
+            cards,
+            base_url="https://bilgewatermarket.com",
+            source_url="https://bilgewatermarket.com/cards",
+            limit=1,
+        )
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(
+            api_group_to_url("https://bilgewatermarket.com", "UNL-001", "foiled"),
+            "https://bilgewatermarket.com/cards/UNL-001?print_variation=foiled",
+        )
 
 
 if __name__ == "__main__":
