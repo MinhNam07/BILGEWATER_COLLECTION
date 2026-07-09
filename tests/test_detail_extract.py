@@ -5,10 +5,13 @@ from __future__ import annotations
 import unittest
 
 from scrape import (
+    ApiResponseRecord,
     api_group_to_url,
     api_lookup_key,
+    classify_detail_failure,
     extract_market_price,
     group_api_cards,
+    is_app_check_auth_failure,
     is_card_not_found,
     normalize_short_card_id,
     parse_detail_market_prices,
@@ -55,6 +58,63 @@ class DetailMarketPriceTests(unittest.TestCase):
     def test_is_card_not_found(self):
         self.assertTrue(is_card_not_found("Bilgewater Market Home Card not found."))
         self.assertFalse(is_card_not_found("MARKET PRICES CN CNY 0.53 EN USD 0.04"))
+
+
+class AppCheckAuthTests(unittest.TestCase):
+    def test_is_app_check_auth_failure(self):
+        body = '{"error":"App Check token required"}'
+        self.assertTrue(is_app_check_auth_failure(401, body))
+        self.assertFalse(is_app_check_auth_failure(403, body))
+        self.assertFalse(is_app_check_auth_failure(401, "unauthorized"))
+
+    def test_classify_prefers_api_auth_over_card_not_found(self):
+        body = "Bilgewater Market Card not found."
+        records = [
+            ApiResponseRecord(
+                "https://api.bilgewatermarket.com/api/cards/detail?card_id=UNL-015",
+                401,
+                '{"message":"App Check token required"}',
+            )
+        ]
+        self.assertEqual(
+            classify_detail_failure(
+                title="",
+                body=body,
+                blocked=False,
+                api_records=records,
+            ),
+            "skipped_api_auth",
+        )
+
+    def test_classify_real_card_not_found(self):
+        body = "Bilgewater Market Card not found."
+        records = [
+            ApiResponseRecord(
+                "https://api.bilgewatermarket.com/api/cards/detail?card_id=UNL-999",
+                404,
+                '{"error":"not found"}',
+            )
+        ]
+        self.assertEqual(
+            classify_detail_failure(
+                title="",
+                body=body,
+                blocked=False,
+                api_records=records,
+            ),
+            "card_not_found",
+        )
+
+    def test_classify_detail_empty_without_signals(self):
+        self.assertEqual(
+            classify_detail_failure(
+                title="",
+                body="loading",
+                blocked=False,
+                api_records=[],
+            ),
+            "detail_empty",
+        )
 
 
 class ApiCardRowTests(unittest.TestCase):

@@ -93,7 +93,18 @@ Workflow: [`.github/workflows/daily.yml`](.github/workflows/daily.yml)
 - **Artifact:** `bilgewater-data-<run_id>` uploaded for 30 days (CSV, JSONL, SQLite)
 - **Auto-commit:** Scraped `data/` is committed and pushed to the repo (skipped if scrape fails)
 
-No secrets are required. `USER_AGENT` uses the repository owner as contact.
+No secrets are required for Playwright-only mode. `USER_AGENT` uses the repository owner as contact.
+
+### Scraper API (recommended for CI)
+
+When Firebase App Check blocks headless browsers, set `SCRAPER_API_TOKEN` (GitHub secret `SCRAPER_API_TOKEN`) to use the read-only backend endpoints documented in [`docs/scraper-api-backend.md`](docs/scraper-api-backend.md). The collector tries this API before Playwright.
+
+```bash
+SCRAPER_API_TOKEN=your-secret python scrape.py
+```
+
+Each run writes `data/.scrape_summary.json` with `skipped_api_auth`, `api_auth_only_abort`, and row counts. If every failure is App Check (401), existing CSV/JSONL files are **not** overwritten and the process exits 0 with a warning.
+
 ## Google Sheets (auto-update daily)
 
 Uses [Google Apps Script](scripts/google_apps_script.js) to pull `bilgewater_latest.csv` from your public GitHub repo.
@@ -140,8 +151,9 @@ Store the token in **Apps Script → Project settings → Script properties** (`
 
 ## Known limitations
 
-- **JavaScript SPA:** Requires Playwright; static HTTP fetch will not work.
-- **Public pages only:** Does not bypass login, CAPTCHA, paywalls, or anti-bot controls.
+- **JavaScript SPA:** Default path uses Playwright; optional scraper API avoids DOM when `SCRAPER_API_TOKEN` is set.
+- **App Check false negatives:** React may show "Card not found" when the API returns 401; the collector classifies this as `skipped_api_auth` and preserves existing data.
+- **Public pages only:** Does not bypass login, CAPTCHA, paywalls, or anti-bot controls (except the official scraper API token).
 - **Infinite scroll:** Loads cards in batches (~50 per scroll); full catalog takes ~1–2 minutes.
 - **Price field:** One decimal USD price per row (EN preferred). Both CN and EN prices remain in `raw_text`.
 - **Selector drift:** If Bilgewater changes markup, DOM selectors may need updates; regex fallback is included.

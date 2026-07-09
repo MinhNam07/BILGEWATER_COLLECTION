@@ -49,6 +49,8 @@ DEFAULT_MAX_DEBUG_ARTIFACTS = 15
 DEFAULT_FAIL_RATE_ABORT = 0.30
 DEFAULT_FAIL_RATE_MIN_SAMPLES = 40
 PROGRESS_LOG_EVERY = 10
+API_BODY_SNIPPET_MAX = 2048
+TRACKED_API_PATHS = ("/api/cards/detail", "/api/cards-with-prices")
 
 CARDS_LINKS_WAIT_JS = r"""() => {
   const re = /\/cards\/[A-Za-z]+-\d+[A-Za-z]?(?:\/)?$/i;
@@ -533,12 +535,54 @@ class BrowserSession:
 
 
 @dataclass
+class ApiResponseRecord:
+    url: str
+    status: int
+    body: str
+
+
+class ApiResponseCollector:
+    """Collect Bilgewater API responses (all statuses) during Playwright navigation."""
+
+    def __init__(self) -> None:
+        self.records: list[ApiResponseRecord] = []
+        self._handler = None
+
+    def attach(self, page) -> None:
+        async def on_response(response) -> None:
+            if not is_tracked_api_url(response.url):
+                return
+            try:
+                body = await response.text()
+            except Exception:
+                body = ""
+            if len(body) > API_BODY_SNIPPET_MAX:
+                body = body[:API_BODY_SNIPPET_MAX]
+            self.records.append(
+                ApiResponseRecord(response.url, response.status, body)
+            )
+
+        self._handler = on_response
+        page.on("response", on_response)
+
+    def detach(self, page) -> None:
+        if self._handler is not None:
+            try:
+                page.remove_listener("response", self._handler)
+            except Exception:
+                pass
+            self._handler = None
+
+
+@dataclass
 class ScrapeStats:
     total: int = 0
     processed: int = 0
     ok: int = 0
     failed: int = 0
     skipped_existing: int = 0
+    skipped_api_auth: int = 0
+    api_auth_only_abort: bool = False
     t0: float = field(default_factory=time.monotonic)
     debug_written: int = 0
     max_debug_artifacts: int = DEFAULT_MAX_DEBUG_ARTIFACTS
@@ -554,11 +598,13 @@ class ScrapeStats:
             return
         total = self.total if self.total else "?"
         log.info(
-            "progress: processed=%s/%s ok=%d failed=%d skipped_existing=%d elapsed=%.0fs",
+            "progress: processed=%s/%s ok=%d failed=%d skipped_api_auth=%d "
+            "skipped_existing=%d elapsed=%.0fs",
             self.processed,
             total,
             self.ok,
             self.failed,
+            self.skipped_api_auth,
             self.skipped_existing,
             self.elapsed_sec(),
         )
@@ -829,6 +875,60 @@ def is_card_not_found(body_text: str) -> bool:
     return bool(re.search(r"\bcard not found\b", body_text or "", re.I))
 
 
+def is_tracked_api_url(url: str) -> bool:
+    return "api.bilgewatermarket.com" in (url or "") and any(
+        p in url for p in TRACKED_API_PATHS
+    )
+
+
+def is_app_check_auth_failure(status: int, body: str) -> bool:
+    return status == 401 and bool(
+        re.search(r"app\s*check.*token\s*required", body or "", re.I)
+    )
+
+
+def has_app_check_auth_failure(records: list[ApiResponseRecord]) -> bool:
+    return any(is_app_check_auth_failure(r.status, r.body) for r in records)
+
+
+def classify_detail_failure(
+    *,
+    title: str,
+    body: str,
+    blocked: bool,
+    api_records: list[ApiResponseRecord],
+) -> str:
+    if has_app_check_auth_failure(api_records):
+        return "skipped_api_auth"
+    if blocked or is_blocked_or_challenged(title, body):
+        return "blocked_or_challenged"
+    if is_card_not_found(body):
+        return "card_not_found"
+    return "detail_empty"
+
+
+def write_scrape_summary(
+    out_dir: Path,
+    stats: ScrapeStats,
+    *,
+    mode: str,
+    row_count: int,
+) -> None:
+    summary = {
+        "ok": stats.ok,
+        "failed": stats.failed,
+        "skipped_api_auth": stats.skipped_api_auth,
+        "skipped_existing": stats.skipped_existing,
+        "api_auth_only_abort": stats.api_auth_only_abort,
+        "mode": mode,
+        "row_count": row_count,
+        "collected_at": now_iso(),
+    }
+    path = out_dir / ".scrape_summary.json"
+    path.write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
+    log.info("wrote scrape summary: %s", path)
+
+
 def cards_index_url(base_url: str) -> str:
     return urljoin(base_url.rstrip("/") + "/", "cards")
 
@@ -838,8 +938,13 @@ async def capture_cards_with_prices(
     url: str,
     *,
     timeout_ms: int = PAGE_TIMEOUT_MS,
+    api_collector: ApiResponseCollector | None = None,
 ) -> list[dict] | None:
     """Navigate and capture /api/cards-with-prices JSON (primary data source)."""
+    if api_collector is None:
+        api_collector = ApiResponseCollector()
+    api_collector.attach(page)
+
     async def _read_cards(resp) -> list[dict] | None:
         try:
             data = await resp.json()
@@ -871,10 +976,17 @@ async def capture_cards_with_prices(
                 await page.reload(wait_until="domcontentloaded", timeout=timeout_ms)
             return await _read_cards(await resp_info.value)
         except PlaywrightTimeoutError:
+            if has_app_check_auth_failure(api_collector.records):
+                log.warning(
+                    "cards-with-prices blocked by App Check (401) during capture from %s",
+                    url,
+                )
             return None
     except Exception:
         log.exception("failed capturing cards-with-prices from %s", url)
         return None
+    finally:
+        api_collector.detach(page)
 
 
 async def warmup_cards_session(
@@ -1220,15 +1332,23 @@ async def fetch_detail_once(
     base_url: str,
     detail_timeout_ms: int,
     session: BrowserSession | None = None,
-) -> tuple[dict | None, str, str, bool]:
-    """Navigate once and extract a detail row. Returns (row, title, body, blocked)."""
+) -> tuple[dict | None, str, str, bool, list[ApiResponseRecord]]:
+    """Navigate once and extract a detail row.
+
+    Returns (row, title, body, blocked, api_records).
+    """
 
     if session is not None:
         api_row = row_from_api_for_url(session, url, base_url)
         if api_row:
-            return api_row, "", "", False
+            return api_row, "", "", False, []
 
-    async def _load_and_extract(target_url: str) -> tuple[dict | None, str, str, bool]:
+    api_collector = ApiResponseCollector()
+    api_collector.attach(page)
+
+    async def _load_and_extract(
+        target_url: str,
+    ) -> tuple[dict | None, str, str, bool]:
         await page.goto(target_url, wait_until="domcontentloaded", timeout=detail_timeout_ms)
         await page.wait_for_timeout(DETAIL_SETTLE_MS)
         settle_budget = max(2_000, min(8_000, max(detail_timeout_ms // 2, 2_000)))
@@ -1258,16 +1378,22 @@ async def fetch_detail_once(
         blocked = is_blocked_or_challenged(title, body)
         return row, title, body, blocked
 
-    row, title, body, blocked = await _load_and_extract(url)
-    if not row and not blocked and is_card_not_found(body):
-        log.info("detail page not ready for %s — warming /cards session and retrying", url)
-        if await warmup_cards_session(page, base_url, session=session):
-            if session is not None:
-                api_row = row_from_api_for_url(session, url, base_url)
-                if api_row:
-                    return api_row, title, body, blocked
-            row, title, body, blocked = await _load_and_extract(url)
-    return row, title, body, blocked
+    try:
+        row, title, body, blocked = await _load_and_extract(url)
+        if not row and not blocked and is_card_not_found(body):
+            if not has_app_check_auth_failure(api_collector.records):
+                log.info(
+                    "detail page not ready for %s — warming /cards session and retrying", url
+                )
+                if await warmup_cards_session(page, base_url, session=session):
+                    if session is not None:
+                        api_row = row_from_api_for_url(session, url, base_url)
+                        if api_row:
+                            return api_row, title, body, blocked, api_collector.records
+                    row, title, body, blocked = await _load_and_extract(url)
+        return row, title, body, blocked, api_collector.records
+    finally:
+        api_collector.detach(page)
 
 
 async def scrape_detail_urls(
@@ -1337,6 +1463,7 @@ async def scrape_detail_urls(
             blocked = False
             last_title = ""
             last_body = ""
+            api_records: list[ApiResponseRecord] = []
             tried: list[str] = []
             page = None
 
@@ -1346,6 +1473,31 @@ async def scrape_detail_urls(
                     row = row_from_api_for_url(session, attempt_url, base_url)
                     if row:
                         row["source_url"] = url
+                        break
+
+            scraper_client = None
+            if not row:
+                try:
+                    from scrape_api import ScraperAPIClient
+
+                    scraper_client = ScraperAPIClient.from_env()
+                except ImportError:
+                    scraper_client = None
+            if not row and scraper_client is not None:
+                for attempt_url in detail_attempt_urls(url, max_retries):
+                    if attempt_url in tried:
+                        continue
+                    tried.append(attempt_url)
+                    try:
+                        row = scraper_client.fetch_detail_row_for_url(
+                            attempt_url,
+                            base_url=base_url,
+                            source_url=url,
+                        )
+                    except Exception:
+                        log.exception("scraper API detail failed for %s", attempt_url)
+                        row = None
+                    if row:
                         break
 
             if not row:
@@ -1359,13 +1511,20 @@ async def scrape_detail_urls(
                         check_deadline(stats.t0, total_timeout_sec)
                         tried.append(attempt_url)
                         try:
-                            row, last_title, last_body, blocked = await fetch_detail_once(
+                            (
+                                row,
+                                last_title,
+                                last_body,
+                                blocked,
+                                attempt_records,
+                            ) = await fetch_detail_once(
                                 page,
                                 attempt_url,
                                 base_url,
                                 detail_timeout_ms,
                                 session=session,
                             )
+                            api_records.extend(attempt_records)
                         except PlaywrightTimeoutError:
                             last_title, last_body = await page_debug_summary(page)
                             blocked = is_blocked_or_challenged(last_title, last_body)
@@ -1383,12 +1542,11 @@ async def scrape_detail_urls(
                             break
 
                     if not row and not stop_event.is_set() and page is not None:
-                        reason = (
-                            "blocked_or_challenged"
-                            if blocked
-                            else "card_not_found"
-                            if is_card_not_found(last_body)
-                            else "detail_empty"
+                        reason = classify_detail_failure(
+                            title=last_title,
+                            body=last_body,
+                            blocked=blocked,
+                            api_records=api_records,
                         )
                         await save_debug_artifacts(
                             page,
@@ -1410,10 +1568,26 @@ async def scrape_detail_urls(
                     if page is not None:
                         await page.close()
 
+            failure_reason = (
+                classify_detail_failure(
+                    title=last_title,
+                    body=last_body,
+                    blocked=blocked,
+                    api_records=api_records,
+                )
+                if not row
+                else ""
+            )
+
             async with stats._lock:
                 stats.processed += 1
                 if row:
                     stats.ok += 1
+                elif failure_reason == "skipped_api_auth":
+                    stats.skipped_api_auth += 1
+                    log.warning(
+                        "api_auth_failed: %s (App Check token required)", url
+                    )
                 else:
                     stats.failed += 1
                     key = url_index_key(url)
@@ -1435,13 +1609,7 @@ async def scrape_detail_urls(
                         {"url": url, "status": "ok", "final_url": row.get("url", "")}
                     )
             else:
-                reason = (
-                    "blocked_or_challenged"
-                    if blocked
-                    else "card_not_found"
-                    if is_card_not_found(last_body)
-                    else "detail_empty"
-                )
+                reason = failure_reason or "detail_empty"
                 log.warning(
                     "%s: 0 row for %s (tried=%d) title=%r body[0:200]=%r",
                     reason,
@@ -1460,7 +1628,8 @@ async def scrape_detail_urls(
                             "body_500": (last_body or "")[:500],
                         }
                     )
-                await maybe_abort_fail_rate()
+                if reason != "skipped_api_auth":
+                    await maybe_abort_fail_rate()
 
             check_deadline(stats.t0, total_timeout_sec)
 
@@ -1621,11 +1790,73 @@ async def scrape(
     existing_cards_by_url = load_existing_cards_index(Path("web/cards.json"))
 
     detail_only = all(is_detail_card_url(u) and not is_cards_index_url(u) for u in urls)
+    mode = "targeted" if detail_only else "full"
 
     stats = ScrapeStats(max_debug_artifacts=max_debug_artifacts)
     targeted_attempts: list[dict] = []
     rows: list[dict] = []
     session = BrowserSession()
+
+    try:
+        from scrape_api import ScraperAPIClient
+
+        api_client = ScraperAPIClient.from_env(user_agent=user_agent)
+    except ImportError:
+        api_client = None
+
+    if api_client is not None:
+        log.info("trying scraper API before Playwright (mode=%s)", mode)
+        if detail_only:
+            api_rows: list[dict] = []
+            for url in urls:
+                try:
+                    row = api_client.fetch_detail_row_for_url(
+                        url,
+                        base_url=base_url,
+                        source_url=url,
+                    )
+                except Exception:
+                    log.exception("scraper API detail failed for %s", url)
+                    row = None
+                if row:
+                    api_rows.append(row)
+                    targeted_attempts.append(
+                        {"url": url, "status": "ok", "final_url": row.get("url", "")}
+                    )
+                else:
+                    targeted_attempts.append({"url": url, "status": "api_miss"})
+            if api_rows:
+                rows = dedupe_rows(api_rows)
+                if limit:
+                    rows = rows[:limit]
+                save(rows, out_dir, db_path)
+                stats.ok = len(rows)
+                write_scrape_summary(out_dir, stats, mode=mode, row_count=len(rows))
+                return rows
+            log.warning("scraper API returned no targeted rows — falling back to Playwright")
+            targeted_attempts.clear()
+        else:
+            list_url = next(
+                (u for u in urls if is_cards_index_url(u) or not is_detail_card_url(u)),
+                cards_index_url(base_url),
+            )
+            try:
+                if api_client.populate_session(session):
+                    api_rows = rows_from_api_cards(
+                        session.api_cards or [],
+                        base_url=base_url,
+                        source_url=list_url,
+                        limit=limit,
+                    )
+                    if api_rows:
+                        rows = dedupe_rows(api_rows)
+                        save(rows, out_dir, db_path)
+                        stats.ok = len(rows)
+                        write_scrape_summary(out_dir, stats, mode=mode, row_count=len(rows))
+                        return rows
+            except Exception:
+                log.exception("scraper API list fetch failed — falling back to Playwright")
+            log.warning("scraper API list empty — falling back to Playwright")
 
     async with async_playwright() as p:
         launch_args: list[str] = []
@@ -1716,6 +1947,7 @@ async def scrape(
                             stats.ok += enrich_stats.ok
                             stats.failed += enrich_stats.failed
                             stats.skipped_existing += enrich_stats.skipped_existing
+                            stats.skipped_api_auth += enrich_stats.skipped_api_auth
                             stats.processed += enrich_stats.processed
                             rows.extend(enriched)
                         break
@@ -1782,6 +2014,7 @@ async def scrape(
                             stats.ok = seed_stats.ok
                             stats.failed = seed_stats.failed
                             stats.skipped_existing = seed_stats.skipped_existing
+                            stats.skipped_api_auth = seed_stats.skipped_api_auth
                             stats.processed = seed_stats.processed
                             stats.debug_written += seed_stats.debug_written
                             stats.total = seed_stats.total
@@ -1800,7 +2033,27 @@ async def scrape(
     if limit:
         rows = rows[:limit]
 
+    def is_api_auth_only_failure() -> bool:
+        if rows or stats.ok > 0 or stats.failed > 0:
+            return False
+        if stats.skipped_api_auth < 1:
+            return False
+        if targeted_attempts:
+            failures = [a for a in targeted_attempts if a.get("status") != "ok"]
+            return bool(failures) and all(
+                a.get("status") == "skipped_api_auth" for a in failures
+            )
+        return stats.processed > 0
+
     if not rows:
+        if is_api_auth_only_failure():
+            stats.api_auth_only_abort = True
+            write_scrape_summary(out_dir, stats, mode=mode, row_count=0)
+            log.warning(
+                "scrape aborted: all failures due to App Check API auth — "
+                "data not overwritten"
+            )
+            return []
         raise RuntimeError(
             "Scrape returned 0 cards — refusing to overwrite existing data files"
         )
@@ -1808,7 +2061,12 @@ async def scrape(
     if targeted_attempts:
         ok = sum(1 for a in targeted_attempts if a.get("status") == "ok")
         failed = [a for a in targeted_attempts if a.get("status") != "ok"]
-        log.info("targeted_summary: ok=%d failed=%d", ok, len(failed))
+        log.info(
+            "targeted_summary: ok=%d failed=%d skipped_api_auth=%d",
+            ok,
+            len(failed),
+            stats.skipped_api_auth,
+        )
         for a in failed:
             log.warning(
                 "targeted_failed: status=%s url=%s title=%r body[0:200]=%r",
@@ -1818,9 +2076,20 @@ async def scrape(
                 (a.get("body_500") or "")[:200],
             )
         if ok < 1:
+            if failed and all(
+                a.get("status") == "skipped_api_auth" for a in failed
+            ):
+                stats.api_auth_only_abort = True
+                write_scrape_summary(out_dir, stats, mode=mode, row_count=0)
+                log.warning(
+                    "targeted scrape skipped: all failures due to App Check API auth — "
+                    "data not overwritten"
+                )
+                return []
             raise RuntimeError("Targeted scrape produced 0 successful detail rows")
 
     save(rows, out_dir, db_path)
+    write_scrape_summary(out_dir, stats, mode=mode, row_count=len(rows))
     return rows
 
 
@@ -2036,6 +2305,19 @@ def main() -> None:
             fail_rate_min_samples=args.fail_rate_min_samples,
         )
     )
+    summary_path = Path(args.output_dir) / ".scrape_summary.json"
+    if summary_path.exists():
+        try:
+            summary = json.loads(summary_path.read_text(encoding="utf-8"))
+            if summary.get("api_auth_only_abort"):
+                log.warning(
+                    "collection skipped: App Check API auth blocked scrape "
+                    "(skipped_api_auth=%s) — existing data preserved",
+                    summary.get("skipped_api_auth", 0),
+                )
+                return
+        except Exception:
+            pass
     log.info("collection complete: %d rows", len(rows))
 
 
