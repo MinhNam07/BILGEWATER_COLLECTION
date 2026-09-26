@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T20:15:20+00:00",
+  "generated_at": "2026-09-26T19:33:06+00:00",
   "count": 416,
   "cards": [
     {
@@ -13,7 +13,7 @@
       "price": "0.11",
       "url": "https://bilgewatermarket.com/cards/VEN-001?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-001-EN-CwT4oNk9.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-001-normal-nonfoil",
@@ -26,7 +26,7 @@
       "price": "0.06",
       "url": "https://bilgewatermarket.com/cards/VEN-001",
       "image_url": "https://bilgewatermarket.com/assets/VEN-001-EN-CwT4oNk9.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-002-foiled-foil",
@@ -39,7 +39,7 @@
       "price": "0.15",
       "url": "https://bilgewatermarket.com/cards/VEN-002?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-002-EN-DhiWbxgH.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-002-normal-nonfoil",
@@ -49,10 +49,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.06",
+      "price": "0.05",
       "url": "https://bilgewatermarket.com/cards/VEN-002",
       "image_url": "https://bilgewatermarket.com/assets/VEN-002-EN-DhiWbxgH.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-003-foiled-foil",
@@ -62,10 +62,10 @@
       "card_type": "Unit",
       "foil_status": "foil",
       "print_variation": "foiled",
-      "price": "0.32",
+      "price": "0.34",
       "url": "https://bilgewatermarket.com/cards/VEN-003?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-003-EN-BLstdxYc.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-003-normal-nonfoil",
@@ -78,7 +78,7 @@
       "price": "0.09",
       "url": "https://bilgewatermarket.com/cards/VEN-003",
       "image_url": "https://bilgewatermarket.com/assets/VEN-003-EN-BLstdxYc.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-004-foiled-foil",
@@ -91,7 +91,7 @@
       "price": "0.22",
       "url": "https://bilgewatermarket.com/cards/VEN-004?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-004-EN-CDFnHbgU.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-004-normal-nonfoil",
@@ -104,7 +104,7 @@
       "price": "0.08",
       "url": "https://bilgewatermarket.com/cards/VEN-004",
       "image_url": "https://bilgewatermarket.com/assets/VEN-004-EN-CDFnHbgU.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-005-foiled-foil",
@@ -114,10 +114,10 @@
       "card_type": "Unit",
       "foil_status": "foil",
       "print_variation": "foiled",
-      "price": "0.22",
+      "price": "0.21",
       "url": "https://bilgewatermarket.com/cards/VEN-005?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-005-EN-B296W7Pp.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-005-normal-nonfoil",
@@ -130,7 +130,7 @@
       "price": "0.08",
       "url": "https://bilgewatermarket.com/cards/VEN-005",
       "image_url": "https://bilgewatermarket.com/assets/VEN-005-EN-B296W7Pp.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-006-foiled-foil",
@@ -140,10 +140,10 @@
       "card_type": "Unit",
       "foil_status": "foil",
       "print_variation": "foiled",
-      "price": "0.15",
+      "price": "0.14",
       "url": "https://bilgewatermarket.com/cards/VEN-006?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-006-EN-BXQcW2nP.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-006-normal-nonfoil",
@@ -156,7 +156,7 @@
       "price": "0.08",
       "url": "https://bilgewatermarket.com/cards/VEN-006",
       "image_url": "https://bilgewatermarket.com/assets/VEN-006-EN-BXQcW2nP.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-007-foiled-foil",
@@ -169,7 +169,7 @@
       "price": "0.20",
       "url": "https://bilgewatermarket.com/cards/VEN-007?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-007-EN-BC4DnhHy.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-007-normal-nonfoil",
@@ -182,7 +182,7 @@
       "price": "0.06",
       "url": "https://bilgewatermarket.com/cards/VEN-007",
       "image_url": "https://bilgewatermarket.com/assets/VEN-007-EN-BC4DnhHy.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-008-foiled-foil",
@@ -195,7 +195,7 @@
       "price": "0.20",
       "url": "https://bilgewatermarket.com/cards/VEN-008?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-008-EN-QwSBQX3c.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-008-normal-nonfoil",
@@ -208,7 +208,7 @@
       "price": "0.08",
       "url": "https://bilgewatermarket.com/cards/VEN-008",
       "image_url": "https://bilgewatermarket.com/assets/VEN-008-EN-QwSBQX3c.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-009-foiled-foil",
@@ -221,7 +221,7 @@
       "price": "0.24",
       "url": "https://bilgewatermarket.com/cards/VEN-009?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-009-EN-GkgxpQJM.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-009-normal-nonfoil",
@@ -234,7 +234,7 @@
       "price": "0.06",
       "url": "https://bilgewatermarket.com/cards/VEN-009",
       "image_url": "https://bilgewatermarket.com/assets/VEN-009-EN-GkgxpQJM.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-010-foiled-foil",
@@ -247,7 +247,7 @@
       "price": "0.18",
       "url": "https://bilgewatermarket.com/cards/VEN-010?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-010-EN-C4KbjOi9.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-010-normal-nonfoil",
@@ -257,10 +257,10 @@
       "card_type": "Spell",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.09",
+      "price": "0.08",
       "url": "https://bilgewatermarket.com/cards/VEN-010",
       "image_url": "https://bilgewatermarket.com/assets/VEN-010-EN-C4KbjOi9.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-011-foiled-foil",
@@ -273,7 +273,7 @@
       "price": "0.32",
       "url": "https://bilgewatermarket.com/cards/VEN-011?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-011-EN-abjrVRf0.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-011-normal-nonfoil",
@@ -286,7 +286,7 @@
       "price": "0.10",
       "url": "https://bilgewatermarket.com/cards/VEN-011",
       "image_url": "https://bilgewatermarket.com/assets/VEN-011-EN-abjrVRf0.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-012-foiled-foil",
@@ -296,10 +296,10 @@
       "card_type": "Spell",
       "foil_status": "foil",
       "print_variation": "foiled",
-      "price": "0.41",
+      "price": "0.42",
       "url": "https://bilgewatermarket.com/cards/VEN-012?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-012-EN-DOVssiky.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-012-normal-nonfoil",
@@ -309,10 +309,10 @@
       "card_type": "Spell",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.13",
+      "price": "0.14",
       "url": "https://bilgewatermarket.com/cards/VEN-012",
       "image_url": "https://bilgewatermarket.com/assets/VEN-012-EN-DOVssiky.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-013-foiled-foil",
@@ -325,7 +325,7 @@
       "price": "0.22",
       "url": "https://bilgewatermarket.com/cards/VEN-013?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-013-EN-Z3fdgB-s.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-013-normal-nonfoil",
@@ -338,7 +338,7 @@
       "price": "0.07",
       "url": "https://bilgewatermarket.com/cards/VEN-013",
       "image_url": "https://bilgewatermarket.com/assets/VEN-013-EN-Z3fdgB-s.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-014-foiled-foil",
@@ -348,10 +348,10 @@
       "card_type": "Unit",
       "foil_status": "foil",
       "print_variation": "foiled",
-      "price": "0.26",
+      "price": "0.25",
       "url": "https://bilgewatermarket.com/cards/VEN-014?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-014-EN-BTkAV4rh.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-014-normal-nonfoil",
@@ -364,7 +364,7 @@
       "price": "0.06",
       "url": "https://bilgewatermarket.com/cards/VEN-014",
       "image_url": "https://bilgewatermarket.com/assets/VEN-014-EN-BTkAV4rh.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-015-normal-nonfoil",
@@ -377,7 +377,7 @@
       "price": "0.26",
       "url": "https://bilgewatermarket.com/cards/VEN-015",
       "image_url": "https://bilgewatermarket.com/assets/VEN-015-EN-BsGYYCiU.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-016-normal-nonfoil",
@@ -390,7 +390,7 @@
       "price": "0.15",
       "url": "https://bilgewatermarket.com/cards/VEN-016",
       "image_url": "https://bilgewatermarket.com/assets/VEN-016-EN-BuFaigBn.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-017-normal-nonfoil",
@@ -400,10 +400,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.14",
+      "price": "0.15",
       "url": "https://bilgewatermarket.com/cards/VEN-017",
       "image_url": "https://bilgewatermarket.com/assets/VEN-017-EN-8wnGKgvv.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-018-normal-nonfoil",
@@ -416,7 +416,7 @@
       "price": "0.19",
       "url": "https://bilgewatermarket.com/cards/VEN-018",
       "image_url": "https://bilgewatermarket.com/assets/VEN-018-EN-RmQ_A8Q3.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-019-normal-nonfoil",
@@ -426,10 +426,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.14",
+      "price": "0.13",
       "url": "https://bilgewatermarket.com/cards/VEN-019",
       "image_url": "https://bilgewatermarket.com/assets/VEN-019-EN-DL0bY2ZM.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-019A-showcase-nonfoil",
@@ -439,10 +439,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "1.16",
+      "price": "1.10",
       "url": "https://bilgewatermarket.com/cards/VEN-019a?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-019a-EN-BnEfMIC6.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-020-normal-nonfoil",
@@ -455,7 +455,7 @@
       "price": "0.21",
       "url": "https://bilgewatermarket.com/cards/VEN-020",
       "image_url": "https://bilgewatermarket.com/assets/VEN-020-EN-CMJPOZWt.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-021-normal-nonfoil",
@@ -465,10 +465,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "1.07",
+      "price": "1.09",
       "url": "https://bilgewatermarket.com/cards/VEN-021",
       "image_url": "https://bilgewatermarket.com/assets/VEN-021-EN-C07AHWS6.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-021A-showcase-nonfoil",
@@ -478,10 +478,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "12.61",
+      "price": "12.12",
       "url": "https://bilgewatermarket.com/cards/VEN-021a?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-021a-EN-DqhHd3uM.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-022-normal-nonfoil",
@@ -491,10 +491,10 @@
       "card_type": "Gear",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.87",
+      "price": "0.93",
       "url": "https://bilgewatermarket.com/cards/VEN-022",
       "image_url": "https://bilgewatermarket.com/assets/VEN-022-EN-rRxduvKk.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-023-normal-nonfoil",
@@ -504,10 +504,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.44",
+      "price": "0.46",
       "url": "https://bilgewatermarket.com/cards/VEN-023",
       "image_url": "https://bilgewatermarket.com/assets/VEN-023-EN-9vllZTnU.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-023A-showcase-nonfoil",
@@ -517,10 +517,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "2.61",
+      "price": "2.64",
       "url": "https://bilgewatermarket.com/cards/VEN-023a?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-023a-EN-C2qiG0ec.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-024-foiled-foil",
@@ -533,7 +533,7 @@
       "price": "0.21",
       "url": "https://bilgewatermarket.com/cards/VEN-024?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-024-EN-DH64eq9Y.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-024-normal-nonfoil",
@@ -543,10 +543,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.07",
+      "price": "0.09",
       "url": "https://bilgewatermarket.com/cards/VEN-024",
       "image_url": "https://bilgewatermarket.com/assets/VEN-024-EN-DH64eq9Y.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-025-foiled-foil",
@@ -559,7 +559,7 @@
       "price": "0.11",
       "url": "https://bilgewatermarket.com/cards/VEN-025?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-025-EN-CdKDhYdf.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-025-normal-nonfoil",
@@ -572,7 +572,7 @@
       "price": "0.04",
       "url": "https://bilgewatermarket.com/cards/VEN-025",
       "image_url": "https://bilgewatermarket.com/assets/VEN-025-EN-CdKDhYdf.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-026-foiled-foil",
@@ -585,7 +585,7 @@
       "price": "0.10",
       "url": "https://bilgewatermarket.com/cards/VEN-026?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-026-EN-DM1O5HO-.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-026-normal-nonfoil",
@@ -598,7 +598,7 @@
       "price": "0.05",
       "url": "https://bilgewatermarket.com/cards/VEN-026",
       "image_url": "https://bilgewatermarket.com/assets/VEN-026-EN-DM1O5HO-.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-027-foiled-foil",
@@ -611,7 +611,7 @@
       "price": "0.31",
       "url": "https://bilgewatermarket.com/cards/VEN-027?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-027-EN-CiHmLLkz.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-027-normal-nonfoil",
@@ -621,10 +621,10 @@
       "card_type": "Gear",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.08",
+      "price": "0.09",
       "url": "https://bilgewatermarket.com/cards/VEN-027",
       "image_url": "https://bilgewatermarket.com/assets/VEN-027-EN-CiHmLLkz.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-028-foiled-foil",
@@ -637,7 +637,7 @@
       "price": "0.32",
       "url": "https://bilgewatermarket.com/cards/VEN-028?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-028-EN-2bCFb-MU.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-028-normal-nonfoil",
@@ -647,10 +647,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.08",
+      "price": "0.07",
       "url": "https://bilgewatermarket.com/cards/VEN-028",
       "image_url": "https://bilgewatermarket.com/assets/VEN-028-EN-2bCFb-MU.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-029-foiled-foil",
@@ -663,7 +663,7 @@
       "price": "0.29",
       "url": "https://bilgewatermarket.com/cards/VEN-029?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-029-EN-KWJAVihx.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-029-normal-nonfoil",
@@ -676,7 +676,7 @@
       "price": "0.07",
       "url": "https://bilgewatermarket.com/cards/VEN-029",
       "image_url": "https://bilgewatermarket.com/assets/VEN-029-EN-KWJAVihx.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-030-foiled-foil",
@@ -689,7 +689,7 @@
       "price": "0.15",
       "url": "https://bilgewatermarket.com/cards/VEN-030?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-030-EN-COobBbuO.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-030-normal-nonfoil",
@@ -702,7 +702,7 @@
       "price": "0.04",
       "url": "https://bilgewatermarket.com/cards/VEN-030",
       "image_url": "https://bilgewatermarket.com/assets/VEN-030-EN-COobBbuO.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-031-foiled-foil",
@@ -715,7 +715,7 @@
       "price": "0.31",
       "url": "https://bilgewatermarket.com/cards/VEN-031?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-031-EN-gTBfzKTy.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-031-normal-nonfoil",
@@ -725,10 +725,10 @@
       "card_type": "Spell",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.09",
+      "price": "0.08",
       "url": "https://bilgewatermarket.com/cards/VEN-031",
       "image_url": "https://bilgewatermarket.com/assets/VEN-031-EN-gTBfzKTy.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-032-foiled-foil",
@@ -741,7 +741,7 @@
       "price": "0.24",
       "url": "https://bilgewatermarket.com/cards/VEN-032?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-032-EN-tr67-nkz.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-032-normal-nonfoil",
@@ -751,10 +751,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.06",
+      "price": "0.07",
       "url": "https://bilgewatermarket.com/cards/VEN-032",
       "image_url": "https://bilgewatermarket.com/assets/VEN-032-EN-tr67-nkz.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-033-foiled-foil",
@@ -767,7 +767,7 @@
       "price": "0.26",
       "url": "https://bilgewatermarket.com/cards/VEN-033?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-033-EN-DXvB-R4_.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-033-normal-nonfoil",
@@ -780,7 +780,7 @@
       "price": "0.06",
       "url": "https://bilgewatermarket.com/cards/VEN-033",
       "image_url": "https://bilgewatermarket.com/assets/VEN-033-EN-DXvB-R4_.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-034-foiled-foil",
@@ -793,7 +793,7 @@
       "price": "0.26",
       "url": "https://bilgewatermarket.com/cards/VEN-034?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-034-EN-CKOawcph.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-034-normal-nonfoil",
@@ -806,7 +806,7 @@
       "price": "0.15",
       "url": "https://bilgewatermarket.com/cards/VEN-034",
       "image_url": "https://bilgewatermarket.com/assets/VEN-034-EN-CKOawcph.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-035-foiled-foil",
@@ -816,10 +816,10 @@
       "card_type": "Spell",
       "foil_status": "foil",
       "print_variation": "foiled",
-      "price": "0.25",
+      "price": "0.26",
       "url": "https://bilgewatermarket.com/cards/VEN-035?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-035-EN-DQiTZ1ig.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-035-normal-nonfoil",
@@ -829,10 +829,10 @@
       "card_type": "Spell",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.08",
+      "price": "0.09",
       "url": "https://bilgewatermarket.com/cards/VEN-035",
       "image_url": "https://bilgewatermarket.com/assets/VEN-035-EN-DQiTZ1ig.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-036-foiled-foil",
@@ -845,7 +845,7 @@
       "price": "0.17",
       "url": "https://bilgewatermarket.com/cards/VEN-036?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-036-EN-DNCwMOMs.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-036-normal-nonfoil",
@@ -858,7 +858,7 @@
       "price": "0.05",
       "url": "https://bilgewatermarket.com/cards/VEN-036",
       "image_url": "https://bilgewatermarket.com/assets/VEN-036-EN-DNCwMOMs.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-037-foiled-foil",
@@ -868,10 +868,10 @@
       "card_type": "Unit",
       "foil_status": "foil",
       "print_variation": "foiled",
-      "price": "0.38",
+      "price": "0.39",
       "url": "https://bilgewatermarket.com/cards/VEN-037?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-037-EN-Di1ikYYh.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-037-normal-nonfoil",
@@ -881,10 +881,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.12",
+      "price": "0.14",
       "url": "https://bilgewatermarket.com/cards/VEN-037",
       "image_url": "https://bilgewatermarket.com/assets/VEN-037-EN-Di1ikYYh.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-038-normal-nonfoil",
@@ -894,10 +894,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.34",
+      "price": "0.31",
       "url": "https://bilgewatermarket.com/cards/VEN-038",
       "image_url": "https://bilgewatermarket.com/assets/VEN-038-EN-BX81ymB0.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-038A-showcase-nonfoil",
@@ -907,10 +907,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "11.15",
+      "price": "10.97",
       "url": "https://bilgewatermarket.com/cards/VEN-038a?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-038a-EN-Db18MocF.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-039-normal-nonfoil",
@@ -923,7 +923,7 @@
       "price": "0.26",
       "url": "https://bilgewatermarket.com/cards/VEN-039",
       "image_url": "https://bilgewatermarket.com/assets/VEN-039-EN-BkBKpeBC.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-040-normal-nonfoil",
@@ -933,10 +933,10 @@
       "card_type": "Spell",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.46",
+      "price": "0.47",
       "url": "https://bilgewatermarket.com/cards/VEN-040",
       "image_url": "https://bilgewatermarket.com/assets/VEN-040-EN-BBaQ8vdf.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-041-normal-nonfoil",
@@ -946,10 +946,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.24",
+      "price": "0.23",
       "url": "https://bilgewatermarket.com/cards/VEN-041",
       "image_url": "https://bilgewatermarket.com/assets/VEN-041-EN-Bvbbssj_.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-042-normal-nonfoil",
@@ -962,7 +962,7 @@
       "price": "0.12",
       "url": "https://bilgewatermarket.com/cards/VEN-042",
       "image_url": "https://bilgewatermarket.com/assets/VEN-042-EN-DB0f2liY.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-042A-showcase-nonfoil",
@@ -972,10 +972,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "0.95",
+      "price": "0.90",
       "url": "https://bilgewatermarket.com/cards/VEN-042a?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-042a-EN-CmIMdxRz.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-043-normal-nonfoil",
@@ -985,10 +985,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.35",
+      "price": "0.39",
       "url": "https://bilgewatermarket.com/cards/VEN-043",
       "image_url": "https://bilgewatermarket.com/assets/VEN-043-EN-D3rM5hd3.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-044-normal-nonfoil",
@@ -998,10 +998,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "38.77",
+      "price": "37.71",
       "url": "https://bilgewatermarket.com/cards/VEN-044",
       "image_url": "https://bilgewatermarket.com/assets/VEN-044-EN-DoJyXdAU.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-045-normal-nonfoil",
@@ -1011,10 +1011,10 @@
       "card_type": "Gear",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "2.82",
+      "price": "2.77",
       "url": "https://bilgewatermarket.com/cards/VEN-045",
       "image_url": "https://bilgewatermarket.com/assets/VEN-045-EN-Cc1MGZba.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-046-normal-nonfoil",
@@ -1024,10 +1024,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.54",
+      "price": "0.55",
       "url": "https://bilgewatermarket.com/cards/VEN-046",
       "image_url": "https://bilgewatermarket.com/assets/VEN-046-EN-Kl4d9GPB.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-046A-showcase-nonfoil",
@@ -1037,10 +1037,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "2.29",
+      "price": "2.28",
       "url": "https://bilgewatermarket.com/cards/VEN-046a?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-046a-EN-DNtt-B1N.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-047-foiled-foil",
@@ -1053,7 +1053,7 @@
       "price": "0.19",
       "url": "https://bilgewatermarket.com/cards/VEN-047?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-047-EN-IKhxvAeH.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-047-normal-nonfoil",
@@ -1066,7 +1066,7 @@
       "price": "0.04",
       "url": "https://bilgewatermarket.com/cards/VEN-047",
       "image_url": "https://bilgewatermarket.com/assets/VEN-047-EN-IKhxvAeH.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-048-foiled-foil",
@@ -1076,10 +1076,10 @@
       "card_type": "Unit",
       "foil_status": "foil",
       "print_variation": "foiled",
-      "price": "0.17",
+      "price": "0.18",
       "url": "https://bilgewatermarket.com/cards/VEN-048?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-048-EN-WGFx_9br.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-048-normal-nonfoil",
@@ -1092,7 +1092,7 @@
       "price": "0.04",
       "url": "https://bilgewatermarket.com/cards/VEN-048",
       "image_url": "https://bilgewatermarket.com/assets/VEN-048-EN-WGFx_9br.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-049-foiled-foil",
@@ -1105,7 +1105,7 @@
       "price": "0.41",
       "url": "https://bilgewatermarket.com/cards/VEN-049?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-049-EN-B_ePmYth.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-049-normal-nonfoil",
@@ -1118,7 +1118,7 @@
       "price": "0.10",
       "url": "https://bilgewatermarket.com/cards/VEN-049",
       "image_url": "https://bilgewatermarket.com/assets/VEN-049-EN-B_ePmYth.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-050-foiled-foil",
@@ -1131,7 +1131,7 @@
       "price": "0.13",
       "url": "https://bilgewatermarket.com/cards/VEN-050?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-050-EN-DsmQ1aGy.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-050-normal-nonfoil",
@@ -1144,7 +1144,7 @@
       "price": "0.04",
       "url": "https://bilgewatermarket.com/cards/VEN-050",
       "image_url": "https://bilgewatermarket.com/assets/VEN-050-EN-DsmQ1aGy.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-051-foiled-foil",
@@ -1157,7 +1157,7 @@
       "price": "0.26",
       "url": "https://bilgewatermarket.com/cards/VEN-051?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-051-EN-MrRDJaWe.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-051-normal-nonfoil",
@@ -1170,7 +1170,7 @@
       "price": "0.07",
       "url": "https://bilgewatermarket.com/cards/VEN-051",
       "image_url": "https://bilgewatermarket.com/assets/VEN-051-EN-MrRDJaWe.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-052-foiled-foil",
@@ -1183,7 +1183,7 @@
       "price": "0.28",
       "url": "https://bilgewatermarket.com/cards/VEN-052?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-052-EN-DXojzohb.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-052-normal-nonfoil",
@@ -1193,10 +1193,10 @@
       "card_type": "Spell",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.10",
+      "price": "0.08",
       "url": "https://bilgewatermarket.com/cards/VEN-052",
       "image_url": "https://bilgewatermarket.com/assets/VEN-052-EN-DXojzohb.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-053-foiled-foil",
@@ -1209,7 +1209,7 @@
       "price": "0.17",
       "url": "https://bilgewatermarket.com/cards/VEN-053?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-053-EN-wfW1Layq.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-053-normal-nonfoil",
@@ -1222,7 +1222,7 @@
       "price": "0.10",
       "url": "https://bilgewatermarket.com/cards/VEN-053",
       "image_url": "https://bilgewatermarket.com/assets/VEN-053-EN-wfW1Layq.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-054-foiled-foil",
@@ -1232,10 +1232,10 @@
       "card_type": "Gear",
       "foil_status": "foil",
       "print_variation": "foiled",
-      "price": "0.32",
+      "price": "0.31",
       "url": "https://bilgewatermarket.com/cards/VEN-054?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-054-EN-WKHM6QTR.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-054-normal-nonfoil",
@@ -1248,7 +1248,7 @@
       "price": "0.06",
       "url": "https://bilgewatermarket.com/cards/VEN-054",
       "image_url": "https://bilgewatermarket.com/assets/VEN-054-EN-WKHM6QTR.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-055-foiled-foil",
@@ -1258,10 +1258,10 @@
       "card_type": "Unit",
       "foil_status": "foil",
       "print_variation": "foiled",
-      "price": "0.71",
+      "price": "0.72",
       "url": "https://bilgewatermarket.com/cards/VEN-055?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-055-EN-BT5B6yNz.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-055-normal-nonfoil",
@@ -1271,10 +1271,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.15",
+      "price": "0.13",
       "url": "https://bilgewatermarket.com/cards/VEN-055",
       "image_url": "https://bilgewatermarket.com/assets/VEN-055-EN-BT5B6yNz.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-056-foiled-foil",
@@ -1287,7 +1287,7 @@
       "price": "0.26",
       "url": "https://bilgewatermarket.com/cards/VEN-056?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-056-EN-DZNiFWB9.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-056-normal-nonfoil",
@@ -1300,7 +1300,7 @@
       "price": "0.13",
       "url": "https://bilgewatermarket.com/cards/VEN-056",
       "image_url": "https://bilgewatermarket.com/assets/VEN-056-EN-DZNiFWB9.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-057-foiled-foil",
@@ -1313,7 +1313,7 @@
       "price": "0.24",
       "url": "https://bilgewatermarket.com/cards/VEN-057?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-057-EN-t70vRLK_.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-057-normal-nonfoil",
@@ -1326,7 +1326,7 @@
       "price": "0.07",
       "url": "https://bilgewatermarket.com/cards/VEN-057",
       "image_url": "https://bilgewatermarket.com/assets/VEN-057-EN-t70vRLK_.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-058-foiled-foil",
@@ -1336,10 +1336,10 @@
       "card_type": "Unit",
       "foil_status": "foil",
       "print_variation": "foiled",
-      "price": "0.59",
+      "price": "0.61",
       "url": "https://bilgewatermarket.com/cards/VEN-058?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-058-EN-i_v0R9Mh.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-058-normal-nonfoil",
@@ -1349,10 +1349,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.19",
+      "price": "0.20",
       "url": "https://bilgewatermarket.com/cards/VEN-058",
       "image_url": "https://bilgewatermarket.com/assets/VEN-058-EN-i_v0R9Mh.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-059-foiled-foil",
@@ -1365,7 +1365,7 @@
       "price": "0.43",
       "url": "https://bilgewatermarket.com/cards/VEN-059?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-059-EN-wy9ej77B.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-059-normal-nonfoil",
@@ -1378,7 +1378,7 @@
       "price": "0.11",
       "url": "https://bilgewatermarket.com/cards/VEN-059",
       "image_url": "https://bilgewatermarket.com/assets/VEN-059-EN-wy9ej77B.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-060-foiled-foil",
@@ -1391,7 +1391,7 @@
       "price": "0.13",
       "url": "https://bilgewatermarket.com/cards/VEN-060?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-060-EN-CmvVMeEj.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-060-normal-nonfoil",
@@ -1404,7 +1404,7 @@
       "price": "0.06",
       "url": "https://bilgewatermarket.com/cards/VEN-060",
       "image_url": "https://bilgewatermarket.com/assets/VEN-060-EN-CmvVMeEj.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-061-normal-nonfoil",
@@ -1414,10 +1414,10 @@
       "card_type": "Spell",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.40",
+      "price": "0.39",
       "url": "https://bilgewatermarket.com/cards/VEN-061",
       "image_url": "https://bilgewatermarket.com/assets/VEN-061-EN-Do6MPRUG.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-062-normal-nonfoil",
@@ -1430,7 +1430,7 @@
       "price": "0.16",
       "url": "https://bilgewatermarket.com/cards/VEN-062",
       "image_url": "https://bilgewatermarket.com/assets/VEN-062-EN-BnHJRos-.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-063-normal-nonfoil",
@@ -1440,10 +1440,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.14",
+      "price": "0.12",
       "url": "https://bilgewatermarket.com/cards/VEN-063",
       "image_url": "https://bilgewatermarket.com/assets/VEN-063-EN-DqS1r1N9.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-063A-showcase-nonfoil",
@@ -1456,7 +1456,7 @@
       "price": "1.04",
       "url": "https://bilgewatermarket.com/cards/VEN-063a?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-063a-EN-pRvjhPfW.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-064-normal-nonfoil",
@@ -1466,10 +1466,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.23",
+      "price": "0.21",
       "url": "https://bilgewatermarket.com/cards/VEN-064",
       "image_url": "https://bilgewatermarket.com/assets/VEN-064-EN-DvBVQ6iF.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-065-normal-nonfoil",
@@ -1482,7 +1482,7 @@
       "price": "0.22",
       "url": "https://bilgewatermarket.com/cards/VEN-065",
       "image_url": "https://bilgewatermarket.com/assets/VEN-065-EN-DvT4ExBY.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-066-normal-nonfoil",
@@ -1492,10 +1492,10 @@
       "card_type": "Spell",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.62",
+      "price": "0.56",
       "url": "https://bilgewatermarket.com/cards/VEN-066",
       "image_url": "https://bilgewatermarket.com/assets/VEN-066-EN-beejkN42.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-067-normal-nonfoil",
@@ -1505,10 +1505,10 @@
       "card_type": "Gear",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.66",
+      "price": "0.68",
       "url": "https://bilgewatermarket.com/cards/VEN-067",
       "image_url": "https://bilgewatermarket.com/assets/VEN-067-EN-DNHLa_rY.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-068-normal-nonfoil",
@@ -1518,10 +1518,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.49",
+      "price": "0.42",
       "url": "https://bilgewatermarket.com/cards/VEN-068",
       "image_url": "https://bilgewatermarket.com/assets/VEN-068-EN-Dtumw_Zz.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-068A-showcase-nonfoil",
@@ -1531,10 +1531,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "1.99",
+      "price": "1.96",
       "url": "https://bilgewatermarket.com/cards/VEN-068a?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-068a-EN-BXlDNQr4.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-069-normal-nonfoil",
@@ -1544,10 +1544,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.92",
+      "price": "0.93",
       "url": "https://bilgewatermarket.com/cards/VEN-069",
       "image_url": "https://bilgewatermarket.com/assets/VEN-069-EN-COmTRmaG.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-069A-showcase-nonfoil",
@@ -1557,10 +1557,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "3.18",
+      "price": "3.08",
       "url": "https://bilgewatermarket.com/cards/VEN-069a?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-069a-EN-BgBHxMWH.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-070-foiled-foil",
@@ -1573,7 +1573,7 @@
       "price": "0.15",
       "url": "https://bilgewatermarket.com/cards/VEN-070?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-070-EN-BBw0JrIr.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-070-normal-nonfoil",
@@ -1586,7 +1586,7 @@
       "price": "0.05",
       "url": "https://bilgewatermarket.com/cards/VEN-070",
       "image_url": "https://bilgewatermarket.com/assets/VEN-070-EN-BBw0JrIr.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-071-foiled-foil",
@@ -1599,7 +1599,7 @@
       "price": "0.14",
       "url": "https://bilgewatermarket.com/cards/VEN-071?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-071-EN-Do7lfOl3.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-071-normal-nonfoil",
@@ -1612,7 +1612,7 @@
       "price": "0.03",
       "url": "https://bilgewatermarket.com/cards/VEN-071",
       "image_url": "https://bilgewatermarket.com/assets/VEN-071-EN-Do7lfOl3.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-072-foiled-foil",
@@ -1625,7 +1625,7 @@
       "price": "0.24",
       "url": "https://bilgewatermarket.com/cards/VEN-072?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-072-EN-BmIr8-tQ.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-072-normal-nonfoil",
@@ -1638,7 +1638,7 @@
       "price": "0.05",
       "url": "https://bilgewatermarket.com/cards/VEN-072",
       "image_url": "https://bilgewatermarket.com/assets/VEN-072-EN-BmIr8-tQ.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-073-foiled-foil",
@@ -1651,7 +1651,7 @@
       "price": "0.18",
       "url": "https://bilgewatermarket.com/cards/VEN-073?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-073-EN-i0eR0RLy.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-073-normal-nonfoil",
@@ -1661,10 +1661,10 @@
       "card_type": "Gear",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.07",
+      "price": "0.06",
       "url": "https://bilgewatermarket.com/cards/VEN-073",
       "image_url": "https://bilgewatermarket.com/assets/VEN-073-EN-i0eR0RLy.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-074-foiled-foil",
@@ -1677,7 +1677,7 @@
       "price": "0.22",
       "url": "https://bilgewatermarket.com/cards/VEN-074?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-074-EN-Ccc3s0Aw.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-074-normal-nonfoil",
@@ -1690,7 +1690,7 @@
       "price": "0.06",
       "url": "https://bilgewatermarket.com/cards/VEN-074",
       "image_url": "https://bilgewatermarket.com/assets/VEN-074-EN-Ccc3s0Aw.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-075-foiled-foil",
@@ -1700,10 +1700,10 @@
       "card_type": "Gear",
       "foil_status": "foil",
       "print_variation": "foiled",
-      "price": "0.23",
+      "price": "0.22",
       "url": "https://bilgewatermarket.com/cards/VEN-075?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-075-EN-n7AqzMTZ.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-075-normal-nonfoil",
@@ -1716,7 +1716,7 @@
       "price": "0.09",
       "url": "https://bilgewatermarket.com/cards/VEN-075",
       "image_url": "https://bilgewatermarket.com/assets/VEN-075-EN-n7AqzMTZ.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-076-foiled-foil",
@@ -1729,7 +1729,7 @@
       "price": "0.27",
       "url": "https://bilgewatermarket.com/cards/VEN-076?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-076-EN-C3K8gFpm.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-076-normal-nonfoil",
@@ -1742,7 +1742,7 @@
       "price": "0.10",
       "url": "https://bilgewatermarket.com/cards/VEN-076",
       "image_url": "https://bilgewatermarket.com/assets/VEN-076-EN-C3K8gFpm.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-077-foiled-foil",
@@ -1752,10 +1752,10 @@
       "card_type": "Gear",
       "foil_status": "foil",
       "print_variation": "foiled",
-      "price": "0.30",
+      "price": "0.31",
       "url": "https://bilgewatermarket.com/cards/VEN-077?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-077-EN-CsEVKpSM.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-077-normal-nonfoil",
@@ -1768,7 +1768,7 @@
       "price": "0.05",
       "url": "https://bilgewatermarket.com/cards/VEN-077",
       "image_url": "https://bilgewatermarket.com/assets/VEN-077-EN-CsEVKpSM.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-078-foiled-foil",
@@ -1781,7 +1781,7 @@
       "price": "0.32",
       "url": "https://bilgewatermarket.com/cards/VEN-078?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-078-EN-hWHuk34D.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-078-normal-nonfoil",
@@ -1794,7 +1794,7 @@
       "price": "0.05",
       "url": "https://bilgewatermarket.com/cards/VEN-078",
       "image_url": "https://bilgewatermarket.com/assets/VEN-078-EN-hWHuk34D.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-079-foiled-foil",
@@ -1807,7 +1807,7 @@
       "price": "0.21",
       "url": "https://bilgewatermarket.com/cards/VEN-079?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-079-EN-Dgt9D4yo.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-079-normal-nonfoil",
@@ -1820,7 +1820,7 @@
       "price": "0.06",
       "url": "https://bilgewatermarket.com/cards/VEN-079",
       "image_url": "https://bilgewatermarket.com/assets/VEN-079-EN-Dgt9D4yo.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-080-foiled-foil",
@@ -1833,7 +1833,7 @@
       "price": "0.20",
       "url": "https://bilgewatermarket.com/cards/VEN-080?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-080-EN--Wu8GZn8.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-080-normal-nonfoil",
@@ -1846,7 +1846,7 @@
       "price": "0.07",
       "url": "https://bilgewatermarket.com/cards/VEN-080",
       "image_url": "https://bilgewatermarket.com/assets/VEN-080-EN--Wu8GZn8.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-081-foiled-foil",
@@ -1859,7 +1859,7 @@
       "price": "0.31",
       "url": "https://bilgewatermarket.com/cards/VEN-081?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-081-EN-DGC01Mt6.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-081-normal-nonfoil",
@@ -1872,7 +1872,7 @@
       "price": "0.14",
       "url": "https://bilgewatermarket.com/cards/VEN-081",
       "image_url": "https://bilgewatermarket.com/assets/VEN-081-EN-DGC01Mt6.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-082-foiled-foil",
@@ -1885,7 +1885,7 @@
       "price": "0.29",
       "url": "https://bilgewatermarket.com/cards/VEN-082?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-082-EN-6kic8myQ.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-082-normal-nonfoil",
@@ -1898,7 +1898,7 @@
       "price": "0.10",
       "url": "https://bilgewatermarket.com/cards/VEN-082",
       "image_url": "https://bilgewatermarket.com/assets/VEN-082-EN-6kic8myQ.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-083-foiled-foil",
@@ -1908,10 +1908,10 @@
       "card_type": "Spell",
       "foil_status": "foil",
       "print_variation": "foiled",
-      "price": "0.88",
+      "price": "0.97",
       "url": "https://bilgewatermarket.com/cards/VEN-083?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-083-EN-BIEybsQE.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-083-normal-nonfoil",
@@ -1924,7 +1924,7 @@
       "price": "0.27",
       "url": "https://bilgewatermarket.com/cards/VEN-083",
       "image_url": "https://bilgewatermarket.com/assets/VEN-083-EN-BIEybsQE.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-084-normal-nonfoil",
@@ -1934,10 +1934,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.21",
+      "price": "0.19",
       "url": "https://bilgewatermarket.com/cards/VEN-084",
       "image_url": "https://bilgewatermarket.com/assets/VEN-084-EN-Det7UPYF.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-084A-showcase-nonfoil",
@@ -1947,10 +1947,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "1.70",
+      "price": "1.59",
       "url": "https://bilgewatermarket.com/cards/VEN-084a?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-084a-EN-Bne2UZi0.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-085-normal-nonfoil",
@@ -1960,10 +1960,10 @@
       "card_type": "Spell",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.35",
+      "price": "0.36",
       "url": "https://bilgewatermarket.com/cards/VEN-085",
       "image_url": "https://bilgewatermarket.com/assets/VEN-085-EN-DGsRPBZ7.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-086-normal-nonfoil",
@@ -1973,10 +1973,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.26",
+      "price": "0.28",
       "url": "https://bilgewatermarket.com/cards/VEN-086",
       "image_url": "https://bilgewatermarket.com/assets/VEN-086-EN-CvTg0bFJ.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-087-normal-nonfoil",
@@ -1989,7 +1989,7 @@
       "price": "0.17",
       "url": "https://bilgewatermarket.com/cards/VEN-087",
       "image_url": "https://bilgewatermarket.com/assets/VEN-087-EN-CrcAMXPZ.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-088-normal-nonfoil",
@@ -2002,7 +2002,7 @@
       "price": "0.17",
       "url": "https://bilgewatermarket.com/cards/VEN-088",
       "image_url": "https://bilgewatermarket.com/assets/VEN-088-EN-pWbYFoGK.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-088A-showcase-nonfoil",
@@ -2012,10 +2012,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "1.05",
+      "price": "1.08",
       "url": "https://bilgewatermarket.com/cards/VEN-088a?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-088a-EN-D-tcu65A.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-089-normal-nonfoil",
@@ -2028,7 +2028,7 @@
       "price": "0.13",
       "url": "https://bilgewatermarket.com/cards/VEN-089",
       "image_url": "https://bilgewatermarket.com/assets/VEN-089-EN-DjuOh8bv.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-090-normal-nonfoil",
@@ -2038,10 +2038,10 @@
       "card_type": "Spell",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.40",
+      "price": "0.39",
       "url": "https://bilgewatermarket.com/cards/VEN-090",
       "image_url": "https://bilgewatermarket.com/assets/VEN-090-EN-DcLtUoYu.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-091-normal-nonfoil",
@@ -2051,10 +2051,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.61",
+      "price": "0.73",
       "url": "https://bilgewatermarket.com/cards/VEN-091",
       "image_url": "https://bilgewatermarket.com/assets/VEN-091-EN-_RU-3yoI.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-092-normal-nonfoil",
@@ -2064,10 +2064,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.34",
+      "price": "0.33",
       "url": "https://bilgewatermarket.com/cards/VEN-092",
       "image_url": "https://bilgewatermarket.com/assets/VEN-092-EN-DkMPRHL8.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-092A-showcase-nonfoil",
@@ -2080,7 +2080,7 @@
       "price": "1.73",
       "url": "https://bilgewatermarket.com/cards/VEN-092a?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-092a-EN--0lOGwVx.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-093-foiled-foil",
@@ -2093,7 +2093,7 @@
       "price": "0.13",
       "url": "https://bilgewatermarket.com/cards/VEN-093?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-093-EN-CCh8yFUu.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-093-normal-nonfoil",
@@ -2106,7 +2106,7 @@
       "price": "0.05",
       "url": "https://bilgewatermarket.com/cards/VEN-093",
       "image_url": "https://bilgewatermarket.com/assets/VEN-093-EN-CCh8yFUu.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-094-foiled-foil",
@@ -2119,7 +2119,7 @@
       "price": "0.21",
       "url": "https://bilgewatermarket.com/cards/VEN-094?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-094-EN-zhkibLfS.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-094-normal-nonfoil",
@@ -2132,7 +2132,7 @@
       "price": "0.08",
       "url": "https://bilgewatermarket.com/cards/VEN-094",
       "image_url": "https://bilgewatermarket.com/assets/VEN-094-EN-zhkibLfS.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-095-foiled-foil",
@@ -2142,10 +2142,10 @@
       "card_type": "Unit",
       "foil_status": "foil",
       "print_variation": "foiled",
-      "price": "0.35",
+      "price": "0.36",
       "url": "https://bilgewatermarket.com/cards/VEN-095?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-095-EN-Djs_M261.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-095-normal-nonfoil",
@@ -2155,10 +2155,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.10",
+      "price": "0.08",
       "url": "https://bilgewatermarket.com/cards/VEN-095",
       "image_url": "https://bilgewatermarket.com/assets/VEN-095-EN-Djs_M261.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-096-foiled-foil",
@@ -2171,7 +2171,7 @@
       "price": "0.23",
       "url": "https://bilgewatermarket.com/cards/VEN-096?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-096-EN-LleB4Kxh.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-096-normal-nonfoil",
@@ -2184,7 +2184,7 @@
       "price": "0.05",
       "url": "https://bilgewatermarket.com/cards/VEN-096",
       "image_url": "https://bilgewatermarket.com/assets/VEN-096-EN-LleB4Kxh.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-097-foiled-foil",
@@ -2194,10 +2194,10 @@
       "card_type": "Unit",
       "foil_status": "foil",
       "print_variation": "foiled",
-      "price": "0.53",
+      "price": "0.54",
       "url": "https://bilgewatermarket.com/cards/VEN-097?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-097-EN-05nsFlAy.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-097-normal-nonfoil",
@@ -2207,10 +2207,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.28",
+      "price": "0.29",
       "url": "https://bilgewatermarket.com/cards/VEN-097",
       "image_url": "https://bilgewatermarket.com/assets/VEN-097-EN-05nsFlAy.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-098-foiled-foil",
@@ -2223,7 +2223,7 @@
       "price": "0.13",
       "url": "https://bilgewatermarket.com/cards/VEN-098?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-098-EN-7CMTOXwI.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-098-normal-nonfoil",
@@ -2236,7 +2236,7 @@
       "price": "0.05",
       "url": "https://bilgewatermarket.com/cards/VEN-098",
       "image_url": "https://bilgewatermarket.com/assets/VEN-098-EN-7CMTOXwI.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-099-foiled-foil",
@@ -2246,10 +2246,10 @@
       "card_type": "Unit",
       "foil_status": "foil",
       "print_variation": "foiled",
-      "price": "0.29",
+      "price": "0.30",
       "url": "https://bilgewatermarket.com/cards/VEN-099?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-099-EN-B9G9hLDc.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-099-normal-nonfoil",
@@ -2262,7 +2262,7 @@
       "price": "0.15",
       "url": "https://bilgewatermarket.com/cards/VEN-099",
       "image_url": "https://bilgewatermarket.com/assets/VEN-099-EN-B9G9hLDc.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-100-foiled-foil",
@@ -2272,10 +2272,10 @@
       "card_type": "Spell",
       "foil_status": "foil",
       "print_variation": "foiled",
-      "price": "0.67",
+      "price": "0.61",
       "url": "https://bilgewatermarket.com/cards/VEN-100?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-100-EN-CDeicDP5.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-100-normal-nonfoil",
@@ -2288,7 +2288,7 @@
       "price": "0.12",
       "url": "https://bilgewatermarket.com/cards/VEN-100",
       "image_url": "https://bilgewatermarket.com/assets/VEN-100-EN-CDeicDP5.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-101-foiled-foil",
@@ -2301,7 +2301,7 @@
       "price": "0.32",
       "url": "https://bilgewatermarket.com/cards/VEN-101?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-101-EN-Cfs11m7w.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-101-normal-nonfoil",
@@ -2311,10 +2311,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.13",
+      "price": "0.12",
       "url": "https://bilgewatermarket.com/cards/VEN-101",
       "image_url": "https://bilgewatermarket.com/assets/VEN-101-EN-Cfs11m7w.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-102-foiled-foil",
@@ -2327,7 +2327,7 @@
       "price": "1.21",
       "url": "https://bilgewatermarket.com/cards/VEN-102?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-102-EN-E3NZ3v4J.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-102-normal-nonfoil",
@@ -2337,10 +2337,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.18",
+      "price": "0.19",
       "url": "https://bilgewatermarket.com/cards/VEN-102",
       "image_url": "https://bilgewatermarket.com/assets/VEN-102-EN-E3NZ3v4J.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-103-foiled-foil",
@@ -2350,10 +2350,10 @@
       "card_type": "Spell",
       "foil_status": "foil",
       "print_variation": "foiled",
-      "price": "0.32",
+      "price": "0.33",
       "url": "https://bilgewatermarket.com/cards/VEN-103?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-103-EN-CnLVojsO.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-103-normal-nonfoil",
@@ -2366,7 +2366,7 @@
       "price": "0.11",
       "url": "https://bilgewatermarket.com/cards/VEN-103",
       "image_url": "https://bilgewatermarket.com/assets/VEN-103-EN-CnLVojsO.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-104-foiled-foil",
@@ -2376,10 +2376,10 @@
       "card_type": "Unit",
       "foil_status": "foil",
       "print_variation": "foiled",
-      "price": "0.55",
+      "price": "0.48",
       "url": "https://bilgewatermarket.com/cards/VEN-104?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-104-EN-g6J6Ukj4.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-104-normal-nonfoil",
@@ -2389,10 +2389,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.15",
+      "price": "0.16",
       "url": "https://bilgewatermarket.com/cards/VEN-104",
       "image_url": "https://bilgewatermarket.com/assets/VEN-104-EN-g6J6Ukj4.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-105-foiled-foil",
@@ -2405,7 +2405,7 @@
       "price": "0.33",
       "url": "https://bilgewatermarket.com/cards/VEN-105?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-105-EN-sXCnXaRy.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-105-normal-nonfoil",
@@ -2418,7 +2418,7 @@
       "price": "0.07",
       "url": "https://bilgewatermarket.com/cards/VEN-105",
       "image_url": "https://bilgewatermarket.com/assets/VEN-105-EN-sXCnXaRy.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-106-foiled-foil",
@@ -2428,10 +2428,10 @@
       "card_type": "Spell",
       "foil_status": "foil",
       "print_variation": "foiled",
-      "price": "0.59",
+      "price": "0.58",
       "url": "https://bilgewatermarket.com/cards/VEN-106?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-106-EN-DMu1DLbf.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-106-normal-nonfoil",
@@ -2444,7 +2444,7 @@
       "price": "0.15",
       "url": "https://bilgewatermarket.com/cards/VEN-106",
       "image_url": "https://bilgewatermarket.com/assets/VEN-106-EN-DMu1DLbf.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-107-normal-nonfoil",
@@ -2457,7 +2457,7 @@
       "price": "0.20",
       "url": "https://bilgewatermarket.com/cards/VEN-107",
       "image_url": "https://bilgewatermarket.com/assets/VEN-107-EN-D-gVhqXY.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-108-normal-nonfoil",
@@ -2470,7 +2470,7 @@
       "price": "0.16",
       "url": "https://bilgewatermarket.com/cards/VEN-108",
       "image_url": "https://bilgewatermarket.com/assets/VEN-108-EN-CFAyxxig.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-109-normal-nonfoil",
@@ -2480,10 +2480,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.23",
+      "price": "0.44",
       "url": "https://bilgewatermarket.com/cards/VEN-109",
       "image_url": "https://bilgewatermarket.com/assets/VEN-109-EN-hIJHzxhp.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-110-normal-nonfoil",
@@ -2496,7 +2496,7 @@
       "price": "0.17",
       "url": "https://bilgewatermarket.com/cards/VEN-110",
       "image_url": "https://bilgewatermarket.com/assets/VEN-110-EN-CDeRZYEh.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-110A-showcase-nonfoil",
@@ -2506,10 +2506,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "1.30",
+      "price": "1.33",
       "url": "https://bilgewatermarket.com/cards/VEN-110a?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-110a-EN-ChC82MvM.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-111-normal-nonfoil",
@@ -2522,7 +2522,7 @@
       "price": "0.18",
       "url": "https://bilgewatermarket.com/cards/VEN-111",
       "image_url": "https://bilgewatermarket.com/assets/VEN-111-EN-CCUPoBUU.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-112-normal-nonfoil",
@@ -2532,10 +2532,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.23",
+      "price": "0.19",
       "url": "https://bilgewatermarket.com/cards/VEN-112",
       "image_url": "https://bilgewatermarket.com/assets/VEN-112-EN-cv7eYR1P.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-112A-showcase-nonfoil",
@@ -2545,10 +2545,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "3.43",
+      "price": "3.34",
       "url": "https://bilgewatermarket.com/cards/VEN-112a?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-112a-EN-ajY8ipqJ.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-113-normal-nonfoil",
@@ -2558,10 +2558,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "1.44",
+      "price": "1.55",
       "url": "https://bilgewatermarket.com/cards/VEN-113",
       "image_url": "https://bilgewatermarket.com/assets/VEN-113-EN-DC0HFiXj.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-113A-showcase-nonfoil",
@@ -2571,10 +2571,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "3.50",
+      "price": "3.45",
       "url": "https://bilgewatermarket.com/cards/VEN-113a?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-113a-EN-BIhr190O.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-114-normal-nonfoil",
@@ -2584,10 +2584,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "4.54",
+      "price": "4.74",
       "url": "https://bilgewatermarket.com/cards/VEN-114",
       "image_url": "https://bilgewatermarket.com/assets/VEN-114-EN-CQZ3mmbC.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-115-normal-nonfoil",
@@ -2597,10 +2597,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.89",
+      "price": "1.03",
       "url": "https://bilgewatermarket.com/cards/VEN-115",
       "image_url": "https://bilgewatermarket.com/assets/VEN-115-EN-D0nMt3w8.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-116-foiled-foil",
@@ -2613,7 +2613,7 @@
       "price": "0.28",
       "url": "https://bilgewatermarket.com/cards/VEN-116?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-116-EN-Bt8UgnTk.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-116-normal-nonfoil",
@@ -2623,10 +2623,10 @@
       "card_type": "Spell",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.11",
+      "price": "0.10",
       "url": "https://bilgewatermarket.com/cards/VEN-116",
       "image_url": "https://bilgewatermarket.com/assets/VEN-116-EN-Bt8UgnTk.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-117-foiled-foil",
@@ -2639,7 +2639,7 @@
       "price": "0.21",
       "url": "https://bilgewatermarket.com/cards/VEN-117?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-117-EN-B_yM4GJW.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-117-normal-nonfoil",
@@ -2649,10 +2649,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.06",
+      "price": "0.07",
       "url": "https://bilgewatermarket.com/cards/VEN-117",
       "image_url": "https://bilgewatermarket.com/assets/VEN-117-EN-B_yM4GJW.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-118-foiled-foil",
@@ -2665,7 +2665,7 @@
       "price": "0.14",
       "url": "https://bilgewatermarket.com/cards/VEN-118?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-118-EN-4sJWjecS.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-118-normal-nonfoil",
@@ -2678,7 +2678,7 @@
       "price": "0.03",
       "url": "https://bilgewatermarket.com/cards/VEN-118",
       "image_url": "https://bilgewatermarket.com/assets/VEN-118-EN-4sJWjecS.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-119-foiled-foil",
@@ -2691,7 +2691,7 @@
       "price": "0.14",
       "url": "https://bilgewatermarket.com/cards/VEN-119?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-119-EN-B94zn0sC.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-119-normal-nonfoil",
@@ -2704,7 +2704,7 @@
       "price": "0.06",
       "url": "https://bilgewatermarket.com/cards/VEN-119",
       "image_url": "https://bilgewatermarket.com/assets/VEN-119-EN-B94zn0sC.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-120-foiled-foil",
@@ -2717,7 +2717,7 @@
       "price": "0.16",
       "url": "https://bilgewatermarket.com/cards/VEN-120?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-120-EN-DHcPgd86.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-120-normal-nonfoil",
@@ -2730,7 +2730,7 @@
       "price": "0.07",
       "url": "https://bilgewatermarket.com/cards/VEN-120",
       "image_url": "https://bilgewatermarket.com/assets/VEN-120-EN-DHcPgd86.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-121-foiled-foil",
@@ -2743,7 +2743,7 @@
       "price": "0.13",
       "url": "https://bilgewatermarket.com/cards/VEN-121?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-121-EN-BbtJBtUW.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-121-normal-nonfoil",
@@ -2756,7 +2756,7 @@
       "price": "0.06",
       "url": "https://bilgewatermarket.com/cards/VEN-121",
       "image_url": "https://bilgewatermarket.com/assets/VEN-121-EN-BbtJBtUW.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-122-foiled-foil",
@@ -2769,7 +2769,7 @@
       "price": "0.33",
       "url": "https://bilgewatermarket.com/cards/VEN-122?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-122-EN-0YWRcky6.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-122-normal-nonfoil",
@@ -2782,7 +2782,7 @@
       "price": "0.10",
       "url": "https://bilgewatermarket.com/cards/VEN-122",
       "image_url": "https://bilgewatermarket.com/assets/VEN-122-EN-0YWRcky6.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-123-foiled-foil",
@@ -2795,7 +2795,7 @@
       "price": "0.16",
       "url": "https://bilgewatermarket.com/cards/VEN-123?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-123-EN-DsL_H6zs.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-123-normal-nonfoil",
@@ -2805,10 +2805,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.04",
+      "price": "0.05",
       "url": "https://bilgewatermarket.com/cards/VEN-123",
       "image_url": "https://bilgewatermarket.com/assets/VEN-123-EN-DsL_H6zs.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-124-foiled-foil",
@@ -2818,10 +2818,10 @@
       "card_type": "Unit",
       "foil_status": "foil",
       "print_variation": "foiled",
-      "price": "0.39",
+      "price": "0.38",
       "url": "https://bilgewatermarket.com/cards/VEN-124?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-124-EN-BgPMS7JC.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-124-normal-nonfoil",
@@ -2831,10 +2831,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.19",
+      "price": "0.15",
       "url": "https://bilgewatermarket.com/cards/VEN-124",
       "image_url": "https://bilgewatermarket.com/assets/VEN-124-EN-BgPMS7JC.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-125-foiled-foil",
@@ -2847,7 +2847,7 @@
       "price": "0.20",
       "url": "https://bilgewatermarket.com/cards/VEN-125?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-125-EN-ygpWWhje.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-125-normal-nonfoil",
@@ -2860,7 +2860,7 @@
       "price": "0.05",
       "url": "https://bilgewatermarket.com/cards/VEN-125",
       "image_url": "https://bilgewatermarket.com/assets/VEN-125-EN-ygpWWhje.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-126-foiled-foil",
@@ -2870,10 +2870,10 @@
       "card_type": "Spell",
       "foil_status": "foil",
       "print_variation": "foiled",
-      "price": "0.36",
+      "price": "0.39",
       "url": "https://bilgewatermarket.com/cards/VEN-126?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-126-EN-U5km56qq.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-126-normal-nonfoil",
@@ -2883,10 +2883,10 @@
       "card_type": "Spell",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.19",
+      "price": "0.17",
       "url": "https://bilgewatermarket.com/cards/VEN-126",
       "image_url": "https://bilgewatermarket.com/assets/VEN-126-EN-U5km56qq.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-127-foiled-foil",
@@ -2896,10 +2896,10 @@
       "card_type": "Spell",
       "foil_status": "foil",
       "print_variation": "foiled",
-      "price": "0.35",
+      "price": "0.36",
       "url": "https://bilgewatermarket.com/cards/VEN-127?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-127-EN-EQ1Hrn1v.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-127-normal-nonfoil",
@@ -2912,7 +2912,7 @@
       "price": "0.12",
       "url": "https://bilgewatermarket.com/cards/VEN-127",
       "image_url": "https://bilgewatermarket.com/assets/VEN-127-EN-EQ1Hrn1v.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-128-foiled-foil",
@@ -2925,7 +2925,7 @@
       "price": "0.39",
       "url": "https://bilgewatermarket.com/cards/VEN-128?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-128-EN-CGePnjX8.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-128-normal-nonfoil",
@@ -2938,7 +2938,7 @@
       "price": "0.13",
       "url": "https://bilgewatermarket.com/cards/VEN-128",
       "image_url": "https://bilgewatermarket.com/assets/VEN-128-EN-CGePnjX8.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-129-foiled-foil",
@@ -2951,7 +2951,7 @@
       "price": "0.34",
       "url": "https://bilgewatermarket.com/cards/VEN-129?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-129-EN-Dvn8dDbH.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-129-normal-nonfoil",
@@ -2964,7 +2964,7 @@
       "price": "0.08",
       "url": "https://bilgewatermarket.com/cards/VEN-129",
       "image_url": "https://bilgewatermarket.com/assets/VEN-129-EN-Dvn8dDbH.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-130-normal-nonfoil",
@@ -2977,7 +2977,7 @@
       "price": "0.10",
       "url": "https://bilgewatermarket.com/cards/VEN-130",
       "image_url": "https://bilgewatermarket.com/assets/VEN-130-EN-BJk1OtBj.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-131-normal-nonfoil",
@@ -2990,7 +2990,7 @@
       "price": "0.44",
       "url": "https://bilgewatermarket.com/cards/VEN-131",
       "image_url": "https://bilgewatermarket.com/assets/VEN-131-EN-KJm7m92q.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-132-normal-nonfoil",
@@ -3000,10 +3000,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.19",
+      "price": "0.21",
       "url": "https://bilgewatermarket.com/cards/VEN-132",
       "image_url": "https://bilgewatermarket.com/assets/VEN-132-EN-NGraPDZw.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-133-normal-nonfoil",
@@ -3013,10 +3013,10 @@
       "card_type": "Gear",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.14",
+      "price": "0.15",
       "url": "https://bilgewatermarket.com/cards/VEN-133",
       "image_url": "https://bilgewatermarket.com/assets/VEN-133-EN-DNCd1Yt6.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-134-normal-nonfoil",
@@ -3026,10 +3026,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.28",
+      "price": "0.30",
       "url": "https://bilgewatermarket.com/cards/VEN-134",
       "image_url": "https://bilgewatermarket.com/assets/VEN-134-EN-2unK_ljh.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-135-normal-nonfoil",
@@ -3039,10 +3039,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.33",
+      "price": "0.27",
       "url": "https://bilgewatermarket.com/cards/VEN-135",
       "image_url": "https://bilgewatermarket.com/assets/VEN-135-EN-CetCr0Fl.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-135A-showcase-nonfoil",
@@ -3052,10 +3052,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "4.72",
+      "price": "4.63",
       "url": "https://bilgewatermarket.com/cards/VEN-135a?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-135a-EN-D0fbx7ia.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-136-normal-nonfoil",
@@ -3065,10 +3065,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.46",
+      "price": "0.42",
       "url": "https://bilgewatermarket.com/cards/VEN-136",
       "image_url": "https://bilgewatermarket.com/assets/VEN-136-EN-DfUZ7aIr.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-136A-showcase-nonfoil",
@@ -3078,10 +3078,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "2.61",
+      "price": "2.50",
       "url": "https://bilgewatermarket.com/cards/VEN-136a?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-136a-EN-BKEg1eoS.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-137-normal-nonfoil",
@@ -3091,10 +3091,10 @@
       "card_type": "Gear",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.93",
+      "price": "0.86",
       "url": "https://bilgewatermarket.com/cards/VEN-137",
       "image_url": "https://bilgewatermarket.com/assets/VEN-137-EN-DJPd0p4y.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-138-normal-nonfoil",
@@ -3104,10 +3104,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.28",
+      "price": "0.26",
       "url": "https://bilgewatermarket.com/cards/VEN-138",
       "image_url": "https://bilgewatermarket.com/assets/VEN-138-EN-BayAsprZ.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-138A-showcase-nonfoil",
@@ -3117,10 +3117,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "1.72",
+      "price": "1.70",
       "url": "https://bilgewatermarket.com/cards/VEN-138a?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-138a-EN-D6NZZPi1.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-139-normal-nonfoil",
@@ -3130,10 +3130,10 @@
       "card_type": "Legend",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.24",
+      "price": "0.22",
       "url": "https://bilgewatermarket.com/cards/VEN-139",
       "image_url": "https://bilgewatermarket.com/assets/VEN-139-EN-BFDPdv9k.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-140-normal-nonfoil",
@@ -3143,10 +3143,10 @@
       "card_type": "Spell",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "9.87",
+      "price": "9.09",
       "url": "https://bilgewatermarket.com/cards/VEN-140",
       "image_url": "https://bilgewatermarket.com/assets/VEN-140-EN-CRFPFsXT.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-141-normal-nonfoil",
@@ -3159,7 +3159,7 @@
       "price": "0.16",
       "url": "https://bilgewatermarket.com/cards/VEN-141",
       "image_url": "https://bilgewatermarket.com/assets/VEN-141-EN-B7iijjIr.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-142-normal-nonfoil",
@@ -3169,10 +3169,10 @@
       "card_type": "Spell",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.68",
+      "price": "0.66",
       "url": "https://bilgewatermarket.com/cards/VEN-142",
       "image_url": "https://bilgewatermarket.com/assets/VEN-142-EN-CfX7ovFI.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-143-normal-nonfoil",
@@ -3182,10 +3182,10 @@
       "card_type": "Legend",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.10",
+      "price": "0.11",
       "url": "https://bilgewatermarket.com/cards/VEN-143",
       "image_url": "https://bilgewatermarket.com/assets/VEN-143-EN-DVFlTrkm.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-144-normal-nonfoil",
@@ -3195,10 +3195,10 @@
       "card_type": "Spell",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "1.18",
+      "price": "0.98",
       "url": "https://bilgewatermarket.com/cards/VEN-144",
       "image_url": "https://bilgewatermarket.com/assets/VEN-144-EN-C8DwJ5eP.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-145-normal-nonfoil",
@@ -3211,7 +3211,7 @@
       "price": "0.14",
       "url": "https://bilgewatermarket.com/cards/VEN-145",
       "image_url": "https://bilgewatermarket.com/assets/VEN-145-EN-ZXyKsBTB.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-146-normal-nonfoil",
@@ -3221,10 +3221,10 @@
       "card_type": "Spell",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.96",
+      "price": "0.93",
       "url": "https://bilgewatermarket.com/cards/VEN-146",
       "image_url": "https://bilgewatermarket.com/assets/VEN-146-EN-I1aNVw6w.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-147-normal-nonfoil",
@@ -3234,10 +3234,10 @@
       "card_type": "Legend",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.11",
+      "price": "0.12",
       "url": "https://bilgewatermarket.com/cards/VEN-147",
       "image_url": "https://bilgewatermarket.com/assets/VEN-147-EN-Db0qigxf.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-148-normal-nonfoil",
@@ -3247,10 +3247,10 @@
       "card_type": "Spell",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.50",
+      "price": "0.49",
       "url": "https://bilgewatermarket.com/cards/VEN-148",
       "image_url": "https://bilgewatermarket.com/assets/VEN-148-EN-BbJdmWxi.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-149-normal-nonfoil",
@@ -3260,10 +3260,10 @@
       "card_type": "Legend",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.15",
+      "price": "0.16",
       "url": "https://bilgewatermarket.com/cards/VEN-149",
       "image_url": "https://bilgewatermarket.com/assets/VEN-149-EN-BEx9Q_bl.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-150-normal-nonfoil",
@@ -3273,10 +3273,10 @@
       "card_type": "Spell",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.73",
+      "price": "0.68",
       "url": "https://bilgewatermarket.com/cards/VEN-150",
       "image_url": "https://bilgewatermarket.com/assets/VEN-150-EN-CM0x4JWd.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-151-normal-nonfoil",
@@ -3289,7 +3289,7 @@
       "price": "0.14",
       "url": "https://bilgewatermarket.com/cards/VEN-151",
       "image_url": "https://bilgewatermarket.com/assets/VEN-151-EN-CYB46DBN.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-152-normal-nonfoil",
@@ -3299,10 +3299,10 @@
       "card_type": "Spell",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "1.82",
+      "price": "1.92",
       "url": "https://bilgewatermarket.com/cards/VEN-152",
       "image_url": "https://bilgewatermarket.com/assets/VEN-152-EN-DotKJDJ5.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-153-normal-nonfoil",
@@ -3315,7 +3315,7 @@
       "price": "0.09",
       "url": "https://bilgewatermarket.com/cards/VEN-153",
       "image_url": "https://bilgewatermarket.com/assets/VEN-153-EN-dAsKZFPf.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-154-normal-nonfoil",
@@ -3325,10 +3325,10 @@
       "card_type": "Spell",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "1.23",
+      "price": "1.18",
       "url": "https://bilgewatermarket.com/cards/VEN-154",
       "image_url": "https://bilgewatermarket.com/assets/VEN-154-EN-MYgJ7Dme.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-155-normal-nonfoil",
@@ -3341,7 +3341,7 @@
       "price": "0.13",
       "url": "https://bilgewatermarket.com/cards/VEN-155",
       "image_url": "https://bilgewatermarket.com/assets/VEN-155-EN-DFejSbOS.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-156-normal-nonfoil",
@@ -3351,10 +3351,10 @@
       "card_type": "Spell",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "6.07",
+      "price": "5.65",
       "url": "https://bilgewatermarket.com/cards/VEN-156",
       "image_url": "https://bilgewatermarket.com/assets/VEN-156-EN-uYZ-l7gC.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-157-foiled-foil",
@@ -3364,10 +3364,10 @@
       "card_type": "Battlefield",
       "foil_status": "foil",
       "print_variation": "foiled",
-      "price": "0.57",
+      "price": "0.56",
       "url": "https://bilgewatermarket.com/cards/VEN-157?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-157-EN-Bhg3aWIq.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-157-normal-nonfoil",
@@ -3380,7 +3380,7 @@
       "price": "0.11",
       "url": "https://bilgewatermarket.com/cards/VEN-157",
       "image_url": "https://bilgewatermarket.com/assets/VEN-157-EN-Bhg3aWIq.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-158-foiled-foil",
@@ -3390,10 +3390,10 @@
       "card_type": "Battlefield",
       "foil_status": "foil",
       "print_variation": "foiled",
-      "price": "0.99",
+      "price": "0.98",
       "url": "https://bilgewatermarket.com/cards/VEN-158?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-158-EN-BH4aNl7O.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-158-normal-nonfoil",
@@ -3406,7 +3406,7 @@
       "price": "0.11",
       "url": "https://bilgewatermarket.com/cards/VEN-158",
       "image_url": "https://bilgewatermarket.com/assets/VEN-158-EN-BH4aNl7O.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-159-foiled-foil",
@@ -3419,7 +3419,7 @@
       "price": "0.26",
       "url": "https://bilgewatermarket.com/cards/VEN-159?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-159-EN-DqejB9wD.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-159-normal-nonfoil",
@@ -3432,7 +3432,7 @@
       "price": "0.07",
       "url": "https://bilgewatermarket.com/cards/VEN-159",
       "image_url": "https://bilgewatermarket.com/assets/VEN-159-EN-DqejB9wD.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-160-foiled-foil",
@@ -3445,7 +3445,7 @@
       "price": "0.25",
       "url": "https://bilgewatermarket.com/cards/VEN-160?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-160-EN-BlwqSIVG.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-160-normal-nonfoil",
@@ -3458,7 +3458,7 @@
       "price": "0.08",
       "url": "https://bilgewatermarket.com/cards/VEN-160",
       "image_url": "https://bilgewatermarket.com/assets/VEN-160-EN-BlwqSIVG.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-161-foiled-foil",
@@ -3471,7 +3471,7 @@
       "price": "0.21",
       "url": "https://bilgewatermarket.com/cards/VEN-161?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-161-EN-DleOsuA9.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-161-normal-nonfoil",
@@ -3484,7 +3484,7 @@
       "price": "0.06",
       "url": "https://bilgewatermarket.com/cards/VEN-161",
       "image_url": "https://bilgewatermarket.com/assets/VEN-161-EN-DleOsuA9.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-162-foiled-foil",
@@ -3497,7 +3497,7 @@
       "price": "0.28",
       "url": "https://bilgewatermarket.com/cards/VEN-162?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-162-EN-CMpht29h.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-162-normal-nonfoil",
@@ -3510,7 +3510,7 @@
       "price": "0.06",
       "url": "https://bilgewatermarket.com/cards/VEN-162",
       "image_url": "https://bilgewatermarket.com/assets/VEN-162-EN-CMpht29h.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-163-foiled-foil",
@@ -3523,7 +3523,7 @@
       "price": "0.33",
       "url": "https://bilgewatermarket.com/cards/VEN-163?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-163-EN-ClKDrWfS.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-163-normal-nonfoil",
@@ -3536,7 +3536,7 @@
       "price": "0.09",
       "url": "https://bilgewatermarket.com/cards/VEN-163",
       "image_url": "https://bilgewatermarket.com/assets/VEN-163-EN-ClKDrWfS.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-164-foiled-foil",
@@ -3549,7 +3549,7 @@
       "price": "0.33",
       "url": "https://bilgewatermarket.com/cards/VEN-164?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-164-EN-CQiCuERT.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-164-normal-nonfoil",
@@ -3559,10 +3559,10 @@
       "card_type": "Battlefield",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.12",
+      "price": "0.10",
       "url": "https://bilgewatermarket.com/cards/VEN-164",
       "image_url": "https://bilgewatermarket.com/assets/VEN-164-EN-CQiCuERT.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-165-foiled-foil",
@@ -3575,7 +3575,7 @@
       "price": "0.32",
       "url": "https://bilgewatermarket.com/cards/VEN-165?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-165-EN-DCMjr8DY.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-165-normal-nonfoil",
@@ -3588,7 +3588,7 @@
       "price": "0.07",
       "url": "https://bilgewatermarket.com/cards/VEN-165",
       "image_url": "https://bilgewatermarket.com/assets/VEN-165-EN-DCMjr8DY.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-166-foiled-foil",
@@ -3601,7 +3601,7 @@
       "price": "0.29",
       "url": "https://bilgewatermarket.com/cards/VEN-166?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/VEN-166-EN-DdpvPIEO.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-166-normal-nonfoil",
@@ -3611,10 +3611,10 @@
       "card_type": "Battlefield",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.08",
+      "price": "0.07",
       "url": "https://bilgewatermarket.com/cards/VEN-166",
       "image_url": "https://bilgewatermarket.com/assets/VEN-166-EN-DdpvPIEO.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-167-showcase-nonfoil",
@@ -3624,10 +3624,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "102.47",
+      "price": "102.33",
       "url": "https://bilgewatermarket.com/cards/VEN-167?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-167-EN-lpKDuayz.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-168-showcase-nonfoil",
@@ -3637,10 +3637,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "112.02",
+      "price": "111.22",
       "url": "https://bilgewatermarket.com/cards/VEN-168?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-168-EN-Bnn4ApJC.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-169-showcase-nonfoil",
@@ -3653,7 +3653,7 @@
       "price": "63.53",
       "url": "https://bilgewatermarket.com/cards/VEN-169?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-169-EN-BF1EjRBl.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-170-showcase-nonfoil",
@@ -3666,7 +3666,7 @@
       "price": "50.96",
       "url": "https://bilgewatermarket.com/cards/VEN-170?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-170-EN-vj7w15gG.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-171-showcase-nonfoil",
@@ -3676,10 +3676,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "72.10",
+      "price": "71.59",
       "url": "https://bilgewatermarket.com/cards/VEN-171?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-171-EN-ZuNFo-jz.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-172-showcase-nonfoil",
@@ -3689,10 +3689,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "78.94",
+      "price": "79.36",
       "url": "https://bilgewatermarket.com/cards/VEN-172?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-172-EN-hoUVkTM0.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-173-showcase-nonfoil",
@@ -3702,10 +3702,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "80.79",
+      "price": "80.26",
       "url": "https://bilgewatermarket.com/cards/VEN-173?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-173-EN-L-xt_H_w.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-174-showcase-nonfoil",
@@ -3718,7 +3718,7 @@
       "price": "220.60",
       "url": "https://bilgewatermarket.com/cards/VEN-174?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-174-EN-CwcFbbhj.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-175-showcase-nonfoil",
@@ -3728,10 +3728,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "91.65",
+      "price": "90.92",
       "url": "https://bilgewatermarket.com/cards/VEN-175?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-175-EN-WITa-1BS.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-176-showcase-nonfoil",
@@ -3741,10 +3741,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "79.42",
+      "price": "79.38",
       "url": "https://bilgewatermarket.com/cards/VEN-176?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-176-EN-wO7TbmTk.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-177-showcase-nonfoil",
@@ -3754,10 +3754,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "63.99",
+      "price": "63.85",
       "url": "https://bilgewatermarket.com/cards/VEN-177?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-177-EN-DEEI5e3H.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-178-showcase-nonfoil",
@@ -3770,7 +3770,7 @@
       "price": "63.71",
       "url": "https://bilgewatermarket.com/cards/VEN-178?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-178-EN-Cp-yJ8pH.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-179-showcase-nonfoil",
@@ -3780,10 +3780,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "166.54",
+      "price": "166.88",
       "url": "https://bilgewatermarket.com/cards/VEN-179?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-179-EN-CNBYOa2h.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-180-showcase-nonfoil",
@@ -3796,7 +3796,7 @@
       "price": "70.72",
       "url": "https://bilgewatermarket.com/cards/VEN-180?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-180-EN-DvzJuQEg.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-181-showcase-nonfoil",
@@ -3806,10 +3806,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "97.80",
+      "price": "97.60",
       "url": "https://bilgewatermarket.com/cards/VEN-181?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-181-EN-CJrXpE4V.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-182-showcase-nonfoil",
@@ -3819,10 +3819,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "97.87",
+      "price": "96.35",
       "url": "https://bilgewatermarket.com/cards/VEN-182?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-182-EN-BAgnk1V0.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-183-showcase-nonfoil",
@@ -3832,10 +3832,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "129.32",
+      "price": "126.95",
       "url": "https://bilgewatermarket.com/cards/VEN-183?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-183-EN-sutxxXVc.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-184-showcase-nonfoil",
@@ -3845,10 +3845,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "84.74",
+      "price": "84.49",
       "url": "https://bilgewatermarket.com/cards/VEN-184?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-184-EN-Cuzu2DpO.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-185-showcase-nonfoil",
@@ -3861,7 +3861,7 @@
       "price": "173.34",
       "url": "https://bilgewatermarket.com/cards/VEN-185?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-185-EN-DgvQuieo.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-186-showcase-nonfoil",
@@ -3874,7 +3874,7 @@
       "price": "114.24",
       "url": "https://bilgewatermarket.com/cards/VEN-186?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-186-EN-89oo7vIb.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-187-showcase-nonfoil",
@@ -3884,10 +3884,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "48.73",
+      "price": "48.47",
       "url": "https://bilgewatermarket.com/cards/VEN-187?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-187-EN-BDIOZjkq.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-188-showcase-nonfoil",
@@ -3897,10 +3897,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "78.90",
+      "price": "78.63",
       "url": "https://bilgewatermarket.com/cards/VEN-188?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-188-EN-CdeCa_ni.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-189-showcase-nonfoil",
@@ -3913,7 +3913,7 @@
       "price": "592.63",
       "url": "https://bilgewatermarket.com/cards/VEN-189?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-189-EN-B4lT7ISJ.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-190-showcase-nonfoil",
@@ -3926,7 +3926,7 @@
       "price": "59.07",
       "url": "https://bilgewatermarket.com/cards/VEN-190?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-190-EN-BU2owRjx.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-191-showcase-nonfoil",
@@ -3939,7 +3939,7 @@
       "price": "177.13",
       "url": "https://bilgewatermarket.com/cards/VEN-191?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-191-EN-mQhEHzQ5.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-192-showcase-nonfoil",
@@ -3949,10 +3949,10 @@
       "card_type": "Legend",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "162.37",
+      "price": "161.71",
       "url": "https://bilgewatermarket.com/cards/VEN-192?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-192-EN-Vg8mwmAl.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-193-showcase-nonfoil",
@@ -3962,10 +3962,10 @@
       "card_type": "Legend",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "77.36",
+      "price": "77.13",
       "url": "https://bilgewatermarket.com/cards/VEN-193?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-193-EN-DdOf7tax.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-194-showcase-nonfoil",
@@ -3975,10 +3975,10 @@
       "card_type": "Legend",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "212.49",
+      "price": "212.29",
       "url": "https://bilgewatermarket.com/cards/VEN-194?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-194-EN-s1zJRwok.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-195-showcase-nonfoil",
@@ -3991,7 +3991,7 @@
       "price": "174.46",
       "url": "https://bilgewatermarket.com/cards/VEN-195?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-195-EN-D48z7zAy.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-196-showcase-nonfoil",
@@ -4001,10 +4001,10 @@
       "card_type": "Legend",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "128.85",
+      "price": "124.37",
       "url": "https://bilgewatermarket.com/cards/VEN-196?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-196-EN-DdVVDAod.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "VEN-197-showcase-nonfoil",
@@ -4017,7 +4017,7 @@
       "price": "225.06",
       "url": "https://bilgewatermarket.com/cards/VEN-197?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/VEN-197-EN-CxaAukcp.png",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-001-foiled-foil",
@@ -4030,7 +4030,7 @@
       "price": "0.15",
       "url": "https://bilgewatermarket.com/cards/UNL-001?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/UNL-001-EN-CN6qRx__.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-001-normal-nonfoil",
@@ -4043,7 +4043,7 @@
       "price": "0.09",
       "url": "https://bilgewatermarket.com/cards/UNL-001",
       "image_url": "https://bilgewatermarket.com/assets/UNL-001-EN-CN6qRx__.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-002-foiled-foil",
@@ -4053,10 +4053,10 @@
       "card_type": "Unit",
       "foil_status": "foil",
       "print_variation": "foiled",
-      "price": "0.33",
+      "price": "0.39",
       "url": "https://bilgewatermarket.com/cards/UNL-002?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/UNL-002-EN-BEAeHv56.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-002-normal-nonfoil",
@@ -4066,10 +4066,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.14",
+      "price": "0.15",
       "url": "https://bilgewatermarket.com/cards/UNL-002",
       "image_url": "https://bilgewatermarket.com/assets/UNL-002-EN-BEAeHv56.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-003-foiled-foil",
@@ -4079,10 +4079,10 @@
       "card_type": "Battlefield",
       "foil_status": "foil",
       "print_variation": "foiled",
-      "price": "0.25",
+      "price": "0.23",
       "url": "https://bilgewatermarket.com/cards/UNL-003?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/UNL-003-EN-BN8no39d.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-003-normal-nonfoil",
@@ -4095,7 +4095,7 @@
       "price": "0.10",
       "url": "https://bilgewatermarket.com/cards/UNL-003",
       "image_url": "https://bilgewatermarket.com/assets/UNL-003-EN-BN8no39d.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-004-foiled-foil",
@@ -4108,7 +4108,7 @@
       "price": "0.16",
       "url": "https://bilgewatermarket.com/cards/UNL-004?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/UNL-004-EN-X8qOqNsB.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-004-normal-nonfoil",
@@ -4121,7 +4121,7 @@
       "price": "0.03",
       "url": "https://bilgewatermarket.com/cards/UNL-004",
       "image_url": "https://bilgewatermarket.com/assets/UNL-004-EN-X8qOqNsB.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-005-foiled-foil",
@@ -4134,7 +4134,7 @@
       "price": "0.15",
       "url": "https://bilgewatermarket.com/cards/UNL-005?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/UNL-005-EN-ClM8yEo9.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-005-normal-nonfoil",
@@ -4147,7 +4147,7 @@
       "price": "0.03",
       "url": "https://bilgewatermarket.com/cards/UNL-005",
       "image_url": "https://bilgewatermarket.com/assets/UNL-005-EN-ClM8yEo9.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-006-foiled-foil",
@@ -4160,7 +4160,7 @@
       "price": "0.24",
       "url": "https://bilgewatermarket.com/cards/UNL-006?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/UNL-006-EN-DlvuPfs1.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-006-normal-nonfoil",
@@ -4173,7 +4173,7 @@
       "price": "0.06",
       "url": "https://bilgewatermarket.com/cards/UNL-006",
       "image_url": "https://bilgewatermarket.com/assets/UNL-006-EN-DlvuPfs1.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-007-foiled-foil",
@@ -4186,7 +4186,7 @@
       "price": "0.18",
       "url": "https://bilgewatermarket.com/cards/UNL-007?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/UNL-007-EN-D42dcdUi.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-007-normal-nonfoil",
@@ -4196,10 +4196,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.09",
+      "price": "0.08",
       "url": "https://bilgewatermarket.com/cards/UNL-007",
       "image_url": "https://bilgewatermarket.com/assets/UNL-007-EN-D42dcdUi.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-008-foiled-foil",
@@ -4212,7 +4212,7 @@
       "price": "0.07",
       "url": "https://bilgewatermarket.com/cards/UNL-008?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/UNL-008-EN-D-2Dad2f.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-008-normal-nonfoil",
@@ -4225,7 +4225,7 @@
       "price": "0.03",
       "url": "https://bilgewatermarket.com/cards/UNL-008",
       "image_url": "https://bilgewatermarket.com/assets/UNL-008-EN-D-2Dad2f.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-009-foiled-foil",
@@ -4238,7 +4238,7 @@
       "price": "0.25",
       "url": "https://bilgewatermarket.com/cards/UNL-009?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/UNL-009-EN-D8P6CA8o.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-009-normal-nonfoil",
@@ -4251,7 +4251,7 @@
       "price": "0.07",
       "url": "https://bilgewatermarket.com/cards/UNL-009",
       "image_url": "https://bilgewatermarket.com/assets/UNL-009-EN-D8P6CA8o.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-010-foiled-foil",
@@ -4264,7 +4264,7 @@
       "price": "0.22",
       "url": "https://bilgewatermarket.com/cards/UNL-010?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/UNL-010-EN-DIJopLyy.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-010-normal-nonfoil",
@@ -4277,7 +4277,7 @@
       "price": "0.07",
       "url": "https://bilgewatermarket.com/cards/UNL-010",
       "image_url": "https://bilgewatermarket.com/assets/UNL-010-EN-DIJopLyy.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-011-foiled-foil",
@@ -4287,10 +4287,10 @@
       "card_type": "Gear",
       "foil_status": "foil",
       "print_variation": "foiled",
-      "price": "0.24",
+      "price": "0.25",
       "url": "https://bilgewatermarket.com/cards/UNL-011?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/UNL-011-EN-Pl-7Kky-.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-011-normal-nonfoil",
@@ -4303,7 +4303,7 @@
       "price": "0.10",
       "url": "https://bilgewatermarket.com/cards/UNL-011",
       "image_url": "https://bilgewatermarket.com/assets/UNL-011-EN-Pl-7Kky-.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-012-foiled-foil",
@@ -4316,7 +4316,7 @@
       "price": "0.25",
       "url": "https://bilgewatermarket.com/cards/UNL-012?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/UNL-012-EN-DKMRS0b6.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-012-normal-nonfoil",
@@ -4329,7 +4329,7 @@
       "price": "0.06",
       "url": "https://bilgewatermarket.com/cards/UNL-012",
       "image_url": "https://bilgewatermarket.com/assets/UNL-012-EN-DKMRS0b6.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-013-foiled-foil",
@@ -4339,10 +4339,10 @@
       "card_type": "Spell",
       "foil_status": "foil",
       "print_variation": "foiled",
-      "price": "0.41",
+      "price": "0.38",
       "url": "https://bilgewatermarket.com/cards/UNL-013?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/UNL-013-EN-u80gWiY-.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-013-normal-nonfoil",
@@ -4355,7 +4355,7 @@
       "price": "0.15",
       "url": "https://bilgewatermarket.com/cards/UNL-013",
       "image_url": "https://bilgewatermarket.com/assets/UNL-013-EN-u80gWiY-.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-014-foiled-foil",
@@ -4368,7 +4368,7 @@
       "price": "0.28",
       "url": "https://bilgewatermarket.com/cards/UNL-014?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/UNL-014-EN-CaUBxiqe.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-014-normal-nonfoil",
@@ -4381,7 +4381,7 @@
       "price": "0.10",
       "url": "https://bilgewatermarket.com/cards/UNL-014",
       "image_url": "https://bilgewatermarket.com/assets/UNL-014-EN-CaUBxiqe.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-015-foiled-foil",
@@ -4394,7 +4394,7 @@
       "price": "0.25",
       "url": "https://bilgewatermarket.com/cards/UNL-015?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/UNL-015-EN-B42EzyGF.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-015-normal-nonfoil",
@@ -4407,7 +4407,7 @@
       "price": "0.07",
       "url": "https://bilgewatermarket.com/cards/UNL-015",
       "image_url": "https://bilgewatermarket.com/assets/UNL-015-EN-B42EzyGF.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-016-foiled-foil",
@@ -4420,7 +4420,7 @@
       "price": "0.17",
       "url": "https://bilgewatermarket.com/cards/UNL-016?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/UNL-016-EN-3OZO5Mlz.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-016-normal-nonfoil",
@@ -4433,7 +4433,7 @@
       "price": "0.07",
       "url": "https://bilgewatermarket.com/cards/UNL-016",
       "image_url": "https://bilgewatermarket.com/assets/UNL-016-EN-3OZO5Mlz.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-017-foiled-foil",
@@ -4446,7 +4446,7 @@
       "price": "0.45",
       "url": "https://bilgewatermarket.com/cards/UNL-017?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/UNL-017-EN-CPM767zB.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-017-normal-nonfoil",
@@ -4456,10 +4456,10 @@
       "card_type": "Spell",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.09",
+      "price": "0.08",
       "url": "https://bilgewatermarket.com/cards/UNL-017",
       "image_url": "https://bilgewatermarket.com/assets/UNL-017-EN-CPM767zB.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-018-foiled-foil",
@@ -4472,7 +4472,7 @@
       "price": "0.27",
       "url": "https://bilgewatermarket.com/cards/UNL-018?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/UNL-018-EN-BB0id8KZ.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-018-normal-nonfoil",
@@ -4485,7 +4485,7 @@
       "price": "0.07",
       "url": "https://bilgewatermarket.com/cards/UNL-018",
       "image_url": "https://bilgewatermarket.com/assets/UNL-018-EN-BB0id8KZ.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-019-normal-nonfoil",
@@ -4495,10 +4495,10 @@
       "card_type": "Gear",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.36",
+      "price": "0.37",
       "url": "https://bilgewatermarket.com/cards/UNL-019",
       "image_url": "https://bilgewatermarket.com/assets/UNL-019-EN-IfLOj2YF.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-020-normal-nonfoil",
@@ -4508,10 +4508,10 @@
       "card_type": "Spell",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.20",
+      "price": "0.21",
       "url": "https://bilgewatermarket.com/cards/UNL-020",
       "image_url": "https://bilgewatermarket.com/assets/UNL-020-EN-BG6DrdpA.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-021-normal-nonfoil",
@@ -4524,7 +4524,7 @@
       "price": "0.28",
       "url": "https://bilgewatermarket.com/cards/UNL-021",
       "image_url": "https://bilgewatermarket.com/assets/UNL-021-EN-FBB4bbd0.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-022-normal-nonfoil",
@@ -4534,10 +4534,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.27",
+      "price": "0.29",
       "url": "https://bilgewatermarket.com/cards/UNL-022",
       "image_url": "https://bilgewatermarket.com/assets/UNL-022-EN-n-k2I53n.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-022A-showcase-nonfoil",
@@ -4550,7 +4550,7 @@
       "price": "7.05",
       "url": "https://bilgewatermarket.com/cards/UNL-022a?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/UNL-022A-EN-CbrHneV0.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-023-normal-nonfoil",
@@ -4560,10 +4560,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.26",
+      "price": "0.25",
       "url": "https://bilgewatermarket.com/cards/UNL-023",
       "image_url": "https://bilgewatermarket.com/assets/UNL-023-EN-CIpViq7N.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-024-normal-nonfoil",
@@ -4573,10 +4573,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.39",
+      "price": "0.37",
       "url": "https://bilgewatermarket.com/cards/UNL-024",
       "image_url": "https://bilgewatermarket.com/assets/UNL-024-EN-CYpxJxUB.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-024A-showcase-nonfoil",
@@ -4589,7 +4589,7 @@
       "price": "2.72",
       "url": "https://bilgewatermarket.com/cards/UNL-024a?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/UNL-024a-EN-CkIZ_u3T.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-025-normal-nonfoil",
@@ -4602,7 +4602,7 @@
       "price": "0.19",
       "url": "https://bilgewatermarket.com/cards/UNL-025",
       "image_url": "https://bilgewatermarket.com/assets/UNL-025-EN-BRINnkPv.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-026-normal-nonfoil",
@@ -4615,7 +4615,7 @@
       "price": "0.21",
       "url": "https://bilgewatermarket.com/cards/UNL-026",
       "image_url": "https://bilgewatermarket.com/assets/UNL-026-EN-BY-wSYk2.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-027-normal-nonfoil",
@@ -4625,10 +4625,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.52",
+      "price": "0.53",
       "url": "https://bilgewatermarket.com/cards/UNL-027",
       "image_url": "https://bilgewatermarket.com/assets/UNL-027-EN-H2fXIwNC.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-028-normal-nonfoil",
@@ -4638,10 +4638,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "15.72",
+      "price": "15.61",
       "url": "https://bilgewatermarket.com/cards/UNL-028",
       "image_url": "https://bilgewatermarket.com/assets/UNL-028-EN-SI5gVsXO.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-028A-showcase-nonfoil",
@@ -4651,10 +4651,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "18.59",
+      "price": "18.70",
       "url": "https://bilgewatermarket.com/cards/UNL-028a?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/UNL-028a-EN-CfVRuC65.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-029-normal-nonfoil",
@@ -4664,10 +4664,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.83",
+      "price": "0.86",
       "url": "https://bilgewatermarket.com/cards/UNL-029",
       "image_url": "https://bilgewatermarket.com/assets/UNL-029-EN-DXGcHPC8.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-029A-showcase-nonfoil",
@@ -4677,10 +4677,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "2.38",
+      "price": "2.36",
       "url": "https://bilgewatermarket.com/cards/UNL-029a?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/UNL-029a-EN-DjTliYJa.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-030-normal-nonfoil",
@@ -4693,7 +4693,7 @@
       "price": "0.35",
       "url": "https://bilgewatermarket.com/cards/UNL-030",
       "image_url": "https://bilgewatermarket.com/assets/UNL-030-EN-DbsfM_ea.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-030A-showcase-nonfoil",
@@ -4703,10 +4703,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "4.80",
+      "price": "4.84",
       "url": "https://bilgewatermarket.com/cards/UNL-030a?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/UNL-030A-EN-Dq_3Nz_A.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-031-foiled-foil",
@@ -4719,7 +4719,7 @@
       "price": "0.10",
       "url": "https://bilgewatermarket.com/cards/UNL-031?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/UNL-031-EN-DcNCiolo.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-031-normal-nonfoil",
@@ -4732,7 +4732,7 @@
       "price": "0.05",
       "url": "https://bilgewatermarket.com/cards/UNL-031",
       "image_url": "https://bilgewatermarket.com/assets/UNL-031-EN-DcNCiolo.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-032-foiled-foil",
@@ -4745,7 +4745,7 @@
       "price": "0.16",
       "url": "https://bilgewatermarket.com/cards/UNL-032?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/UNL-032-EN-BOjYPd6q.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-032-normal-nonfoil",
@@ -4755,10 +4755,10 @@
       "card_type": "Spell",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.09",
+      "price": "0.08",
       "url": "https://bilgewatermarket.com/cards/UNL-032",
       "image_url": "https://bilgewatermarket.com/assets/UNL-032-EN-BOjYPd6q.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-033-foiled-foil",
@@ -4768,10 +4768,10 @@
       "card_type": "Unit",
       "foil_status": "foil",
       "print_variation": "foiled",
-      "price": "0.22",
+      "price": "0.23",
       "url": "https://bilgewatermarket.com/cards/UNL-033?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/UNL-033-EN-BKds2bYj.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-033-normal-nonfoil",
@@ -4784,7 +4784,7 @@
       "price": "0.06",
       "url": "https://bilgewatermarket.com/cards/UNL-033",
       "image_url": "https://bilgewatermarket.com/assets/UNL-033-EN-BKds2bYj.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-034-foiled-foil",
@@ -4794,10 +4794,10 @@
       "card_type": "Unit",
       "foil_status": "foil",
       "print_variation": "foiled",
-      "price": "0.16",
+      "price": "0.17",
       "url": "https://bilgewatermarket.com/cards/UNL-034?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/UNL-034-EN-Ck9gji2L.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-034-normal-nonfoil",
@@ -4810,7 +4810,7 @@
       "price": "0.06",
       "url": "https://bilgewatermarket.com/cards/UNL-034",
       "image_url": "https://bilgewatermarket.com/assets/UNL-034-EN-Ck9gji2L.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-035-foiled-foil",
@@ -4820,10 +4820,10 @@
       "card_type": "Unit",
       "foil_status": "foil",
       "print_variation": "foiled",
-      "price": "0.18",
+      "price": "0.17",
       "url": "https://bilgewatermarket.com/cards/UNL-035?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/UNL-035-EN-uM_-uM0w.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-035-normal-nonfoil",
@@ -4836,7 +4836,7 @@
       "price": "0.06",
       "url": "https://bilgewatermarket.com/cards/UNL-035",
       "image_url": "https://bilgewatermarket.com/assets/UNL-035-EN-uM_-uM0w.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-036-foiled-foil",
@@ -4846,10 +4846,10 @@
       "card_type": "Unit",
       "foil_status": "foil",
       "print_variation": "foiled",
-      "price": "0.25",
+      "price": "0.26",
       "url": "https://bilgewatermarket.com/cards/UNL-036?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/UNL-036-EN-Bku3wAWV.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-036-normal-nonfoil",
@@ -4859,10 +4859,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.11",
+      "price": "0.12",
       "url": "https://bilgewatermarket.com/cards/UNL-036",
       "image_url": "https://bilgewatermarket.com/assets/UNL-036-EN-Bku3wAWV.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-037-foiled-foil",
@@ -4875,7 +4875,7 @@
       "price": "0.15",
       "url": "https://bilgewatermarket.com/cards/UNL-037?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/UNL-037-EN-DJxe6NSs.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-037-normal-nonfoil",
@@ -4888,7 +4888,7 @@
       "price": "0.05",
       "url": "https://bilgewatermarket.com/cards/UNL-037",
       "image_url": "https://bilgewatermarket.com/assets/UNL-037-EN-DJxe6NSs.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-038-foiled-foil",
@@ -4901,7 +4901,7 @@
       "price": "0.22",
       "url": "https://bilgewatermarket.com/cards/UNL-038?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/UNL-038-EN-Db8QhD6T.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-038-normal-nonfoil",
@@ -4911,10 +4911,10 @@
       "card_type": "Spell",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.10",
+      "price": "0.09",
       "url": "https://bilgewatermarket.com/cards/UNL-038",
       "image_url": "https://bilgewatermarket.com/assets/UNL-038-EN-Db8QhD6T.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-039-foiled-foil",
@@ -4924,10 +4924,10 @@
       "card_type": "Gear",
       "foil_status": "foil",
       "print_variation": "foiled",
-      "price": "0.24",
+      "price": "0.25",
       "url": "https://bilgewatermarket.com/cards/UNL-039?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/UNL-039-EN-LuonHqwB.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-039-normal-nonfoil",
@@ -4937,10 +4937,10 @@
       "card_type": "Gear",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.09",
+      "price": "0.10",
       "url": "https://bilgewatermarket.com/cards/UNL-039",
       "image_url": "https://bilgewatermarket.com/assets/UNL-039-EN-LuonHqwB.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-040-foiled-foil",
@@ -4950,10 +4950,10 @@
       "card_type": "Unit",
       "foil_status": "foil",
       "print_variation": "foiled",
-      "price": "0.16",
+      "price": "0.15",
       "url": "https://bilgewatermarket.com/cards/UNL-040?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/UNL-040-EN-DVqrXEo3.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-040-normal-nonfoil",
@@ -4966,7 +4966,7 @@
       "price": "0.08",
       "url": "https://bilgewatermarket.com/cards/UNL-040",
       "image_url": "https://bilgewatermarket.com/assets/UNL-040-EN-DVqrXEo3.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-041-foiled-foil",
@@ -4979,7 +4979,7 @@
       "price": "0.43",
       "url": "https://bilgewatermarket.com/cards/UNL-041?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/UNL-041-EN-NXNqRn-y.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-041-normal-nonfoil",
@@ -4992,7 +4992,7 @@
       "price": "0.14",
       "url": "https://bilgewatermarket.com/cards/UNL-041",
       "image_url": "https://bilgewatermarket.com/assets/UNL-041-EN-NXNqRn-y.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-042-foiled-foil",
@@ -5002,10 +5002,10 @@
       "card_type": "Spell",
       "foil_status": "foil",
       "print_variation": "foiled",
-      "price": "1.37",
+      "price": "1.41",
       "url": "https://bilgewatermarket.com/cards/UNL-042?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/UNL-042-EN-Buern1l2.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-042-normal-nonfoil",
@@ -5015,10 +5015,10 @@
       "card_type": "Spell",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.23",
+      "price": "0.24",
       "url": "https://bilgewatermarket.com/cards/UNL-042",
       "image_url": "https://bilgewatermarket.com/assets/UNL-042-EN-Buern1l2.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-043-foiled-foil",
@@ -5031,7 +5031,7 @@
       "price": "0.21",
       "url": "https://bilgewatermarket.com/cards/UNL-043?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/UNL-043-EN-Rhl5y_aE.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-043-normal-nonfoil",
@@ -5044,7 +5044,7 @@
       "price": "0.08",
       "url": "https://bilgewatermarket.com/cards/UNL-043",
       "image_url": "https://bilgewatermarket.com/assets/UNL-043-EN-Rhl5y_aE.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-044-foiled-foil",
@@ -5054,10 +5054,10 @@
       "card_type": "Spell",
       "foil_status": "foil",
       "print_variation": "foiled",
-      "price": "0.45",
+      "price": "0.47",
       "url": "https://bilgewatermarket.com/cards/UNL-044?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/UNL-044-EN-0dmkpnLh.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-044-normal-nonfoil",
@@ -5067,10 +5067,10 @@
       "card_type": "Spell",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.18",
+      "price": "0.19",
       "url": "https://bilgewatermarket.com/cards/UNL-044",
       "image_url": "https://bilgewatermarket.com/assets/UNL-044-EN-0dmkpnLh.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-045-foiled-foil",
@@ -5080,10 +5080,10 @@
       "card_type": "Gear",
       "foil_status": "foil",
       "print_variation": "foiled",
-      "price": "0.34",
+      "price": "0.35",
       "url": "https://bilgewatermarket.com/cards/UNL-045?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/UNL-045-EN-COEbARo5.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-045-normal-nonfoil",
@@ -5096,7 +5096,7 @@
       "price": "0.14",
       "url": "https://bilgewatermarket.com/cards/UNL-045",
       "image_url": "https://bilgewatermarket.com/assets/UNL-045-EN-COEbARo5.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-046-foiled-foil",
@@ -5109,7 +5109,7 @@
       "price": "0.37",
       "url": "https://bilgewatermarket.com/cards/UNL-046?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/UNL-046-EN-BW2olehp.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-046-normal-nonfoil",
@@ -5119,10 +5119,10 @@
       "card_type": "Spell",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.16",
+      "price": "0.17",
       "url": "https://bilgewatermarket.com/cards/UNL-046",
       "image_url": "https://bilgewatermarket.com/assets/UNL-046-EN-BW2olehp.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-047-foiled-foil",
@@ -5135,7 +5135,7 @@
       "price": "0.28",
       "url": "https://bilgewatermarket.com/cards/UNL-047?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/UNL-047-EN-By0s-ZLa.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-047-normal-nonfoil",
@@ -5145,10 +5145,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.09",
+      "price": "0.08",
       "url": "https://bilgewatermarket.com/cards/UNL-047",
       "image_url": "https://bilgewatermarket.com/assets/UNL-047-EN-By0s-ZLa.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-048-foiled-foil",
@@ -5161,7 +5161,7 @@
       "price": "0.21",
       "url": "https://bilgewatermarket.com/cards/UNL-048?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/UNL-048-EN-BId4iV5T.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-048-normal-nonfoil",
@@ -5171,10 +5171,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.12",
+      "price": "0.11",
       "url": "https://bilgewatermarket.com/cards/UNL-048",
       "image_url": "https://bilgewatermarket.com/assets/UNL-048-EN-BId4iV5T.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-049-normal-nonfoil",
@@ -5184,10 +5184,10 @@
       "card_type": "Gear",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.22",
+      "price": "0.21",
       "url": "https://bilgewatermarket.com/cards/UNL-049",
       "image_url": "https://bilgewatermarket.com/assets/UNL-049-EN-BKOQBB8R.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-050-normal-nonfoil",
@@ -5200,7 +5200,7 @@
       "price": "0.17",
       "url": "https://bilgewatermarket.com/cards/UNL-050",
       "image_url": "https://bilgewatermarket.com/assets/UNL-050-EN-BjvNso48.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-051-normal-nonfoil",
@@ -5210,10 +5210,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.21",
+      "price": "0.22",
       "url": "https://bilgewatermarket.com/cards/UNL-051",
       "image_url": "https://bilgewatermarket.com/assets/UNL-051-EN-Do8PHT-3.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-051A-showcase-nonfoil",
@@ -5223,10 +5223,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "2.12",
+      "price": "2.25",
       "url": "https://bilgewatermarket.com/cards/UNL-051a?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/UNL-051A-EN-LSfJSKRl.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-052-normal-nonfoil",
@@ -5236,10 +5236,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.32",
+      "price": "0.35",
       "url": "https://bilgewatermarket.com/cards/UNL-052",
       "image_url": "https://bilgewatermarket.com/assets/UNL-052-EN-C3Cxj-wz.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-053-normal-nonfoil",
@@ -5249,10 +5249,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "4.43",
+      "price": "4.18",
       "url": "https://bilgewatermarket.com/cards/UNL-053",
       "image_url": "https://bilgewatermarket.com/assets/UNL-053-EN-B_4pY2K1.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-054-normal-nonfoil",
@@ -5262,10 +5262,10 @@
       "card_type": "Spell",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.25",
+      "price": "0.28",
       "url": "https://bilgewatermarket.com/cards/UNL-054",
       "image_url": "https://bilgewatermarket.com/assets/UNL-054-EN-a_y_-az3.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-055-normal-nonfoil",
@@ -5275,10 +5275,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.21",
+      "price": "0.22",
       "url": "https://bilgewatermarket.com/cards/UNL-055",
       "image_url": "https://bilgewatermarket.com/assets/UNL-055-EN-Bm-HvfJO.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-055A-showcase-nonfoil",
@@ -5288,10 +5288,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "2.36",
+      "price": "2.37",
       "url": "https://bilgewatermarket.com/cards/UNL-055a?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/UNL-055a-EN-CY2pbK3d.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-056-normal-nonfoil",
@@ -5301,10 +5301,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.22",
+      "price": "0.23",
       "url": "https://bilgewatermarket.com/cards/UNL-056",
       "image_url": "https://bilgewatermarket.com/assets/UNL-056-EN-B1w1m3yk.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-057-normal-nonfoil",
@@ -5314,10 +5314,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.81",
+      "price": "0.85",
       "url": "https://bilgewatermarket.com/cards/UNL-057",
       "image_url": "https://bilgewatermarket.com/assets/UNL-057-EN-C74Gh3Ub.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-058-normal-nonfoil",
@@ -5327,10 +5327,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "0.66",
+      "price": "0.64",
       "url": "https://bilgewatermarket.com/cards/UNL-058",
       "image_url": "https://bilgewatermarket.com/assets/UNL-058-EN-BcGzJVH9.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-058A-showcase-nonfoil",
@@ -5340,10 +5340,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "6.87",
+      "price": "6.68",
       "url": "https://bilgewatermarket.com/cards/UNL-058a?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/UNL-058A-EN-CG9hoIX4.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-059-normal-nonfoil",
@@ -5353,10 +5353,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "1.00",
+      "price": "0.97",
       "url": "https://bilgewatermarket.com/cards/UNL-059",
       "image_url": "https://bilgewatermarket.com/assets/UNL-059-EN-Dk7qRV9R.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-059A-showcase-nonfoil",
@@ -5366,10 +5366,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "3.35",
+      "price": "3.38",
       "url": "https://bilgewatermarket.com/cards/UNL-059a?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/UNL-059A-EN-CQk9HuBe.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-060-normal-nonfoil",
@@ -5379,10 +5379,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "normal",
-      "price": "19.55",
+      "price": "20.12",
       "url": "https://bilgewatermarket.com/cards/UNL-060",
       "image_url": "https://bilgewatermarket.com/assets/UNL-060-EN-BUcVHge1.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-060A-showcase-nonfoil",
@@ -5392,10 +5392,10 @@
       "card_type": "Unit",
       "foil_status": "nonfoil",
       "print_variation": "showcase",
-      "price": "22.78",
+      "price": "23.00",
       "url": "https://bilgewatermarket.com/cards/UNL-060a?print_variation=showcase",
       "image_url": "https://bilgewatermarket.com/assets/UNL-060A-EN-BCQMqWKV.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     },
     {
       "id": "UNL-061-foiled-foil",
@@ -5405,10 +5405,10 @@
       "card_type": "Spell",
       "foil_status": "foil",
       "print_variation": "foiled",
-      "price": "0.21",
+      "price": "0.22",
       "url": "https://bilgewatermarket.com/cards/UNL-061?print_variation=foiled",
       "image_url": "https://bilgewatermarket.com/assets/UNL-061-EN-tm1hOwmc.webp",
-      "collected_at": "2026-09-25T20:15:11+00:00"
+      "collected_at": "2026-09-26T19:32:58+00:00"
     }
   ]
 }
